@@ -37,24 +37,21 @@ jobs:
           path: main
       - name: Configure page content
         shell: bash
-        run: ls -l
-      - name: Configure page content
-        shell: bash
-        run: cp -r page_files/Page_files/* .
+        run: cp -r statik_content/Page_files/* main/docs/
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Create navigation menus
         shell: bash
-        run: cd docs && python3 process_pages.py -t web
+        run: cd main/docs && python3 process_pages.py -t web
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./docs
-          destination: ./docs/_site
+          source: ./main/docs
+          destination: ./main/docs/_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./docs/_site
+          path: ./main/docs/_site
 
   # Deployment job
   deploy:

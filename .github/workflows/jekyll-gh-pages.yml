@@ -30,7 +30,7 @@ jobs:
         with:
           repository: KratosMultiphysics/Documentation
           ref: master
-          path: page_fles
+          path: page_files
       - name: Checkout current branch
         uses: actions/checkout@v3
       - name: Configure page content

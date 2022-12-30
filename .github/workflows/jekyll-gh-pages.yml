@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout static page content
         uses: actions/checkout@v3
-          repository: https://github.com/KratosMultiphysics/Documentation.git
+          repository: KratosMultiphysics/Documentation
           path: page_fles
       - name: Checkout current branch
         uses: actions/checkout@v3

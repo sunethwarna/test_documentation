@@ -28,6 +28,7 @@ jobs:
       - name: Checkout static page content
         uses: actions/checkout@v3
           repository: KratosMultiphysics/Documentation
+          ref: master
           path: page_fles
       - name: Checkout current branch
         uses: actions/checkout@v3

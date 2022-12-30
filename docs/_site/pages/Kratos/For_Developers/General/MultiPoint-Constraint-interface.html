@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="KratosAPI-MultiPoint-Constraint-(MPC)-interface.md,  ">
+
+<title>KratosAPI MultiPoint Constraint (MPC) interface | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the KratosAPI MultiPoint Constraint (MPC) interface page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="KratosAPI MultiPoint Constraint (MPC) interface">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Developers </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Adding dynamic contributions to the element file" href="/pages/Kratos/For_Developers/General/Tutorial-Adding-dynamic-contributions-to-the-element-file.html">Adding dynamic contributions to the element file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Adjoint API" href="/pages/Kratos/For_Developers/General/Adjoint-API.html">Adjoint API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Analysis stage for pure diffusion problem" href="/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.html">Analysis stage for pure diffusion problem</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Application Cases" href="/pages/Kratos/For_Developers/General/Application-Cases.html">Application Cases</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applications as python modules" href="/pages/Kratos/For_Developers/General/Applications-as-python-modules.html">Applications as python modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applying periodic boundary conditions" href="/pages/Kratos/For_Developers/General/Applying-periodic-boundary-conditions.html">Applying periodic boundary conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Authorship of Kratos files" href="/pages/Kratos/For_Developers/General/Authorship-of-Kratos-files.html">Authorship of Kratos files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Clang Tidy to automatically correct code" href="/pages/Kratos/For_Developers/General/How-to-use-Clang-Tidy-to-automatically-correct-code.html">Clang Tidy to automatically correct code</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Common Python Interface of Applications for Users" href="/pages/Kratos/For_Developers/General/Common-Python-Interface-of-Applications-for-Users.html">Common Python Interface of Applications for Users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Constitutive Law" href="/pages/Kratos/For_Developers/General/How-to-use-the-Constitutive-Law-class.html">Constitutive Law</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Cotire" href="/pages/Kratos/For_Developers/General/How-to-use-Cotire.html">Cotire</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating a wrapper of convergence criteria" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-a-wrapper-of-convergence-criteria.html">Creating a wrapper of convergence criteria</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating an Utility" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-an-Utility.html">Creating an Utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Conditions" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Conditions.html">Creating the Conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Element" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Element.html">Creating the Element</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Python Solver file" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Python-Solver-file.html">Creating the Python Solver file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Data management" href="/pages/Kratos/For_Developers/General/Data-management.html">Data management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Editing the main files" href="/pages/Kratos/For_Developers/General/Tutorial-Editing-the-main-files.html">Editing the main files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to Access DataBase" href="/pages/Kratos/For_Developers/General/How-to-Access-DataBase.html">How to Access DataBase</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to apply a function to a list of variables" href="/pages/Kratos/For_Developers/General/How-to-apply-a-function-to-a-list-of-variables.html">How to apply a function to a list of variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to configure clang‐format" href="/pages/Kratos/For_Developers/General/How-to-configure-clang‐format.html">How to configure clang‐format</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to create unitary tests" href="/pages/Kratos/For_Developers/General/How-to-create-unitary-tests.html">How to create unitary tests</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to generate python wheels" href="/pages/Kratos/For_Developers/General/How-to-generate-python-wheels.html">How to generate python wheels</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to make Git ignore the files resulting from a compilation without conflicts in .gitignore" href="/pages/Kratos/For_Developers/General/How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.html">How to make Git ignore the files resulting from a compilation without conflicts in .gitignore</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to run multiple cases using PyCOMPSs" href="/pages/Kratos/For_Developers/General/How-to-run-multiple-cases-using-PyCOMPSs.html">How to run multiple cases using PyCOMPSs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KRATOS_API for Windows Compilation" href="/pages/Kratos/For_Developers/General/KRATOS_API-for-Windows-Compilation.html">KRATOS_API for Windows Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos classes accesible via python" href="/pages/Kratos/For_Developers/General/Kratos-classes-accesible-via-python.html">Kratos classes accesible via python</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and I O" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-I-O.html">Kratos input files and I O</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and IO" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-IO.html">Kratos input files and IO</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="KratosAPI MultiPoint Constraint (MPC) interface" href="/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.html">KratosAPI MultiPoint Constraint (MPC) interface</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Local axes orientation" href="/pages/Kratos/For_Developers/General/Local-axes-orientation.html">Local axes orientation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Logger" href="/pages/Kratos/For_Developers/General/How-to-use-Logger.html">Logger</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Manipulating solution values" href="/pages/Kratos/For_Developers/General/Manipulating-solution-values.html">Manipulating solution values</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Mesh node ordering" href="/pages/Kratos/For_Developers/General/Mesh-node-ordering.html">Mesh node ordering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart and SubModelPart" href="/pages/Kratos/For_Developers/General/ModelPart-and-SubModelPart.html">ModelPart and SubModelPart</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart entities" href="/pages/Kratos/For_Developers/General/ModelPart-entities.html">ModelPart entities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Nodes and Nodal Data" href="/pages/Kratos/For_Developers/General/Nodes-and-Nodal-Data.html">Nodes and Nodal Data</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Parallel Utilities" href="/pages/Kratos/For_Developers/General/Parallel-Utilities.html">Parallel Utilities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerCommunicator.html">PointerCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerMapCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.html">PointerMapCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to AMatrix" href="/pages/Kratos/For_Developers/General/Porting-to-AMatrix.html">Porting to AMatrix</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to PyBind11   common steps" href="/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.html">Porting to PyBind11   common steps</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Processes In the application of BCs" href="/pages/Kratos/For_Developers/General/How-to-use-Processes-In-the-application-of-BCs.html">Processes In the application of BCs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Pure diffusion solver derived from main python solver" href="/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.html">Pure diffusion solver derived from main python solver</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Quaternions in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-quaternions-in-Kratos.html">Quaternions in Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Smart Pointers within Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-Smart-Pointers-within-Kratos.html">Smart Pointers within Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Solving strategies" href="/pages/Kratos/For_Developers/General/Solving-strategies.html">Solving strategies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Sparse Linear Algebra (native Kratos implementation)" href="/pages/Kratos/For_Developers/General/Sparse-Linear-Algebra-(native-Kratos-implementation).html">Sparse Linear Algebra (native Kratos implementation)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Style Guide" href="/pages/Kratos/For_Developers/General/Style-Guide.html">Style Guide</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using alias for Ublas matrix and vector" href="/pages/Kratos/For_Developers/General/Using-alias-for-Ublas-matrix-and-vector.html">Using alias for Ublas matrix and vector</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using processes to customize a simulation" href="/pages/Kratos/For_Developers/General/Using-processes-to-customize-a-simulation.html">Using processes to customize a simulation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Utilities Colors utility" href="/pages/Kratos/For_Developers/General/Utilities-Colors-utility.html">Utilities Colors utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install" href="/pages/Kratos/For_Developers/General/Windows-Install.html">Windows Install</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install (MinGW)" href="/pages/Kratos/For_Developers/General/Windows-Install-(MinGW).html">Windows Install (MinGW)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the FEAST Solver in Kratos?" href="/pages/Kratos/For_Developers/General/How-to-use-the-FEAST-Solver-in-Kratos.html">the FEAST Solver in Kratos?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the Geometry" href="/pages/Kratos/For_Developers/General/How-to-use-the-Geometry.html">the Geometry</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the PaStiX solver in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-the-PaStiX-solver-in-Kratos.html">the PaStiX solver in Kratos</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">KratosAPI MultiPoint Constraint (MPC) interface</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h1 id="content">Content</h1>
+<ol>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#formulation">Formulation</a>
+    <ol>
+      <li><a href="#problem-introduction">Problem introduction</a></li>
+      <li><a href="#the-master-slave-method">The Master-Slave method</a></li>
+    </ol>
+  </li>
+  <li><a href="#kratos-interface-how-to-use-it">Kratos interface (how to use it)</a></li>
+  <li><a href="#references">References</a></li>
+  <li><a href="#how-to-create-an-example">How to create en example</a></li>
+</ol>
+
+<h1 id="overview">Overview</h1>
+<p>MultiFreedom Constraints (<strong>MFC</strong>) are functional equations that connect two or more degrees of freedom components:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>F(nodal degree of freedom)  = prescribed value
+</code></pre></div></div>
+
+<p>An <strong>MFC</strong> of this form is called multipoint or multinode (<strong>MPC</strong>) if it involves <em>DoF</em> components at different nodes. The constraint is called <em>linear</em> if all displacement components appear linearly on the left-hand-side, and <em>nonlinear</em> otherwise.</p>
+
+<p>There are basically three methods for treating <strong>MFC</strong>.</p>
+
+<ol>
+  <li><strong>Master-Slave Elimination</strong>. The degrees of freedom involved in each MFC are separated into master and slave freedoms. The slave freedoms are then explicitly eliminated. The modified equations do not contain the slave freedoms.</li>
+  <li><strong>Penalty Augmentation</strong>. Also called the penalty function method. Each MFC is viewed as
+the presence of a fictitious elastic structural element called penalty element that enforces it approximately. This element is parametrized by a numerical weight. The exact constraint is recovered if the weight goes to infinity. The <strong>MFC</strong>s are imposed by augmenting the finite element model with the penalty elements.</li>
+  <li><strong>Lagrange Multiplier Adjunction</strong>. For each MFC an additional unknown is adjoined to the master stiffness equations. Physically this set of unknowns represent constraint forces that would enforce the constraints exactly should they be applied to the unconstrained system.</li>
+</ol>
+
+<p>These methods can be compared, the following table resumes the differences between them.</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/mfc_comparison.png" alt="Comparison" /></p>
+
+<p>The <strong>MFC</strong> implemented in <em>Kratos</em> is the <em>Master-Slave Elimination</em>, this will be the one presented in the <a href="#formulation"><em>Formulation</em></a> section.</p>
+
+<h1 id="formulation">Formulation</h1>
+
+<h2 id="problem-introduction">Problem introduction</h2>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/bar_sctruture.png" alt="" /></p>
+
+<p>We will use a very simple structure example in order to explain how the formulation works. This structure consists of six bar elements connected by seven nodes that can only displace in the x direction. Before imposing various multifreedom constraints discussed below, the master stiffness equations for this problem are assumed to be</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/kuf.png" alt="" /></p>
+
+<p>Now let us specify a multifreedom constraint that states that nodes 2 and 6 are to move by the same
+amount:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u2 = u6
+</code></pre></div></div>
+
+<p>Passing all node displacements to the right hand side gives the canonical form:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u2-u6=0
+</code></pre></div></div>
+
+<p>Constraintconditionsofthistypearesometimescalled rigid links becausetheycanbemechanically
+interpreted as forcing node points 2 and 6 to move together as if they were tied by a rigid member.</p>
+
+<h2 id="the-master-slave-method">The Master-Slave method</h2>
+
+<p>To apply this method by hand, the <em>MFC</em>s are taken one at a time. For each constraint a slave degree of freedom is chosen. The freedoms remaining in that constraint are labeled master. A new set of degrees of freedom <strong>u</strong> is established by removing all slave freedoms from <em>u</em>. This new vector contains master freedoms as well as those that do not appear in the <strong>MFC</strong>s. A matrix transformation equation that relates <em>u</em> to <strong>u</strong> is generated. This equation is used to apply a congruential transformation to the master stiffness equations. This procedure yields a set of modified stiffness equations that are expressed in terms of the new freedom set <strong>u</strong>. Because the modified system does not contain the slave freedoms, these have been effectively eliminated.</p>
+
+<p>The mechanics of the process is best seen by going through an example.</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/eq1.png" alt="" /></p>
+
+<p>This is the required transformation relation. In compact form:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/eq2.png" alt="" /></p>
+
+<p>Replacing and premultiplying by <strong>T</strong> yields the modified system:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/eq3.png" alt="" /></p>
+
+<p>Carrying out the indicated matrix multiplications yields:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/eq4.png" alt="" /></p>
+
+<h1 id="kratos-interface-how-to-use-it">Kratos interface (how to use it)</h1>
+
+<p>The <strong>MPC</strong> are implemented in <em>Kratos</em> via the <a href="https://github.com/KratosMultiphysics/Kratos/blob/master/kratos/includes/master_slave_constraint.h"><em>MasterSlaveConstraint</em> class</a>, and particularly the linear kinematic relationship can be found in in the class <a href="https://github.com/KratosMultiphysics/Kratos/blob/master/kratos/includes/linear_master_slave_constraint.h"><em>LinearMasterSlaveConstraint</em> class</a>.</p>
+
+<p>The <em>LinearMasterSlaveConstraint</em> is defined by the following:</p>
+
+<ul>
+  <li><strong>Index</strong>: The Id of the new created constraint</li>
+  <li><strong>Vector of master DoF</strong>: The vector containing the <em>DoF</em> of the master side</li>
+  <li><strong>Vector of slave DoF</strong>: The vector containing the <em>DoF</em> of the slave side</li>
+  <li><strong>A relation matrix</strong> : The relation matrix between the master/slave <em>DoF</em>. This is <strong>T</strong> in the theoretical formulation.</li>
+  <li><strong>A constant vector</strong>: The vector containing the additional kinematic relationship</li>
+</ul>
+
+<p>Additionally to this, in order to consider the <strong>MPC</strong> into ths system assembly the <em>ResidualBasedBlockBuilderAndSolverWithConstraints</em> must be used as builder and solver.</p>
+
+<p>The <em>MasterSlaveConstraint</em> are part of the <em>Mesh</em> class, so they are stored in the <a href="https://github.com/KratosMultiphysics/Kratos/blob/master/kratos/includes/model_part.h"><em>ModelPart</em></a> as the elements and conditions do. Then the <em>ModelPart</em> has an interface to access and create them. Particularly the methods <code class="language-plaintext highlighter-rouge">CreateNewMasterSlaveConstraint</code> are of interest, there are three options:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MasterSlaveConstraint</span><span class="o">::</span><span class="n">Pointer</span> <span class="nf">CreateNewMasterSlaveConstraint</span><span class="p">(</span>
+	<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">ConstraintName</span><span class="p">,</span>
+	<span class="n">IndexType</span> <span class="n">Id</span><span class="p">,</span> 
+	<span class="n">DofsVectorType</span><span class="o">&amp;</span> <span class="n">rMasterDofsVector</span><span class="p">,</span>
+	<span class="n">DofsVectorType</span><span class="o">&amp;</span> <span class="n">rSlaveDofsVector</span><span class="p">,</span>
+	<span class="k">const</span> <span class="n">MatrixType</span><span class="o">&amp;</span> <span class="n">RelationMatrix</span><span class="p">,</span>
+	<span class="k">const</span> <span class="n">VectorType</span><span class="o">&amp;</span> <span class="n">ConstantVector</span><span class="p">,</span>
+	<span class="n">IndexType</span> <span class="n">ThisIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="n">MasterSlaveConstraint</span><span class="o">::</span><span class="n">Pointer</span> <span class="nf">CreateNewMasterSlaveConstraint</span><span class="p">(</span>
+	<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">ConstraintName</span><span class="p">,</span> 
+	<span class="n">IndexType</span> <span class="n">Id</span><span class="p">,</span> 
+	<span class="n">NodeType</span><span class="o">&amp;</span> <span class="n">rMasterNode</span><span class="p">,</span>
+	<span class="k">const</span> <span class="n">DoubleVariableType</span><span class="o">&amp;</span> <span class="n">rMasterVariable</span><span class="p">,</span>
+	<span class="n">NodeType</span><span class="o">&amp;</span> <span class="n">rSlaveNode</span><span class="p">,</span>
+	<span class="k">const</span> <span class="n">DoubleVariableType</span><span class="o">&amp;</span> <span class="n">rSlaveVariable</span><span class="p">,</span>
+	<span class="k">const</span> <span class="kt">double</span> <span class="n">Weight</span><span class="p">,</span>
+	<span class="k">const</span> <span class="kt">double</span> <span class="n">Constant</span><span class="p">,</span>
+	<span class="n">IndexType</span> <span class="n">ThisIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="n">MasterSlaveConstraint</span><span class="o">::</span><span class="n">Pointer</span> <span class="nf">CreateNewMasterSlaveConstraint</span><span class="p">(</span>
+	<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">ConstraintName</span><span class="p">,</span> 
+	<span class="n">IndexType</span> <span class="n">Id</span><span class="p">,</span> 
+	<span class="n">NodeType</span><span class="o">&amp;</span> <span class="n">rMasterNode</span><span class="p">,</span>
+	<span class="k">const</span> <span class="n">VariableComponentType</span><span class="o">&amp;</span> <span class="n">rMasterVariable</span><span class="p">,</span>
+	<span class="n">NodeType</span><span class="o">&amp;</span> <span class="n">rSlaveNode</span><span class="p">,</span>
+	<span class="k">const</span> <span class="n">VariableComponentType</span><span class="o">&amp;</span> <span class="n">rSlaveVariable</span><span class="p">,</span>
+	<span class="kt">double</span> <span class="n">Weight</span><span class="p">,</span>
+	<span class="kt">double</span> <span class="n">Constant</span><span class="p">,</span>
+	<span class="n">IndexType</span> <span class="n">ThisIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This can be seen in a simple example:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">KratosMultiphysics</span>
+
+<span class="c1"># Define a Model
+</span><span class="n">current_model</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Model</span><span class="p">()</span>
+<span class="n">mp</span> <span class="o">=</span> <span class="n">current_model</span><span class="p">.</span><span class="n">CreateModelPart</span><span class="p">(</span><span class="s">"Main"</span><span class="p">)</span>
+
+<span class="n">mp</span><span class="p">.</span><span class="n">AddNodalSolutionStepVariable</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT</span><span class="p">)</span>
+<span class="n">mp</span><span class="p">.</span><span class="n">AddNodalSolutionStepVariable</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">REACTION</span><span class="p">)</span>
+
+<span class="n">mp</span><span class="p">.</span><span class="n">CreateNewNode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.00000</span><span class="p">,</span> <span class="mf">0.00000</span><span class="p">,</span> <span class="mf">0.00000</span><span class="p">)</span>
+<span class="n">mp</span><span class="p">.</span><span class="n">CreateNewNode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.00000</span><span class="p">,</span> <span class="mf">1.00000</span><span class="p">,</span> <span class="mf">0.00000</span><span class="p">)</span>
+
+<span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">VariableUtils</span><span class="p">().</span><span class="n">AddDof</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">REACTION_X</span><span class="p">,</span> <span class="n">mp</span><span class="p">)</span>
+<span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">VariableUtils</span><span class="p">().</span><span class="n">AddDof</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_Y</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">REACTION_Y</span><span class="p">,</span> <span class="n">mp</span><span class="p">)</span>
+<span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">VariableUtils</span><span class="p">().</span><span class="n">AddDof</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_Z</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">REACTION_Z</span><span class="p">,</span> <span class="n">mp</span><span class="p">)</span>
+
+<span class="n">mp</span><span class="p">.</span><span class="n">CreateNewMasterSlaveConstraint</span><span class="p">(</span><span class="s">"LinearMasterSlaveConstraint"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">,</span> <span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># We impose the BC
+</span><span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">Fix</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">)</span>
+<span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">SetSolutionStepValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1">#define a minimal newton raphson solver
+</span><span class="n">linear_solver</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">SkylineLUFactorizationSolver</span><span class="p">()</span>
+<span class="n">builder_and_solver</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedBlockBuilderAndSolver</span><span class="p">(</span><span class="n">linear_solver</span><span class="p">)</span>
+<span class="n">scheme</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedIncrementalUpdateStaticScheme</span><span class="p">()</span>
+<span class="n">convergence_criterion</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualCriteria</span><span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>
+<span class="n">convergence_criterion</span><span class="p">.</span><span class="n">SetEchoLevel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">max_iters</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">compute_reactions</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">reform_step_dofs</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">move_mesh_flag</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">strategy</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedNewtonRaphsonStrategy</span><span class="p">(</span>
+    <span class="n">mp</span><span class="p">,</span> <span class="n">scheme</span><span class="p">,</span> <span class="n">linear_solver</span><span class="p">,</span> <span class="n">convergence_criterion</span><span class="p">,</span>
+    <span class="n">builder_and_solver</span><span class="p">,</span> <span class="n">max_iters</span><span class="p">,</span> <span class="n">compute_reactions</span><span class="p">,</span>
+    <span class="n">reform_step_dofs</span><span class="p">,</span> <span class="n">move_mesh_flag</span><span class="p">)</span>
+<span class="n">strategy</span><span class="p">.</span><span class="n">SetEchoLevel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">strategy</span><span class="p">.</span><span class="n">Initialize</span><span class="p">()</span>
+
+<span class="n">strategy</span><span class="p">.</span><span class="n">Check</span><span class="p">()</span>
+<span class="n">strategy</span><span class="p">.</span><span class="n">Solve</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">GetSolutionStepValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">))</span>
+
+<span class="k">assert</span> <span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">GetSolutionStepValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">)</span> <span class="o">==</span> <span class="n">mp</span><span class="p">.</span><span class="n">Nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">GetSolutionStepValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DISPLACEMENT_X</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>IMPORTANT: The slaves nodes must have the flag SLAVE set to true</strong></p>
+
+<h1 id="how-to-create-en-example">How to create en example</h1>
+<p>In this section a brief tutorial of “How To” create an example is explained.</p>
+<h2 id="set-up-of-the-interface">Set up of the interface</h2>
+<p>In order to generate the required input data files we use the geometry pre and post processor GiD (https://www.gidhome.com/download/official-versions). Additionally we need to download the KratosMultiphysics GiD interface (https://github.com/KratosMultiphysics/GiDInterface - &gt; download .zip).
+Once we open the GiD software we must load the Kratos problem type by:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto1.png" alt="" /></p>
+
+<p>And then select the StructuralMechanicsApplication as:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto2.png" alt="" /></p>
+
+<p>And then we select 3D for this particular case:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto3.png" alt="" /></p>
+
+<p>Then a new menu will appear on the left with all the available options. In order to create MPC contact problems you should switch the Kratos Problemtype to <em>Developer Mode</em> in <code class="language-plaintext highlighter-rouge">Kratos-&gt;Kratos Preferences</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto4.png" alt="" /></p>
+
+<h2 id="creating-a-problem">Creating a problem</h2>
+<p>Now we have generated an arbitrary geometry like the one below.</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto5.png" alt="" /></p>
+
+<p>It is <strong>Very important</strong> to check the initial orientation of the normal of the surfaces (lines in 2D). This can be done by <code class="language-plaintext highlighter-rouge">Utilities-&gt;Swap Normals-&gt;Surfaces-&gt;Select</code>. One has to ensure that <strong>all the normals point outwards</strong> the bodies like in the folowing picture.</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto6.PNG" alt="" /></p>
+
+<p>Next we assign the material properties to each of the bodies (we recommend to assign separately the mat props to each body in order to see them separately in the post-process) as:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto7.PNG" alt="" /></p>
+
+<p>Then we must apply the Boundary conditions (in thiscase we fix the tips of the beam) as:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto8.PNG" alt="" /></p>
+
+<p>And the <strong>MASTER-SLAVE CONDITIONS</strong>. The assignation of this Master-Slave conditions is mandatory to detect the contact between the potential contact surfaces of the bodies. We should assign one surface of the body 1 as MASTER and the corresponding contacting body (or body 2) the slave flag.
+In our case, we have assigned as master the contact surfaces o the grey body and as slave the ones of the blue body.</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto9.PNG" alt="" /></p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/tuto10.PNG" alt="" /></p>
+
+<p>Afterwards we could apply several loading conditions with the <em>Loads</em> folder. Once we have finished assigning loads, we generate the mesh (<strong>we strongly recommend to generate Structured meshes</strong>) and create the input data files for kratos by <code class="language-plaintext highlighter-rouge">Kratos-&gt;Write Calculation Files</code>. Several files will be generated in your problem folder:</p>
+
+<ul>
+  <li>ProjectParameters.json (<strong>to be slightly modified for the MPC</strong>)</li>
+  <li>problem_name.mdpa</li>
+  <li>StructuralMaterials.json</li>
+  <li>MainKratos.py</li>
+</ul>
+
+<h2 id="modifications-to-the-projectparametersjson">Modifications to the ProjectParameters.json</h2>
+
+<p>You should change:</p>
+
+<p>`        “convergence_criterion”           : “contact_residual_criterion”,`</p>
+
+<p>by</p>
+
+<p>`        “convergence_criterion”           : “residual_criterion”,`</p>
+
+<p>You should change:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="s">"contact_settings"</span>                <span class="p">:</span> <span class="p">{</span>
+            <span class="s">"mortar_type"</span> <span class="p">:</span> <span class="s">"ALMContactFrictionlessComponents"</span>
+        <span class="p">},</span>
+</code></pre></div></div>
+
+<p>by</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="s">"mpc_contact_settings"</span>                <span class="p">:</span> <span class="p">{</span>
+            <span class="s">"contact_type"</span>                   <span class="p">:</span> <span class="s">"MeshTying"</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>and replace</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+            <span class="s">"python_module"</span> <span class="p">:</span> <span class="s">"alm_contact_process"</span><span class="p">,</span>
+            <span class="s">"kratos_module"</span> <span class="p">:</span> <span class="s">"KratosMultiphysics.ContactStructuralMechanicsApplication"</span><span class="p">,</span>
+            <span class="s">"process_name"</span>  <span class="p">:</span> <span class="s">"ALMContactProcess"</span><span class="p">,</span>
+            <span class="s">"Parameters"</span>    <span class="p">:</span> <span class="p">{</span>
+                <span class="s">"model_part_name"</span>     <span class="p">:</span> <span class="s">"Structure"</span><span class="p">,</span>
+                <span class="s">"contact_model_part"</span>  <span class="p">:</span> <span class="p">{</span>
+                    <span class="s">"0"</span> <span class="p">:</span> <span class="p">[</span><span class="s">"CONTACT_Contact_slave_Auto1"</span><span class="p">,</span><span class="s">"CONTACT_Contact_master_Auto1"</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s">"assume_master_slave"</span> <span class="p">:</span> <span class="p">{</span>
+                    <span class="s">"0"</span> <span class="p">:</span> <span class="p">[</span><span class="s">"CONTACT_Contact_slave_Auto1"</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s">"contact_type"</span>        <span class="p">:</span> <span class="s">"FrictionlessComponents"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>by</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="s">"contact_process_list"</span>     <span class="p">:</span> <span class="p">[{</span>
+            <span class="s">"python_module"</span> <span class="p">:</span> <span class="s">"mpc_contact_process"</span><span class="p">,</span>
+            <span class="s">"kratos_module"</span> <span class="p">:</span> <span class="s">"ContactStructuralMechanicsApplication"</span><span class="p">,</span>
+            <span class="s">"process_name"</span>  <span class="p">:</span> <span class="s">"MPCContactProcess"</span><span class="p">,</span>
+            <span class="s">"Parameters"</span>    <span class="p">:</span> <span class="p">{</span>
+                <span class="s">"model_part_name"</span>     <span class="p">:</span> <span class="s">"Structure"</span><span class="p">,</span>
+                <span class="s">"contact_model_part"</span>  <span class="p">:</span> <span class="p">{</span>
+                    <span class="s">"0"</span> <span class="p">:</span> <span class="p">[</span><span class="s">"CONTACT_Contact_slave_Auto1"</span><span class="p">,</span><span class="s">"CONTACT_Contact_master_Auto1"</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s">"assume_master_slave"</span> <span class="p">:</span> <span class="p">{</span>
+                    <span class="s">"0"</span> <span class="p">:</span> <span class="p">[</span><span class="s">"CONTACT_Contact_slave_Auto1"</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s">"contact_type"</span>        <span class="p">:</span> <span class="s">"MeshTying"</span><span class="p">,</span>
+                <span class="s">"reaction_check_stiffness_factor"</span> <span class="p">:</span> <span class="mf">2.0e-3</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="final-result">Final result</h2>
+<p>In our case we applied a body force over the whole volume, obtaining the following deformed shape:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/MPC_wiki/post.png" alt="" /></p>
+
+<h1 id="references">References</h1>
+<p>[1] “MultiFreedom Constraint I “ by C. Felippa. <a href="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Resources_files/Colorado%20IFEM%20course/IFEM.Ch08.pdf">Link</a></p>
+
+<p>[2] “MultiFreedom Constraint II “ by C. Felippa. <a href="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Resources_files/Colorado%20IFEM%20course/IFEM.Ch09.pdf">Link</a></p>
+
+<p>[3] “Multi-Point Constraints”. <a href="https://mashayekhi.iut.ac.ir/sites/mashayekhi.iut.ac.ir/files//files_course/lesson_16.pdf">Link</a></p>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

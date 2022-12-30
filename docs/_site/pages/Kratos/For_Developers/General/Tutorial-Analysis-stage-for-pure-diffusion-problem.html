@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Tutorial-Analysis-stage-for-pure-diffusion-problem.md,  ">
+
+<title>Analysis stage for pure diffusion problem | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Analysis stage for pure diffusion problem page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Analysis stage for pure diffusion problem">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Developers </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Adding dynamic contributions to the element file" href="/pages/Kratos/For_Developers/General/Tutorial-Adding-dynamic-contributions-to-the-element-file.html">Adding dynamic contributions to the element file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Adjoint API" href="/pages/Kratos/For_Developers/General/Adjoint-API.html">Adjoint API</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="Analysis stage for pure diffusion problem" href="/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.html">Analysis stage for pure diffusion problem</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Application Cases" href="/pages/Kratos/For_Developers/General/Application-Cases.html">Application Cases</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applications as python modules" href="/pages/Kratos/For_Developers/General/Applications-as-python-modules.html">Applications as python modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applying periodic boundary conditions" href="/pages/Kratos/For_Developers/General/Applying-periodic-boundary-conditions.html">Applying periodic boundary conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Authorship of Kratos files" href="/pages/Kratos/For_Developers/General/Authorship-of-Kratos-files.html">Authorship of Kratos files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Clang Tidy to automatically correct code" href="/pages/Kratos/For_Developers/General/How-to-use-Clang-Tidy-to-automatically-correct-code.html">Clang Tidy to automatically correct code</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Common Python Interface of Applications for Users" href="/pages/Kratos/For_Developers/General/Common-Python-Interface-of-Applications-for-Users.html">Common Python Interface of Applications for Users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Constitutive Law" href="/pages/Kratos/For_Developers/General/How-to-use-the-Constitutive-Law-class.html">Constitutive Law</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Cotire" href="/pages/Kratos/For_Developers/General/How-to-use-Cotire.html">Cotire</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating a wrapper of convergence criteria" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-a-wrapper-of-convergence-criteria.html">Creating a wrapper of convergence criteria</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating an Utility" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-an-Utility.html">Creating an Utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Conditions" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Conditions.html">Creating the Conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Element" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Element.html">Creating the Element</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Python Solver file" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Python-Solver-file.html">Creating the Python Solver file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Data management" href="/pages/Kratos/For_Developers/General/Data-management.html">Data management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Editing the main files" href="/pages/Kratos/For_Developers/General/Tutorial-Editing-the-main-files.html">Editing the main files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to Access DataBase" href="/pages/Kratos/For_Developers/General/How-to-Access-DataBase.html">How to Access DataBase</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to apply a function to a list of variables" href="/pages/Kratos/For_Developers/General/How-to-apply-a-function-to-a-list-of-variables.html">How to apply a function to a list of variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to configure clang‐format" href="/pages/Kratos/For_Developers/General/How-to-configure-clang‐format.html">How to configure clang‐format</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to create unitary tests" href="/pages/Kratos/For_Developers/General/How-to-create-unitary-tests.html">How to create unitary tests</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to generate python wheels" href="/pages/Kratos/For_Developers/General/How-to-generate-python-wheels.html">How to generate python wheels</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to make Git ignore the files resulting from a compilation without conflicts in .gitignore" href="/pages/Kratos/For_Developers/General/How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.html">How to make Git ignore the files resulting from a compilation without conflicts in .gitignore</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to run multiple cases using PyCOMPSs" href="/pages/Kratos/For_Developers/General/How-to-run-multiple-cases-using-PyCOMPSs.html">How to run multiple cases using PyCOMPSs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KRATOS_API for Windows Compilation" href="/pages/Kratos/For_Developers/General/KRATOS_API-for-Windows-Compilation.html">KRATOS_API for Windows Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos classes accesible via python" href="/pages/Kratos/For_Developers/General/Kratos-classes-accesible-via-python.html">Kratos classes accesible via python</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and I O" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-I-O.html">Kratos input files and I O</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and IO" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-IO.html">Kratos input files and IO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KratosAPI MultiPoint Constraint (MPC) interface" href="/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.html">KratosAPI MultiPoint Constraint (MPC) interface</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Local axes orientation" href="/pages/Kratos/For_Developers/General/Local-axes-orientation.html">Local axes orientation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Logger" href="/pages/Kratos/For_Developers/General/How-to-use-Logger.html">Logger</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Manipulating solution values" href="/pages/Kratos/For_Developers/General/Manipulating-solution-values.html">Manipulating solution values</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Mesh node ordering" href="/pages/Kratos/For_Developers/General/Mesh-node-ordering.html">Mesh node ordering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart and SubModelPart" href="/pages/Kratos/For_Developers/General/ModelPart-and-SubModelPart.html">ModelPart and SubModelPart</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart entities" href="/pages/Kratos/For_Developers/General/ModelPart-entities.html">ModelPart entities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Nodes and Nodal Data" href="/pages/Kratos/For_Developers/General/Nodes-and-Nodal-Data.html">Nodes and Nodal Data</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Parallel Utilities" href="/pages/Kratos/For_Developers/General/Parallel-Utilities.html">Parallel Utilities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerCommunicator.html">PointerCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerMapCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.html">PointerMapCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to AMatrix" href="/pages/Kratos/For_Developers/General/Porting-to-AMatrix.html">Porting to AMatrix</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to PyBind11   common steps" href="/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.html">Porting to PyBind11   common steps</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Processes In the application of BCs" href="/pages/Kratos/For_Developers/General/How-to-use-Processes-In-the-application-of-BCs.html">Processes In the application of BCs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Pure diffusion solver derived from main python solver" href="/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.html">Pure diffusion solver derived from main python solver</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Quaternions in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-quaternions-in-Kratos.html">Quaternions in Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Smart Pointers within Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-Smart-Pointers-within-Kratos.html">Smart Pointers within Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Solving strategies" href="/pages/Kratos/For_Developers/General/Solving-strategies.html">Solving strategies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Sparse Linear Algebra (native Kratos implementation)" href="/pages/Kratos/For_Developers/General/Sparse-Linear-Algebra-(native-Kratos-implementation).html">Sparse Linear Algebra (native Kratos implementation)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Style Guide" href="/pages/Kratos/For_Developers/General/Style-Guide.html">Style Guide</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using alias for Ublas matrix and vector" href="/pages/Kratos/For_Developers/General/Using-alias-for-Ublas-matrix-and-vector.html">Using alias for Ublas matrix and vector</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using processes to customize a simulation" href="/pages/Kratos/For_Developers/General/Using-processes-to-customize-a-simulation.html">Using processes to customize a simulation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Utilities Colors utility" href="/pages/Kratos/For_Developers/General/Utilities-Colors-utility.html">Utilities Colors utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install" href="/pages/Kratos/For_Developers/General/Windows-Install.html">Windows Install</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install (MinGW)" href="/pages/Kratos/For_Developers/General/Windows-Install-(MinGW).html">Windows Install (MinGW)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the FEAST Solver in Kratos?" href="/pages/Kratos/For_Developers/General/How-to-use-the-FEAST-Solver-in-Kratos.html">the FEAST Solver in Kratos?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the Geometry" href="/pages/Kratos/For_Developers/General/How-to-use-the-Geometry.html">the Geometry</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the PaStiX solver in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-the-PaStiX-solver-in-Kratos.html">the PaStiX solver in Kratos</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Analysis stage for pure diffusion problem</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h1 id="overview">Overview</h1>
+
+<p>In order to create a analysis stage we should follow the structure designed by the <em>Kratos</em> team. The base python interface can be found in <em>Kratos/kratos/python_scripts/analysis_stage.py</em>.</p>
+
+<h1 id="approach">Approach</h1>
+
+<p>Following that very same structure we just need to define the following methods:</p>
+<ol>
+  <li>The constructor (always needed). As a derived one will call first the base class constructor.</li>
+  <li><code class="language-plaintext highlighter-rouge">_CreateSolver</code> In order to create the solver</li>
+  <li><code class="language-plaintext highlighter-rouge">_CreateProcesses</code> this one will create the list of processes to be executed</li>
+  <li><code class="language-plaintext highlighter-rouge">_SetUpGiDOutput</code> To postprocess the problem</li>
+  <li><code class="language-plaintext highlighter-rouge">_GetSimulationName</code> Minor method to have a nice and consistent name on the information printed</li>
+</ol>
+
+<h1 id="code">Code</h1>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>  <span class="c1"># makes KratosMultiphysics backward compatible with python 2.6 and 2.7
+</span>
+<span class="c1"># Importing Kratos
+</span><span class="kn">import</span> <span class="nn">KratosMultiphysics</span>
+<span class="kn">import</span> <span class="nn">KratosMultiphysics.MyLaplacianApplication</span> <span class="k">as</span> <span class="n">Poisson</span>
+
+<span class="c1"># Importing the solvers (if available)
+</span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">KratosMultiphysics.ExternalSolversApplication</span>
+<span class="k">except</span> <span class="nb">ImportError</span><span class="p">:</span>
+    <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Logger</span><span class="p">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="s">"ExternalSolversApplication"</span><span class="p">,</span> <span class="s">"not imported"</span><span class="p">)</span>
+
+<span class="c1"># Importing the base class
+</span><span class="kn">from</span> <span class="nn">analysis_stage</span> <span class="kn">import</span> <span class="n">AnalysisStage</span>
+
+<span class="c1"># Other imports
+</span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">class</span> <span class="nc">PoissonAnalysis</span><span class="p">(</span><span class="n">AnalysisStage</span><span class="p">):</span>
+    <span class="s">"""
+    This class is the main-script of the Poisson put in a class
+
+    It can be imported and used as "black-box"
+    """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">project_parameters</span><span class="p">):</span>
+        <span class="c1"># Calling the constructor of the base class
+</span>        <span class="nb">super</span><span class="p">(</span><span class="n">PoissonAnalysis</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">project_parameters</span><span class="p">)</span>
+
+        <span class="c1">## Import parallel modules if needed
+</span>        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parallel_type</span> <span class="o">==</span> <span class="s">"MPI"</span><span class="p">):</span>
+            <span class="kn">import</span> <span class="nn">KratosMultiphysics.MetisApplication</span> <span class="k">as</span> <span class="n">MetisApplication</span>
+            <span class="kn">import</span> <span class="nn">KratosMultiphysics.TrilinosApplication</span> <span class="k">as</span> <span class="n">TrilinosApplication</span>
+
+    <span class="c1">#### Internal functions ####
+</span>    <span class="k">def</span> <span class="nf">_CreateSolver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Create the Solver (and create and import the ModelPart if it is not alread in the model) """</span>
+        <span class="c1">## Solver construction
+</span>        <span class="k">return</span> <span class="n">pure_diffusion_solver</span><span class="p">.</span><span class="n">PureDiffusionSolver</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_CreateProcesses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">initialization_order</span><span class="p">):</span>
+        <span class="s">"""Create a list of Processes
+        """</span>
+        <span class="n">list_of_processes</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">PoissonAnalysis</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">_CreateProcesses</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">,</span> <span class="n">initialization_order</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">parameter_name</span> <span class="o">==</span> <span class="s">"processes"</span><span class="p">:</span>
+            <span class="n">processes_block_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">"constraints_process_list"</span><span class="p">,</span> <span class="s">"fluxes_process_list"</span><span class="p">,</span> <span class="s">"list_other_processes"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_of_processes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># Processes are given in the old format
+</span>                <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Logger</span><span class="p">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="s">"PoissonAnalysis"</span><span class="p">,</span> <span class="s">"Using the old way to create the processes, this will be removed!"</span><span class="p">)</span>
+                <span class="kn">from</span> <span class="nn">process_factory</span> <span class="kn">import</span> <span class="n">KratosProcessFactory</span>
+                <span class="n">factory</span> <span class="o">=</span> <span class="n">KratosProcessFactory</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">process_name</span> <span class="ow">in</span> <span class="n">processes_block_names</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">.</span><span class="n">Has</span><span class="p">(</span><span class="n">process_name</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">):</span>
+                        <span class="n">list_of_processes</span> <span class="o">+=</span> <span class="n">factory</span><span class="p">.</span><span class="n">ConstructListOfProcesses</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">[</span><span class="n">process_name</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># Processes are given in the new format
+</span>                <span class="k">for</span> <span class="n">process_name</span> <span class="ow">in</span> <span class="n">processes_block_names</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">.</span><span class="n">Has</span><span class="p">(</span><span class="n">process_name</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"Mixing of process initialization is not alowed!"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">parameter_name</span> <span class="o">==</span> <span class="s">"output_processes"</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">.</span><span class="n">Has</span><span class="p">(</span><span class="s">"output_configuration"</span><span class="p">):</span>
+                <span class="c1">#KratosMultiphysics.Logger.PrintInfo("PoissonAnalysis", "Using the old way to create the gid-output, this will be removed!")
+</span>                <span class="n">gid_output</span><span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_SetUpGiDOutput</span><span class="p">()</span>
+                <span class="n">list_of_processes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">gid_output</span><span class="p">,]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">NameError</span><span class="p">(</span><span class="s">"wrong parameter name"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">list_of_processes</span>
+
+    <span class="k">def</span> <span class="nf">_SetUpGiDOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">'''Initialize a GiD output instance'''</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__CheckForDeprecatedGiDSettings</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">parallel_type</span> <span class="o">==</span> <span class="s">"OpenMP"</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">gid_output_process</span> <span class="kn">import</span> <span class="n">GiDOutputProcess</span> <span class="k">as</span> <span class="n">OutputProcess</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">parallel_type</span> <span class="o">==</span> <span class="s">"MPI"</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">gid_output_process_mpi</span> <span class="kn">import</span> <span class="n">GiDOutputProcessMPI</span> <span class="k">as</span> <span class="n">OutputProcess</span>
+
+        <span class="n">gid_output</span> <span class="o">=</span> <span class="n">OutputProcess</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_GetSolver</span><span class="p">().</span><span class="n">GetComputingModelPart</span><span class="p">(),</span>
+                                   <span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">[</span><span class="s">"problem_data"</span><span class="p">][</span><span class="s">"problem_name"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span> <span class="p">,</span>
+                                   <span class="bp">self</span><span class="p">.</span><span class="n">project_parameters</span><span class="p">[</span><span class="s">"output_configuration"</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">gid_output</span>
+
+    <span class="k">def</span> <span class="nf">_GetSimulationName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"::[Poisson Simulation]:: "</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">err_msg</span> <span class="o">=</span>  <span class="s">'Too many input arguments!</span><span class="se">\n</span><span class="s">'</span>
+        <span class="n">err_msg</span> <span class="o">+=</span> <span class="s">'Use this script in the following way:</span><span class="se">\n</span><span class="s">'</span>
+        <span class="n">err_msg</span> <span class="o">+=</span> <span class="s">'- With default ProjectParameters (read from "ProjectParameters.json"):</span><span class="se">\n</span><span class="s">'</span>
+        <span class="n">err_msg</span> <span class="o">+=</span> <span class="s">'    "python3 poisson_analysis.py"</span><span class="se">\n</span><span class="s">'</span>
+        <span class="n">err_msg</span> <span class="o">+=</span> <span class="s">'- With custom ProjectParameters:</span><span class="se">\n</span><span class="s">'</span>
+        <span class="n">err_msg</span> <span class="o">+=</span> <span class="s">'    "python3 poisson_analysis.py CustomProjectParameters.json"</span><span class="se">\n</span><span class="s">'</span>
+        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># ProjectParameters is being passed from outside
+</span>        <span class="n">project_parameters_file_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># using default name
+</span>        <span class="n">project_parameters_file_name</span> <span class="o">=</span> <span class="s">"ProjectParameters.json"</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">parameter_file_name</span><span class="p">,</span><span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">parameter_file</span><span class="p">:</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="n">parameter_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Model</span><span class="p">()</span>
+    <span class="n">simulation</span> <span class="o">=</span> <span class="n">PoissonAnalysis</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+    <span class="n">simulation</span><span class="p">.</span><span class="n">Run</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>We save the file to the folder python_scripts with the name <code class="language-plaintext highlighter-rouge">poisson_analysis</code>.</p>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

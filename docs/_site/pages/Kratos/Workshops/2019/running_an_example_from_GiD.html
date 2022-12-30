@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Running-an-example-from-GiD.md,  ">
+
+<title>Running an example from GiD | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Running an example from GiD page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Running an example from GiD">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Workshops </li>
+  
+  
+  
+  <li>
+      <a title="2019" href="#">2019</a>
+      <ul>
+          
+          
+          
+          <li class="active"><a title="Running an example from GiD" href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Running an example from GiD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos Input Files and IO" href="/pages/Kratos/Workshops/2019/kratos_input_files_and_io.html">Kratos Input Files and IO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Data Management" href="/pages/Kratos/Workshops/2019/data_management.html">Data Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Solving Strategies" href="/pages/Kratos/Workshops/2019/solving_strategies.html">Solving Strategies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Manipulating Solution Values" href="/pages/Kratos/Workshops/2019/manipulating_solution_values.html">Manipulating Solution Values</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Multiphysics Example" href="/pages/Kratos/Workshops/2019/multiphysics_example.html">Multiphysics Example</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Running an example from GiD</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/Workshops/2019/running_an_example_from_GiD.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h1 id="running-an-example-from-gid">Running an example from GiD</h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<p>This first tutorial is intended to serve as a base for the rest of practical exercises of the course. Based on a simplified high-rise building design, a Computational Fluid Dynamics (CFD) case solving the flow around the building, a Computational Structural Mechanics (CSM) case solving the mechanics of an ideal representation of the building and a Fluid-Structure Interaction (FSI) coupling are presented.</p>
+
+<p>To do that, the <a href="https://www.gidhome.com/">GiD</a> pre and post-processor together with its <a href="https://github.com/KratosMultiphysics/GiDInterface">Kratos Multiphysics Graphical User Interface (GUI)</a> are used.</p>
+
+<p>Since the aim of this Workshop course is to learn the basics Kratos Multiphysics usage all the examples required to follow this tutorial have been already included as a part of the interface so they can be automatically generated by just clicking on its corresponding button.</p>
+
+<h2 id="2-get-kratos-gid-gui">2. Get Kratos GiD GUI</h2>
+<p>First of all <strong>it is needed to have GiD installed in your machine</strong>. If you have not installed it yet, the installer of Windows and Linux official versions can be downloaded from this <a href="https://www.gidhome.com/download/official-versions/">link</a>.</p>
+
+<p>After this, you need to <strong>ask for a license</strong> in this <a href="https://www.gidhome.com/purchase/passwords/">link</a>. <strong>You can ask for a maximum of three one month free licenses</strong>. To do that, you need to fill the first three tabs with the next options:</p>
+<ul>
+  <li>GiD Version: GiD 14</li>
+  <li>Type of version: Local</li>
+  <li>Period of time: One Month (Free)</li>
+</ul>
+
+<p>After doing this, you can follow the steps that appear below to <strong>introduce your machine specific data</strong>.</p>
+
+<p>Once GiD has been already installed, Kratos Multiphysics can be obtained using GiD internet retrieve tool. To do that, search for <code class="language-plaintext highlighter-rouge">Data</code> tab in the top toolbar and click on <strong><code class="language-plaintext highlighter-rouge">Data</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Problem type</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Internet retrieve...</code></strong>. In the pop-up window select <strong>Kratos 7.0.1</strong> and click on <strong>Retrieve module</strong> to start the download.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/internet_retrieve.png" alt="Internet retrieve" title="Internet retrieve" />
+</p>
+
+<p>Once it is finished, you will have the Kratos Multiphysics GiD GUI together with a pre-compiled version of the current release, which allows to run the cases directly from the GUI.</p>
+
+<h2 id="3-set-a-fluid-dynamics-problem">3. Set a Fluid Dynamics problem</h2>
+<h3 id="31-load-the-cfd-gui">3.1. Load the CFD GUI</h3>
+<p>To set a CFD problem we firstly need to load the Kratos GiD GUI. This is done by doing the previous sequence of commands <strong><code class="language-plaintext highlighter-rouge">Data</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Problem type</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Kratos</code> in the top toolbar</strong>. Then the Kratos application market will appear in where the <strong>Fluid</strong> application must be selected.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/application_market.png" alt="Application market" title="Application market" />
+</p>
+
+<p>After this, the fluid dynamics application market will appear. Among all the fluid related applications in Kratos, we will select the standard body-fitted Navier-Stokes CFD application by clicking on the <strong>Fluid</strong> button again.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/application_market_fluid.png" alt="Fluid application market" title="Fluid application market" />
+</p>
+
+<p>Finally we select the domain size by clicking on the <strong>2D</strong> icon.</p>
+
+<h3 id="32-load-the-high-rise-building-example">3.2. Load the high-rise building example</h3>
+<p>Now that we are in the 2D CFD interface we can load the predefined high-rise building example. To do that, it is only needed to **click on the button highlighted in image below ** to automatically generate the case.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/high_rise_building_example_button.png" alt="High-rise building example button" title="High rise building example button" />
+</p>
+
+<p>The problem consists in a channel emulating the surroundings of the building placement. A constant inlet velocity of 25 m/s is applied along the left edge. The top and bottom walls are considered to be slip while the building walls are considered to be stick. The pressure is fixed to zero along the right edge.</p>
+
+<p>(this case can be also retrieved from this <a href="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Workshops_files/Kratos_Workshop_2019/Sources/1_running_an_example_from_GID/1_running_an_example_from_GID.zip">link</a>)</p>
+
+<h3 id="33-main-features-of-the-gui">3.3. Main features of the GUI</h3>
+<p>After loading the case, the interface will look as the image below.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/high_rise_building_example.png" alt="High-rise building example" title="High rise building example" />
+</p>
+
+<p>The most important features in the previous image are:</p>
+
+<p><em>LEFT SIDE:</em></p>
+
+<ul>
+  <li><strong>Strategy selection</strong>: Monolithic or Fractional Step (in CSM problems dynamic, quasi-static, static)</li>
+  <li><strong>Material settings</strong>: Selection of the fluid domain surface and its physical properties</li>
+  <li><strong>Boundary Conditions time intervals</strong>: Default and custom time intervals for the BCs application</li>
+  <li><strong>Boundary Conditions</strong>: List of BCs (varies depending on the problem to solve)</li>
+  <li><strong>Solver settings</strong>: Problem settings according to the selected strategy (e.g. convergence criteria, maximum iterations, linear solver type, time step, …)</li>
+</ul>
+
+<p><em>RIGHT SIDE:</em></p>
+
+<ul>
+  <li><strong>Groups list</strong>: Can be brought up by clicking the <strong>groups tab</strong>. It lists the groups, which contain the geometrical entities that define the problem domain and BCs (<strong>be careful</strong> are not the same as layers!)</li>
+  <li><strong>Group check</strong>: By clicking this button the contained entities in the selected group are highlighted.</li>
+</ul>
+
+<h3 id="34-mesh-and-run">3.4 Mesh and run</h3>
+<p>Before meshing the problem, GiD will ask to save it, so <strong>save the case</strong> as usual by doing <code class="language-plaintext highlighter-rouge">Files</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Save</code>.</p>
+
+<p>Once the case has been saved, it is time to mesh it. To simplify things, this predefined example already contains suitable mesh settings, which can be of course customized. The default mesh settings can be checked by doing <strong><code class="language-plaintext highlighter-rouge">Mesh</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Draw</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Sizes</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">All types</code></strong>.</p>
+
+<p>For the sake of simplicity, we will assume this predefined mesh settings to be good enough. Thus, the problem can be meshed by doing <strong><code class="language-plaintext highlighter-rouge">Mesh</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Generate mesh</code></strong> (<code class="language-plaintext highlighter-rouge">Ctrl</code> + <code class="language-plaintext highlighter-rouge">G</code>). A pop-up window asking for the mesh size will appear. Since we have the predefined mesh sizes, any number can be put in this window as such predefined settings prevail over it.</p>
+
+<p>Finally, <strong>the problem is run</strong> by clicking on the <strong>rocket button</strong> (or <strong><code class="language-plaintext highlighter-rouge">Calculate</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Calculate</code></strong> (<code class="language-plaintext highlighter-rouge">F5</code>)). In the folder in where we have saved the case, the next Kratos source files will appear:</p>
+
+<ul>
+  <li>*.mdpa: File containing the mesh geometry</li>
+  <li>ProjectParameters.json: File containing the problem settings and BCs</li>
+  <li>MainKratos.py: Main script to run the simulation</li>
+  <li>(eventually *Materials.json: File containing the material properties. Only used in some applications (e.g. StructuralMechanicsAplication)</li>
+</ul>
+
+<p>(in the next exercises of the course we will play around with these source files)</p>
+
+<p>The terminal output can be check by clicking the <strong>i button</strong> below the rocket (or <strong><code class="language-plaintext highlighter-rouge">Calculate</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">View process info..</code></strong>). In case it is needed, the simulation can be interrupted by clicking the <strong>red cross button</strong> (or <strong><code class="language-plaintext highlighter-rouge">Calculate</code> &amp;rightarrow; <code class="language-plaintext highlighter-rouge">Cancel process</code></strong>).</p>
+
+<h3 id="35-results-post-processing">3.5 Results post-processing</h3>
+<p>Once the simulation is finished, a new pop-up window reporting it will appear. We can directly access to the post-process by clicking on either the <code class="language-plaintext highlighter-rouge">Postprocess</code> button of such pop-up window or the rainbow button in the top right part of the screen (see the image below).</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/go_to_postprocess.png" alt="Go to postprocess" title="Go to postprocess" />
+</p>
+
+<p>The image below highlights the basic tools of the postprocess environment:</p>
+<ul>
+  <li>Time step selection</li>
+  <li>Contour field visualization</li>
+  <li>Vector field visualization</li>
+  <li>Animation</li>
+</ul>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/postprocess.png" alt="postprocess" title="postprocess" />
+</p>
+
+<h2 id="4-set-a-structural-mechanics-problem">4. Set a Structural Mechanics problem</h2>
+<p>Similarly to the previous section, we can load the <strong>Structural</strong> application in the application market and then select the <strong>2D</strong> problem size option.</p>
+
+<p>Among the all the structural mechanics predefined examples, we can <strong>select the high-rise building</strong> one. Note that if the mouse pointer is placed on any example icon a brief description to identify it appears.</p>
+
+<p>The image below depicts the appearance of the Structural GUI after loading the high-rise building example. It can be noted that the structure of the GUI is the same as the Fluid one (strategy settings, parts settings, interval settings ,…) but with the particularities associated to the resolution of a CSM problem.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/high_rise_building_example_2.png" alt="High-rise building example 2" title="High rise building example 2" />
+</p>
+
+<p>As it can be observed the problem to solve consists in a steel cantilever beam, which intends to simulate the building. The beam its clamped along its inferior edge and an horizontal load of 50 N is applied in the rest of the edges to emulate the wind effect.</p>
+
+<p>The simulation can be meshed, launched and postprocessed by following the same steps explained in the previous section.</p>
+
+<p>(this case can be also retrieved from this <a href="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Workshops_files/Kratos_Workshop_2019/Sources/1_running_an_example_from_GID/1_running_an_example_from_GID.zip">link</a>)</p>
+
+<h2 id="5-set-a-fluid-structure-interaction-problem">5. Set a Fluid-Structure Interaction problem</h2>
+<p>Finally, we can couple the physics of both problems by using the Kratos FSI GUI. Therefore, by following the previously explained steps the prepared example can be loaded, meshed and run. Once the it is loaded, the GiD window will look as the image below.</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/workshop_2019_tutorials/running_an_example_from_GiD/high_rise_building_example_3.png" alt="High-rise building example 3" title="High rise building example 3" />
+</p>
+
+<p>Due to the coupled nature of the posed problem, it is important to point out some minor aspects:</p>
+<ul>
+  <li>The interface is thought as the union of the CFD and the CSM interfaces plus a coupling section. This is always the case for all the Kratos coupled problems GUIs.</li>
+  <li>Since the structure and the fluid meshes will be written in different geometry input files, one needs to duplicate the interface lines since the fluid and the structure need to be independent geometrical entities. Besides it is also needed to assign them to the interface condition in the BCs section of fluid and structure.</li>
+</ul>
+
+<p>(this case can be also retrieved from this <a href="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Workshops_files/Kratos_Workshop_2019/Sources/1_running_an_example_from_GID/1_running_an_example_from_GID.zip">link</a>)</p>
+
+<h2 id="6-conclusion">6. Conclusion</h2>
+<p>In this tutorial it is explained how to generate some simple simulation cases by using the Kratos GUI. For the sake of simplicity and to serve as a base for the upcoming exercises, only the automatically generated examples have been used. To create specific geometries and to customize the mesh settings we refer to the <a href="https://www.gidhome.com/support/gid-manuals/">GiD user manuals</a>. Furthermore, it is important to mention that there are more predefined examples besides these ones, both in the presented applications as well as in the rest of available ones.</p>
+
+<p>Finally, we strongly encourage you to open an issue in either the <a href="https://github.com/KratosMultiphysics/Kratos/issues">Kratos</a> repository or the <a href="https://github.com/KratosMultiphysics/GiDInterface/issues">GiD interface</a> to discuss any arising doubt or suggestion.</p>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

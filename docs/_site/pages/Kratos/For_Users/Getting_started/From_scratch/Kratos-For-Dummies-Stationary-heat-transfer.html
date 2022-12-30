@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Kratos-For-Dummies-Stationary-heat-transfer.md,  ">
+
+<title>Kratos For Dummies Stationary heat transfer | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Kratos For Dummies Stationary heat transfer page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Kratos For Dummies Stationary heat transfer">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Users </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Summary" href="/pages/Kratos/For_Users/General/../../../index.html">Summary</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Overview" href="/pages/Kratos/For_Users/General/Overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Management Structure" href="/pages/Kratos/For_Users/General/Management_Structure.html">Management Structure</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="General Structure" href="/pages/Kratos/For_Users/General/General_Structure.html">General Structure</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Copyright and Licence" href="/pages/Kratos/For_Users/General/Copyright_and_Licence.html">Copyright and Licence</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+  <li>
+      <a title="How to get Kratos" href="#">How to get Kratos</a>
+      <ul>
+          
+          
+          
+          <li><a title="" href=""></a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Binaries" href="#">Binaries</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Getting Kratos binaries (via GiD)" href="/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-binaries-with-gid.html">Getting Kratos binaries (via GiD)</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Getting Kratos Binaries for Windows" href="/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-Binaries-for-Windows.html">Getting Kratos Binaries for Windows</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Getting Kratos Binaries for Linux" href="/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-Binaries-for-Linux.html">Getting Kratos Binaries for Linux</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Compilation" href="#">Compilation</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Compilation Options" href="/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/remote_Compilation_Options.html">Compilation Options</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="How to Compile Kratos in Debug mode" href="/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/How-to-Compile-Kratos-in-Debug-mode.html">How to Compile Kratos in Debug mode</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Linux Build" href="/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/Linux-Build.html">Linux Build</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+  <li>
+      <a title="Getting started" href="#">Getting started</a>
+      <ul>
+          
+          
+          
+          <li><a title="Kernel and Applications" href="/pages/Kratos/For_Users/Getting_started/Editing-kratos-kernel-and-application-approach.html">Kernel and Applications</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Python Script  Getting Started" href="/pages/Kratos/For_Users/Getting_started/getting-started.html">Python Script  Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Python Script  Hello Kratos" href="/pages/Kratos/For_Users/Getting_started/hello-world.html">Python Script  Hello Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Python Tutorials" href="/pages/Kratos/For_Users/Getting_started/tutorials.html">Python Tutorials</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Data Structure" href="#">Data Structure</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Entities creation from scratch" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/Entities-creation-from-scratch.html">Entities creation from scratch</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Generating New Modelparts" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/generate-new-modelpart.html">Python Script  Generating New Modelparts</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  ModelPart Elements and Conditions" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/elems-and-conds.html">Python Script  ModelPart Elements and Conditions</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  ModelPart and SubModelPart" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/modelpart-and-submodelpart.html">Python Script  ModelPart and SubModelPart</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Nodes and Nodal Data" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/nodes-and-data.html">Python Script  Nodes and Nodal Data</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="From scratch" href="#">From scratch</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Creating a base application" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Creating-a-base-application.html">Creating a base application</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Example A simple Fluid   Thermal coupled solver" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Example-A-simple-Fluid---Thermal-coupled-solver.html">Example A simple Fluid   Thermal coupled solver</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="How to Create a New Application using cmake" href="/pages/Kratos/For_Users/Getting_started/From_scratch/How-to-Create-a-New-Application-using-cmake.html">How to Create a New Application using cmake</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Implementing thermal solver" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Implementing-thermal-solver.html">Implementing thermal solver</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="active"><a title="Kratos For Dummies Stationary heat transfer" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Stationary-heat-transfer.html">Kratos For Dummies Stationary heat transfer</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Kratos For Dummies Transient non linear heat transfer" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Transient-non-linear-heat-transfer.html">Kratos For Dummies Transient non linear heat transfer</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Input Output and Visualization" href="#">Input Output and Visualization</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="How to interact with a simulation to visualize real time results" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/How-to-interact-with-a-simulation-to-visualize-real-time-results.html">How to interact with a simulation to visualize real time results</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="How to write a JSON configuration file" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/How-to-write-a-JSON-configuration-file.html">How to write a JSON configuration file</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Input data" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/Input-data.html">Input data</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Reading ModelPart From Input File" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/reading-input.html">Python Script  Reading ModelPart From Input File</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Reading ProjectParameters" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/project-parameters.html">Python Script  Reading ProjectParameters</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Writing Output File" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/writing-output.html">Python Script  Writing Output File</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Kratos For Dummies Stationary heat transfer</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Stationary-heat-transfer.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h1 id="overview">Overview</h1>
+
+<p>As explained in the <a href="https://github.com/KratosMultiphysics/Kratos/wiki">home page</a>, the <em>Kratos</em> framework is oriented towards finite element modelling. This is a major advantage when creating standard finite element formulations. In these cases, <em>Kratos</em> will provide most of the tedious code necessary, such as assembling the matrices, solving the system, printing the results in a file, and other task that would probably be more time consuming than transcribing the formulation itself into programming code. The aim of this tutorial is to describe step by step the implementation of a really simple element using as much as possible all these tools provided by <em>Kratos</em>. This way, we’ll only have to create the element, boundary conditions and then tell <em>Kratos</em> that our problem type is a standard <strong>FEM</strong>. At first the code might seem a little scary but we’ll try to explain the lines as much as possible. Let’s begin!</p>
+
+<p>(it must be noted that the framework is completely flexible and we could create a problem type without even creating an element that does something, for example in edge based formulations)</p>
+
+<h1 id="contents">Contents</h1>
+<ol>
+  <li><a href="#basic-description-of-the-problem-and-main-tools-of-kratos-used">Basic description of the problem and main tools of Kratos used</a>
+    <ol>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#residualbased-builder-and-solver">Residual-based builder and solver</a></li>
+    </ol>
+  </li>
+  <li><a href="#structure-of-the-problemtype-and-other-components">Structure of the problemtype and other components</a>
+    <ol>
+      <li><a href="#basic-structure-of-conditions-and-elements">Basic Structure of Conditions and Elements</a></li>
+      <li><a href="#python-scripts">Python Scripts</a></li>
+      <li><a href="#files-needed-in-our-application">Files needed in our application</a></li>
+    </ol>
+  </li>
+  <li><a href="#sections-of-this-tutorial">Sections of this tutorial</a>
+    <ol>
+      <li><a href="#creating-our-application-mylaplacianapplication">Creating our application: MyLaplacian</a></li>
+      <li><a href="#editing-the-main-files-of-the-application-and-creating-elements-and-conditions">Editing the main files of the application and creating elements and conditions</a></li>
+      <li><a href="#creating-a-first-problem-to-be-solved">Creating a first problem to be solved</a>
+        <ol>
+          <li><a href="#launching-and-viewing-the-postprocess-file">Launching and viewing the postprocess file</a></li>
+          <li><a href="#using-the-gid-problemtype">Using the <em>GiD</em> problemtype</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="basic-description-of-the-problem-and-main-tools-of-kratos-used">Basic description of the problem and main tools of <em>Kratos</em> used:</h2>
+
+<p>We’ll create the simplest possible finite element formulation. For that purpose we’ll create an application that solves a stationary heat conduction problem in 2D. This is a diffusion only problem with only one degree of freedom (DoF) per node.</p>
+
+\[\nabla · (K\nabla\Phi) = f\]
+
+<p>Were \(K\) is the material heat conductivity</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/Kratos-For-Dummies/gid_screenshoot.png" alt="" /></p>
+
+<p>In this problem we’re going to use a <strong>residualbased</strong> formulation. <em>Kratos</em> already has a solver so we won’t have to program it.</p>
+
+<p>As seen in the previous section, our problem consists of a simple rigidity matrix <strong>K</strong> , that depends only on the geometry and the scalar permittivity (a closer look reveals that is simply the Laplacian matrix multiplied by this scalar). The other components of our problem are <strong>boundary conditions</strong>, which we will assume fixed or free, and <strong>thermal loads</strong>.</p>
+
+<h3 id="components">Components</h3>
+
+<p>The <strong>rigidity matrix</strong> will be calculated element by element, adding the rigidity of each element <strong>K</strong> to the global matrix. This reveals the first tool needed in our problemtype: an element.</p>
+
+<p>For the <strong><em>Dirichlet</em> conditions</strong>, since we’re using a residual-based calculation we’ll have to multiply our boundary conditions by the K matrix. This can be done both element-wise once we have <strong>K</strong> or at the end of the problem. We chose to do it element-wise.</p>
+
+<p>Finally, for the <strong>nodal thermal loads</strong> we have to add them node by node and add it to the right hand side vector of the system of equations (<strong>RHS</strong>). To do so we’ll use a tool in <em>Kratos</em> called Condition.</p>
+
+<p>As you can see, we now have our main application components:</p>
+
+<ul>
+  <li><strong>An element</strong> (loop in elements, including K and <em>Dirichlet</em> conditions)</li>
+  <li><strong>A condition</strong> (loop in nodes)</li>
+</ul>
+
+<h3 id="residual-based-builder-and-solver">Residual-based builder and solver</h3>
+
+<p>What is missing is a tool to assemble all these components. We could do it “by hand”, but it is much simpler if we just use a builder and solver. <em>Kratos</em> include a residual-based builder and solver. This way we only have to declare in our problem-type that we’ll be using this tool and which are the elements and conditions. And that’s it. We won’t even need to tell the builder to loop the nodes or elements, just declaring them and then initializing the solver is enough and the process will be done.</p>
+
+<p>Of course, to do so we’ll have to respect the structure for both the element and conditions, but this is achieved by simply copying an existing one and modifying it to suit our needs, as will be seen below.</p>
+
+<h2 id="structure-of-the-problem-type-and-other-components">Structure of the problem type and other components</h2>
+
+<h3 id="basic-structure-of-conditions-and-elements">Basic Structure of Conditions and Elements</h3>
+
+<p>Elements and Conditions are both classes in C++ that include a series of subroutines required by the builder and solver. They both share the following structure. An element or condition should contain at least this public methods, in pseudo code:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">mycondition</span>
+
+<span class="kt">void</span> <span class="n">CalculateLocalSystem</span>
+<span class="kt">void</span> <span class="n">CalculateRightHandSide</span>
+<span class="kt">void</span> <span class="n">EquationIdVector</span>
+<span class="kt">void</span> <span class="n">GetDofList</span>
+</code></pre></div></div>
+
+<h3 id="python-scripts">Python Scripts</h3>
+
+<p>At this point we have explained the code needed inside Kratos to solve a Poisson problem. However, no information regarding loading the model or telling Kratos that we want to execute our problem type was given. All these tasks are not compiled in the Kratos, they’re simply executed by python scripts. Some of them will belong to our problem type itself and other will be contained inside the folder of the specific problem to be solved.</p>
+
+<p>The big advantage of using these scripts over compiled code is that changes can be done really quickly, for example changing the tolerance of a solver or even changing boundary conditions. Of course, since it’s interpreted language it will be slower; so it’s better to limit its use to simple, non iterative tasks as much as possible.</p>
+
+<p>In this sense, the python scripts do the following tasks:</p>
+
+<ul>
+  <li><em>Load Kratos and import our application</em></li>
+  <li><em>Read the problem data, project parameters and create the model part in Kratos</em>: Mesh, elements, materials, variables, degrees of freedom…</li>
+  <li><em>Define the Builder&amp;Solver used</em></li>
+  <li><em>Call the solver</em></li>
+  <li><em>Write a file with the mesh and results</em></li>
+</ul>
+
+<h3 id="files-needed-in-our-application">Files needed in our application</h3>
+
+<p>Our application will be located inside the <code class="language-plaintext highlighter-rouge">applications</code> folder. Each of these subdirectories will contain the specific C++ or python code needed for our application. Note that if you want to use a new strategy or solver, then you have to create other typical customization directories or files such as <code class="language-plaintext highlighter-rouge">/custom_strategies</code>, etc…</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Kratos
+    /applications
+        /PureDiffusionApplication
+            /custom_elements
+                my_laplacian_element.h and .cpp
+            /custom_conditions
+                point_source_condition.h and .cpp
+            /custom_python
+                my_laplacian_application.cpp
+            /python_scripts
+                static_laplacian_element.py
+            my_laplacian_application.h and .cpp
+            my_laplacian_application_variables.h and .cpp
+            MyLaplacianApplication.py
+            CMakeLists.txt
+</code></pre></div></div>
+
+<p>The application will be executed to solve an specific problem defined in few files outside Kratos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/SpecificProblem
+    MainKratos.py
+    specific_problem.mdpa
+    ProjectParameters.json
+</code></pre></div></div>
+
+<p>Now you should have an idea of the components we will need in our code. So hands at work with C++ and Python.</p>
+
+<h2 id="sections-of-this-tutorial">Sections of this tutorial</h2>
+
+<h3 id="creating-our-application-mylaplacianapplication">Creating our application: MyLaplacianApplication</h3>
+
+<p>First of all, we recommend to create a temporary branch. In this way, we could easily revert the changes we make. Just open the terminal and type:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout <span class="nt">-b</span> test-kratos-for-dummies
+</code></pre></div></div>
+
+<p>To begin with we must create a new application. The <a href="Creating-a-base-application">How to Create Applications</a> tutorial provide some python scripts to generate a base application. Therefore we’ll navigate to the <code class="language-plaintext highlighter-rouge">kratos/python_scripts/application_generator</code> folder and customize the <code class="language-plaintext highlighter-rouge">laplacian_application_example.py</code> script. We need to specify the application name, elements and conditions. Note that we have to create a new variable POINT_HEAT_SOURCE, which is not inside the <em>Kratos</em>’s kernel.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set the application name and generate Camel, Caps and Low
+</span><span class="n">appNameCamel</span> <span class="o">=</span> <span class="s">"MyLaplacian"</span>
+
+<span class="c1"># Fetch the applications directory
+</span><span class="n">debugApp</span> <span class="o">=</span> <span class="n">ApplicationGenerator</span><span class="p">(</span><span class="n">appNameCamel</span><span class="p">)</span>
+
+<span class="c1"># Add KratosVariables
+</span><span class="n">debugApp</span><span class="p">.</span><span class="n">AddVariables</span><span class="p">([</span>
+    <span class="n">VariableCreator</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'POINT_HEAT_SOURCE'</span><span class="p">,</span> <span class="n">vtype</span><span class="o">=</span><span class="s">'double'</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="c1"># Add an element
+</span><span class="n">debugApp</span><span class="p">.</span><span class="n">AddElements</span><span class="p">([</span>
+    <span class="n">ElementCreator</span><span class="p">(</span><span class="s">'MyLaplacianElement'</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">AddDofs</span><span class="p">([</span><span class="s">'TEMPERATURE'</span><span class="p">])</span>
+    <span class="p">.</span><span class="n">AddFlags</span><span class="p">([])</span>
+    <span class="p">.</span><span class="n">AddClassMemberVariables</span><span class="p">([])</span>
+<span class="p">])</span>
+
+<span class="c1"># Add a condition
+</span><span class="n">debugApp</span><span class="p">.</span><span class="n">AddConditions</span><span class="p">([</span>
+    <span class="n">ConditionCreator</span><span class="p">(</span><span class="s">'PointSourceCondition'</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">AddDofs</span><span class="p">([</span><span class="s">'TEMPERATURE'</span><span class="p">])</span>
+    <span class="p">.</span><span class="n">AddFlags</span><span class="p">([])</span>
+<span class="p">])</span>
+</code></pre></div></div>
+
+<p>The python script will create a new application with the basic components. In order to compile the application, we need to add it in the <code class="language-plaintext highlighter-rouge">configure.sh</code>file:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add_app <span class="k">${</span><span class="nv">KRATOS_APP_DIR</span><span class="k">}</span>/MyLaplacianApplication
+</code></pre></div></div>
+
+<p>Once you’ve followed all the steps and compiled the application, you should be able to import your newly created application, although it is not able to do anything for the moment.</p>
+
+<h3 id="editing-the-main-files-of-the-application-and-creating-elements-and-conditions">Editing the main files of the application and creating elements and conditions</h3>
+
+<ol>
+  <li><a href="Tutorial:-Editing-the-main-files">Tutorial: Editing the main files</a></li>
+  <li><a href="Tutorial:-Creating-the-Element">Tutorial: Creating the Element</a></li>
+  <li><a href="Tutorial:-Creating-the-Conditions">Tutorial: Creating the Conditions</a></li>
+  <li><a href="Tutorial:-Creating-an-Utility">Tutorial: Creating an Utility (optional)</a>. Once you’ve completed these 3/4 first steps and compiled the kratos you have all the c++ code necessary for your application. So compile the Kratos and the rest of the tasks can be managed using python, which has the advantages mentioned above. So now we proceed with the python scripts required.</li>
+  <li><a href="Tutorial:-Creating-the-Python-Solver-file">Tutorial: Creating the Python Solver file</a>: After you’ve finished these 6 steps your new application is ready. what is left is creating the particular files of our problem.</li>
+</ol>
+
+<h3 id="creating-a-first-problem-to-be-solved">Creating a first problem to be solved</h3>
+
+<p>Despite the <a href="http://www.gidhome.com/"><em>GiD</em></a>  interface can both create and launch the files needed to solve a problem, we’ll start by writing ‘by hand’ a very simple example so that we understand the instruction we’re giving KRATOS through the python interface we have just created in the previous step. Actually when you launch an example from the <em>GiD</em> interface of <em>Kratos</em>, this is what is going on behind: First <em>GiD</em> creates a geometry file that <em>Kratos</em> can understand, the .mdpa , and then it executes a python scripts that contains all the instruction for Kratos. Like read the geometry, add degrees of freedom, solve the system, print the results…</p>
+
+<p>So hands at work! We need these two files to launch an example:</p>
+
+<ul>
+  <li>A .mdpa (meaning modelpart) file defining the geometry, material, loads, etc.</li>
+  <li>A .json file defining the required project parameters.</li>
+  <li>A .py file to tell Kratos what to do with that file.</li>
+</ul>
+
+<p>For our first problem we’ll create a simple, two element problem:</p>
+
+<p><img src="http://kratos-wiki.cimne.upc.edu/images/1/16/Elems.png" alt="" /></p>
+
+<p>with CONDUCTIVY=10.0, we’ll fix the TEMPERATURE=100.0 in node 1 and we’ll add a POINT_HEAT_SOURCE=5.0 in node 3</p>
+
+<p>with this information, the model part file looks like this:</p>
+
+<p><strong>example.mdpa</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Begin</span> <span class="n">ModelPartData</span>
+<span class="c1">//  nothing here</span>
+<span class="n">End</span> <span class="n">ModelPartData</span>
+
+
+<span class="n">Begin</span> <span class="n">Properties</span> <span class="mi">1</span>            
+<span class="n">CONDUCTIVITY</span> <span class="mi">10</span><span class="p">.</span><span class="mi">0</span> <span class="c1">// all the elements of the group 1 (second column in the list of elements) will have this property</span>
+<span class="n">End</span> <span class="n">Properties</span>
+
+<span class="n">Begin</span> <span class="n">Nodes</span>
+       <span class="mi">1</span>        <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>        <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>         <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>     <span class="c1">//node number, coord x, cord y, coord z</span>
+       <span class="mi">2</span>        <span class="mi">1</span><span class="p">.</span><span class="mi">0</span>        <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>         <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>     <span class="c1">//node number, coord x, cord y, coord z</span>
+       <span class="mi">3</span>        <span class="mi">1</span><span class="p">.</span><span class="mi">0</span>        <span class="mi">1</span><span class="p">.</span><span class="mi">0</span>         <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>     <span class="c1">//node number, coord x, cord y, coord z</span>
+       <span class="mi">4</span>        <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>        <span class="mi">1</span><span class="p">.</span><span class="mi">0</span>         <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>     <span class="c1">//node number, coord x, cord y, coord z</span>
+<span class="n">End</span> <span class="n">Nodes</span>
+
+<span class="n">Begin</span> <span class="n">Elements</span> <span class="n">MyLaplacianElement</span> <span class="c1">//here we must write the name of the element that we created</span>
+  <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span>   <span class="c1">//pos1:elem ID ; pos2:elem Property ( = 1 in this case) ; pos3 - pos5: node1-node3    </span>
+  <span class="mi">2</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">2</span>   <span class="c1">//pos1 and pos2 are always id and property. if the elem had 4 nodes, we woud add a 6th column for the last node    </span>
+<span class="n">End</span> <span class="n">Elements</span>
+
+<span class="n">Begin</span> <span class="n">NodalData</span> <span class="n">TEMPERATURE</span>          <span class="c1">//be careful, variables are case sensitive!</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">100</span><span class="p">.</span><span class="mi">0</span>                <span class="c1">// pos1 is the node, pos2 (a 1) means that the DOF is fixed, then (position 3) we write the fixed displacement (in this case, temperature)  </span>
+<span class="n">End</span> <span class="n">NodalData</span>
+
+<span class="n">Begin</span> <span class="n">NodalData</span> <span class="n">POINT_HEAT_SOURCE</span>             
+<span class="mi">3</span>    <span class="mi">0</span>    <span class="mi">5</span><span class="p">.</span><span class="mi">0</span>             <span class="c1">//fixing it or not does not change anything since it is not a degree of freedom, it's just info that will be used by the condition  </span>
+<span class="n">End</span> <span class="n">NodalData</span>
+
+<span class="n">Begin</span> <span class="n">Conditions</span> <span class="n">PointSourceCondition</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">3</span>     <span class="c1">//pos1:condition ID(irrelevant) ; pos2:cond Property ( = 1 in this case) ; pos3:node to apply the condition. if it was a line condition, then we would have 4 numbers instead of 3, just like elements              </span>
+<span class="n">End</span> <span class="n">Conditions</span>
+</code></pre></div></div>
+<p>our ProjectParameters.json file:</p>
+
+<p><strong>ProjectParameters.json</strong></p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+	<span class="s">"model_import_settings"</span>        <span class="p">:</span> <span class="p">{</span>
+		<span class="s">"input_type"</span>          <span class="p">:</span> <span class="s">"mdpa"</span><span class="p">,</span>
+		<span class="s">"input_filename"</span>      <span class="p">:</span> <span class="s">"unknown_name"</span>
+	<span class="p">},</span>
+	<span class="s">"echo_level"</span>                   <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="s">"buffer_size"</span>                  <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="s">"relative_tolerance"</span>           <span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+	<span class="s">"absolute_tolerance"</span>           <span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+	<span class="s">"maximum_iterations"</span>           <span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+	<span class="s">"compute_reactions"</span>            <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+	<span class="s">"reform_dofs_at_each_step"</span>     <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+	<span class="s">"calculate_norm_dx"</span>            <span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+	<span class="s">"move_mesh_flag"</span>               <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+	<span class="s">"linear_solver_settings"</span>       <span class="p">:</span> <span class="p">{</span>
+			<span class="s">"solver_type"</span>     <span class="p">:</span> <span class="s">"skyline_lu_factorization"</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>and our python file:</p>
+
+<p><strong>example.py</strong></p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span> <span class="c1">#makes KratosMultiphysics backward compatible with python 2.6 and 2.7
+</span>
+<span class="k">def</span> <span class="nf">Wait</span><span class="p">():</span>
+	<span class="nb">input</span><span class="p">(</span><span class="s">"Press Something"</span><span class="p">)</span>
+
+<span class="c1">#including kratos path
+</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">KratosMultiphysics</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1">#import KratosMultiphysics    #we import the KRATOS  
+</span><span class="kn">import</span> <span class="nn">KratosMultiphysics.MyLaplacianApplication</span> <span class="k">as</span> <span class="n">Poisson</span>       <span class="c1">#and now our application. note that we can import as many as we need to solve our specific problem 
+</span>
+
+<span class="c1">#setting the domain size for the problem to be solved
+</span><span class="n">domain_size</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 2D problem  
+</span>
+<span class="c1">#defining a model part
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
+<span class="n">model_part</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">CreateModelPart</span><span class="p">(</span><span class="s">"Main"</span><span class="p">);</span>  <span class="c1">#we create a model part  
+</span>
+<span class="kn">import</span> <span class="nn">KratosMultiphysics.MyLaplacianApplication.pure_diffusion_solver</span> <span class="k">as</span> <span class="n">pure_diffusion_solver</span>           <span class="c1">#we import the python file that includes the commands that we need 
+</span><span class="n">parameter_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"ProjectParameters.json"</span><span class="p">,</span><span class="s">'r'</span><span class="p">)</span>  <span class="c1"># we read the ProjectParameters.json file
+</span><span class="n">custom_settings</span> <span class="o">=</span> <span class="n">Parameters</span><span class="p">(</span><span class="n">parameter_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="n">pure_diffusion_solver</span> <span class="o">=</span> <span class="n">pure_diffusion_solver</span><span class="p">.</span><span class="n">CreateSolver</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">custom_settings</span><span class="p">)</span>
+<span class="n">pure_diffusion_solver</span><span class="p">.</span><span class="n">AddVariables</span><span class="p">()</span>  <span class="c1">#from the static_poisson_solver.py we call the function Addvariables so that the model part we have just created has the needed variables 
+</span>
+ <span class="c1"># (note that our model part does not have nodes or elements yet) 
+</span>
+ <span class="c1">#now we proceed to use the GID interface (both to import the infomation inside the .mdpa file and later print the results in a file  
+</span><span class="n">gid_mode</span> <span class="o">=</span> <span class="n">GiDPostMode</span><span class="p">.</span><span class="n">GiD_PostAscii</span>  <span class="c1">#we import the python file that includes the commands that we need  
+</span><span class="n">multifile</span> <span class="o">=</span> <span class="n">MultiFileFlag</span><span class="p">.</span><span class="n">SingleFile</span>
+<span class="n">deformed_mesh_flag</span> <span class="o">=</span> <span class="n">WriteDeformedMeshFlag</span><span class="p">.</span><span class="n">WriteUndeformed</span>
+<span class="n">write_conditions</span> <span class="o">=</span> <span class="n">WriteConditionsFlag</span><span class="p">.</span><span class="n">WriteElementsOnly</span>
+<span class="n">gid_io</span> <span class="o">=</span> <span class="n">GidIO</span><span class="p">(</span><span class="s">"art4"</span><span class="p">,</span> <span class="n">gid_mode</span><span class="p">,</span><span class="n">multifile</span><span class="p">,</span> <span class="n">deformed_mesh_flag</span><span class="p">,</span> <span class="n">write_conditions</span><span class="p">)</span>
+
+<span class="n">model_part_io</span> <span class="o">=</span> <span class="n">ModelPartIO</span><span class="p">(</span><span class="s">"example"</span><span class="p">)</span>          <span class="c1"># we set the name of the .mdpa file  
+</span><span class="n">model_part_io</span><span class="p">.</span><span class="n">ReadModelPart</span><span class="p">(</span><span class="n">model_part</span><span class="p">)</span>         <span class="c1"># we load the info from the .mdpa 
+</span>
+<span class="c1"># we create a mesh for the postprocess  
+</span><span class="n">mesh_name</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">gid_io</span><span class="p">.</span><span class="n">InitializeMesh</span><span class="p">(</span> <span class="n">mesh_name</span> <span class="p">)</span>
+<span class="n">gid_io</span><span class="p">.</span><span class="n">WriteMesh</span><span class="p">((</span><span class="n">model_part</span><span class="p">).</span><span class="n">GetMesh</span><span class="p">())</span>
+<span class="n">gid_io</span><span class="p">.</span><span class="n">FinalizeMesh</span><span class="p">()</span>
+
+<span class="c1">#the buffer size should be set up here after the mesh is read for the first time  (this is important for transcient problems, in this static problem =1 is enough)  
+</span><span class="n">model_part</span><span class="p">.</span><span class="n">SetBufferSize</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># we add the DoFs  
+</span><span class="n">pure_diffusion_solver</span><span class="p">.</span><span class="n">AddDofs</span><span class="p">()</span>
+
+<span class="c1"># Initialize the solver
+</span><span class="n">pure_diffusion_solver</span><span class="p">.</span><span class="n">Initialize</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="p">(</span><span class="s">"about to solve!"</span><span class="p">)</span>    
+<span class="n">pure_diffusion_solver</span><span class="p">.</span><span class="n">Solve</span><span class="p">()</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">"Solved!"</span><span class="p">)</span>  
+
+<span class="c1">#and we print the results  
+</span><span class="n">gid_io</span><span class="p">.</span><span class="n">InitializeResults</span><span class="p">(</span><span class="n">mesh_name</span><span class="p">,(</span><span class="n">model_part</span><span class="p">).</span><span class="n">GetMesh</span><span class="p">())</span> 
+<span class="n">gid_io</span><span class="p">.</span><span class="n">WriteNodalResults</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">,</span><span class="n">model_part</span><span class="p">.</span><span class="n">Nodes</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">gid_io</span><span class="p">.</span><span class="n">FinalizeResults</span><span class="p">()</span>
+
+<span class="c1"># since we have already calculated the temp, we can get the mean value
+# first the constructor (it could have been called before)
+</span><span class="k">try</span><span class="p">:</span>
+	<span class="n">calc_mean</span> <span class="o">=</span> <span class="n">Poisson</span><span class="p">.</span><span class="n">CalculateMeanTemperature</span><span class="p">(</span><span class="n">model_part</span><span class="p">)</span>
+    <span class="c1"># and we calculate!
+</span>	<span class="n">calc_mean</span><span class="p">.</span><span class="n">Execute</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+	<span class="k">pass</span>
+</code></pre></div></div>
+
+<h4 id="launching-and-viewing-the-postprocess-file">Launching and viewing the postprocess file</h4>
+
+<p>Once you have both files, you must open a console, go the directory where you created both files and type:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python example.py
+</code></pre></div></div>
+
+<p>This launches the script you’ve created and several files are created after it has finished. The ones we are interested in are <strong>output.res</strong> and <strong>output.msh</strong> (results and mesh respectively). They are ASCII files so you can view them using the text editor you prefer. Alternatively, you can open the <strong>.res</strong> with <em>GiD</em> to visualize them. The result should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/Kratos-For-Dummies/temperature.png" alt="" /></p>
+
+<p>Congratulations!, you have successfully created and launched your first python application.</p>
+
+<h4 id="using-the-gid-problemtype">Using the <em>GiD</em> problemtype</h4>
+
+<p><strong>NOTE</strong>: There is a new interface in <em>GiD</em>, the interface example is not implemented yet.</p>
+
+<p>Using the <em>GiD</em> interface allows you to manage much more complex geometries. Moreover, you can launch Kratos directly from the (visual) <em>GiD</em> interface, so there’s no longer need to use a console. To do so simply download <a href="http://kratos-wiki.cimne.upc.edu/index.php/File:PureDiffusion.gid.zip">File:PureDiffusion.gid.zip</a>  and unzip it inside the <em>GiD</em> problemtypes folder. The interface is really easy to use so you should have no problems understanding how to use it.</p>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

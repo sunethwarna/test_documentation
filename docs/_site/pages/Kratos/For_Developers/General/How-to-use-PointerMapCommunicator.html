@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="How-to-use-PointerMapCommunicator.md,  ">
+
+<title>PointerMapCommunicator | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the PointerMapCommunicator page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="PointerMapCommunicator">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Developers </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Adding dynamic contributions to the element file" href="/pages/Kratos/For_Developers/General/Tutorial-Adding-dynamic-contributions-to-the-element-file.html">Adding dynamic contributions to the element file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Adjoint API" href="/pages/Kratos/For_Developers/General/Adjoint-API.html">Adjoint API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Analysis stage for pure diffusion problem" href="/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.html">Analysis stage for pure diffusion problem</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Application Cases" href="/pages/Kratos/For_Developers/General/Application-Cases.html">Application Cases</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applications as python modules" href="/pages/Kratos/For_Developers/General/Applications-as-python-modules.html">Applications as python modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applying periodic boundary conditions" href="/pages/Kratos/For_Developers/General/Applying-periodic-boundary-conditions.html">Applying periodic boundary conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Authorship of Kratos files" href="/pages/Kratos/For_Developers/General/Authorship-of-Kratos-files.html">Authorship of Kratos files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Clang Tidy to automatically correct code" href="/pages/Kratos/For_Developers/General/How-to-use-Clang-Tidy-to-automatically-correct-code.html">Clang Tidy to automatically correct code</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Common Python Interface of Applications for Users" href="/pages/Kratos/For_Developers/General/Common-Python-Interface-of-Applications-for-Users.html">Common Python Interface of Applications for Users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Constitutive Law" href="/pages/Kratos/For_Developers/General/How-to-use-the-Constitutive-Law-class.html">Constitutive Law</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Cotire" href="/pages/Kratos/For_Developers/General/How-to-use-Cotire.html">Cotire</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating a wrapper of convergence criteria" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-a-wrapper-of-convergence-criteria.html">Creating a wrapper of convergence criteria</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating an Utility" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-an-Utility.html">Creating an Utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Conditions" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Conditions.html">Creating the Conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Element" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Element.html">Creating the Element</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Python Solver file" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Python-Solver-file.html">Creating the Python Solver file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Data management" href="/pages/Kratos/For_Developers/General/Data-management.html">Data management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Editing the main files" href="/pages/Kratos/For_Developers/General/Tutorial-Editing-the-main-files.html">Editing the main files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to Access DataBase" href="/pages/Kratos/For_Developers/General/How-to-Access-DataBase.html">How to Access DataBase</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to apply a function to a list of variables" href="/pages/Kratos/For_Developers/General/How-to-apply-a-function-to-a-list-of-variables.html">How to apply a function to a list of variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to configure clang‐format" href="/pages/Kratos/For_Developers/General/How-to-configure-clang‐format.html">How to configure clang‐format</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to create unitary tests" href="/pages/Kratos/For_Developers/General/How-to-create-unitary-tests.html">How to create unitary tests</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to generate python wheels" href="/pages/Kratos/For_Developers/General/How-to-generate-python-wheels.html">How to generate python wheels</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to make Git ignore the files resulting from a compilation without conflicts in .gitignore" href="/pages/Kratos/For_Developers/General/How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.html">How to make Git ignore the files resulting from a compilation without conflicts in .gitignore</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to run multiple cases using PyCOMPSs" href="/pages/Kratos/For_Developers/General/How-to-run-multiple-cases-using-PyCOMPSs.html">How to run multiple cases using PyCOMPSs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KRATOS_API for Windows Compilation" href="/pages/Kratos/For_Developers/General/KRATOS_API-for-Windows-Compilation.html">KRATOS_API for Windows Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos classes accesible via python" href="/pages/Kratos/For_Developers/General/Kratos-classes-accesible-via-python.html">Kratos classes accesible via python</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and I O" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-I-O.html">Kratos input files and I O</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and IO" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-IO.html">Kratos input files and IO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KratosAPI MultiPoint Constraint (MPC) interface" href="/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.html">KratosAPI MultiPoint Constraint (MPC) interface</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Local axes orientation" href="/pages/Kratos/For_Developers/General/Local-axes-orientation.html">Local axes orientation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Logger" href="/pages/Kratos/For_Developers/General/How-to-use-Logger.html">Logger</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Manipulating solution values" href="/pages/Kratos/For_Developers/General/Manipulating-solution-values.html">Manipulating solution values</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Mesh node ordering" href="/pages/Kratos/For_Developers/General/Mesh-node-ordering.html">Mesh node ordering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart and SubModelPart" href="/pages/Kratos/For_Developers/General/ModelPart-and-SubModelPart.html">ModelPart and SubModelPart</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart entities" href="/pages/Kratos/For_Developers/General/ModelPart-entities.html">ModelPart entities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Nodes and Nodal Data" href="/pages/Kratos/For_Developers/General/Nodes-and-Nodal-Data.html">Nodes and Nodal Data</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Parallel Utilities" href="/pages/Kratos/For_Developers/General/Parallel-Utilities.html">Parallel Utilities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerCommunicator.html">PointerCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="PointerMapCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.html">PointerMapCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to AMatrix" href="/pages/Kratos/For_Developers/General/Porting-to-AMatrix.html">Porting to AMatrix</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to PyBind11   common steps" href="/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.html">Porting to PyBind11   common steps</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Processes In the application of BCs" href="/pages/Kratos/For_Developers/General/How-to-use-Processes-In-the-application-of-BCs.html">Processes In the application of BCs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Pure diffusion solver derived from main python solver" href="/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.html">Pure diffusion solver derived from main python solver</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Quaternions in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-quaternions-in-Kratos.html">Quaternions in Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Smart Pointers within Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-Smart-Pointers-within-Kratos.html">Smart Pointers within Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Solving strategies" href="/pages/Kratos/For_Developers/General/Solving-strategies.html">Solving strategies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Sparse Linear Algebra (native Kratos implementation)" href="/pages/Kratos/For_Developers/General/Sparse-Linear-Algebra-(native-Kratos-implementation).html">Sparse Linear Algebra (native Kratos implementation)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Style Guide" href="/pages/Kratos/For_Developers/General/Style-Guide.html">Style Guide</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using alias for Ublas matrix and vector" href="/pages/Kratos/For_Developers/General/Using-alias-for-Ublas-matrix-and-vector.html">Using alias for Ublas matrix and vector</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using processes to customize a simulation" href="/pages/Kratos/For_Developers/General/Using-processes-to-customize-a-simulation.html">Using processes to customize a simulation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Utilities Colors utility" href="/pages/Kratos/For_Developers/General/Utilities-Colors-utility.html">Utilities Colors utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install" href="/pages/Kratos/For_Developers/General/Windows-Install.html">Windows Install</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install (MinGW)" href="/pages/Kratos/For_Developers/General/Windows-Install-(MinGW).html">Windows Install (MinGW)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the FEAST Solver in Kratos?" href="/pages/Kratos/For_Developers/General/How-to-use-the-FEAST-Solver-in-Kratos.html">the FEAST Solver in Kratos?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the Geometry" href="/pages/Kratos/For_Developers/General/How-to-use-the-Geometry.html">the Geometry</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the PaStiX solver in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-the-PaStiX-solver-in-Kratos.html">the PaStiX solver in Kratos</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">PointerMapCommunicator</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <p>Kratos provides a data proxy mechanism, based on the use of “GlobalPointers” to simplify communications involving non local data. In order to retrieve information on local and remote nodes, one can follow this wiki page <a href="How-to-use-PointerCommunicator">How to use PointerCommunicator</a> to get more information.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">GlobalPointerMapCommunicator</code> is designed to be used in a situation where, it is required to set an <code class="language-plaintext highlighter-rouge">enitity</code> (could be <code class="language-plaintext highlighter-rouge">Node</code>, <code class="language-plaintext highlighter-rouge">Element</code> or <code class="language-plaintext highlighter-rouge">Condition</code>, etc…) value. This <code class="language-plaintext highlighter-rouge">entity</code> can be in a local process (which is always the case in serial runs) or local/remote processes (which is the case for distributed runs). So <code class="language-plaintext highlighter-rouge">GlobalPointerMapCommunicator</code> takes care of the communication burden therefore user does not need to bother whether simulation is run on serial or distributed.</p>
+
+<p>To explain the usage, lets take the following example of doing assembly in a serial run where an element value (i.e. <code class="language-plaintext highlighter-rouge">TEMPERATURE</code>) needs to be distributed among its nodal neighbours.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// first TEMPERATURE variable is set to zero.</span>
+<span class="n">VariableUtils</span><span class="p">.</span><span class="n">SetNonHistoricalVariableToZero</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">,</span> <span class="n">model_part</span><span class="p">.</span><span class="n">Nodes</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">r_element</span> <span class="o">:</span> <span class="n">model_part</span><span class="p">.</span><span class="n">Elements</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">r_geometry</span> <span class="o">=</span> <span class="n">r_element</span><span class="p">.</span><span class="n">GetGeometry</span><span class="p">();</span>
+    <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">r_element</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">r_node</span> <span class="o">:</span> <span class="n">r_geometry</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">neighbours</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">NODAL_NEIGHBOURS</span><span class="p">);</span>
+       <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">gp</span> <span class="o">:</span> <span class="n">neighbours</span><span class="p">)</span> <span class="p">{</span>
+           <span class="n">gp</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">)</span> <span class="o">+=</span> <span class="n">temperature</span><span class="p">;</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>This works in serial run, but in a distributed run, <code class="language-plaintext highlighter-rouge">GlobalPointer</code>s given by <code class="language-plaintext highlighter-rouge">NODAL_NEIGHBOURS</code> will belong to either local or a remote processes. Therefore, this may require setting a value in a remote process. Above will give <code class="language-plaintext highlighter-rouge">Segmentaion Fault</code> error if a given <code class="language-plaintext highlighter-rouge">GlobalPointer</code> does not belong to the local process. These <code class="language-plaintext highlighter-rouge">GlobalPointer</code>s may also not belong to <code class="language-plaintext highlighter-rouge">GhostMesh</code> of the local process. So if the user plans to use <code class="language-plaintext highlighter-rouge">Assembly</code> methods in the <code class="language-plaintext highlighter-rouge">Communicator</code>, that will also fail to achieve the expected outcome if used without modifying existing <code class="language-plaintext highlighter-rouge">GhostMesh</code> (In there you will need to add all the remote nodes present in each of the node’s <code class="language-plaintext highlighter-rouge">NODAL_NEIGHBOURS</code> list to <code class="language-plaintext highlighter-rouge">GhostMesh</code> which will hinder the performance of normal operations in distributed run).</p>
+
+<p>So in order retrofit problems in the above mentioned task, and to achieve same outcome in serial or distributed run; One can use the following block of code with <code class="language-plaintext highlighter-rouge">GlobalPointerMapCommunicator</code></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// first TEMPERATURE variable is set to zero.</span>
+<span class="n">VariableUtils</span><span class="p">.</span><span class="n">SetNonHistoricalVariableToZero</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">,</span> <span class="n">model_part</span><span class="p">.</span><span class="n">Nodes</span><span class="p">);</span>
+
+<span class="c1">// create the global pointer map communicator</span>
+<span class="c1">// will not do anything in serial case.</span>
+<span class="n">GlobalPointerMapCommunicator</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">pointer_map_comm</span><span class="p">(</span><span class="n">r_default_comm</span><span class="p">);</span>
+
+<span class="c1">// creates the proxy method for updating</span>
+<span class="c1">// this proxy is called upon only with gps in their owning processes. No communication is done in here.</span>
+<span class="c1">// this proxy needs to be always thread safe for parallel loops of the entitiy being passed.</span>
+<span class="c1">// In this case the entity is of type Node&lt;3&gt;</span>
+<span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">apply_proxy</span> <span class="o">=</span> <span class="n">pointer_map_comm</span><span class="p">.</span><span class="n">GetApplyProxy</span><span class="p">([](</span><span class="n">Node</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;&amp;</span> <span class="n">rNode</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">NewValue</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">rNode</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">)</span> <span class="o">+=</span> <span class="n">NewValue</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// do the calculation</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">r_element</span> <span class="o">:</span> <span class="n">model_part</span><span class="p">.</span><span class="n">Elements</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">r_geometry</span> <span class="o">=</span> <span class="n">r_element</span><span class="p">.</span><span class="n">GetGeometry</span><span class="p">();</span>
+    <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">r_element</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">r_node</span> <span class="o">:</span> <span class="n">r_geometry</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">neighbours</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">NODAL_NEIGHBOURS</span><span class="p">);</span>
+       <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">gp</span> <span class="o">:</span> <span class="n">neighbours</span><span class="p">)</span> <span class="p">{</span>
+           <span class="c1">// this will directly call the apply_proxy methods lambda function</span>
+           <span class="c1">// in the serial case or in distributed when gp is local, </span>
+           <span class="c1">// otherwise the value will be stored in a non-local-gp data containers. No communication is done in here.</span>
+           <span class="n">apply_proxy</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">gp</span><span class="p">,</span> <span class="n">temperature</span><span class="p">);</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// do mpi communication</span>
+<span class="n">apply_proxy</span><span class="p">.</span><span class="n">SendAndApplyRemotely</span><span class="p">();</span>
+
+<span class="c1">// need to synchronize to update ghost mesh. Does nothing in the serial run</span>
+<span class="n">model_part</span><span class="p">.</span><span class="n">GetCommunicator</span><span class="p">().</span><span class="n">SynchronizeNonHistoricalVariable</span><span class="p">(</span><span class="n">TEMPERATURE</span><span class="p">);</span>
+</code></pre></div></div>
+<p>In the above code block, If the communicator returns <code class="language-plaintext highlighter-rouge">IsDistributed() -&gt; false</code> then followings will be the behaviour:</p>
+<ol>
+  <li>When <code class="language-plaintext highlighter-rouge">pointer_map_comm</code> is constructed, it will do nothing (except for reference assignments)</li>
+  <li>When <code class="language-plaintext highlighter-rouge">GetApplyProxy</code> is called with a lambda function, it will not do anything (only reference assignment)</li>
+  <li>When <code class="language-plaintext highlighter-rouge">apply_proxy.Assign</code> is called it will directly call the lambda function given in the <code class="language-plaintext highlighter-rouge">apply_proxy</code> (No checks performed, simply doing what is mentioned in the lambda, hence least performance impact). This can be called even in OMP parallel regions</li>
+  <li><code class="language-plaintext highlighter-rouge">apply_proxy.SendAndApplyRemotely()</code> will be a blank call.</li>
+</ol>
+
+<p>In the case where communicator returns <code class="language-plaintext highlighter-rouge">IsDistributed() -&gt; true</code> then it will have the following behaviour</p>
+<ol>
+  <li>When <code class="language-plaintext highlighter-rouge">pointer_map_comm</code> is constructed, it will do nothing (except for reference assignments)</li>
+  <li>When <code class="language-plaintext highlighter-rouge">GetApplyProxy</code> is called with a lambda function, it will reserve space (the size of them will be <code class="language-plaintext highlighter-rouge">number_of_threads</code>) to store <code class="language-plaintext highlighter-rouge">GlobalPointers</code> and <code class="language-plaintext highlighter-rouge">DataValues</code> which are non-local. (Cannot be called in OMP parallel regions)</li>
+  <li>When <code class="language-plaintext highlighter-rouge">apply_proxy.Assign</code> is called it will directly call the lambda function given in the <code class="language-plaintext highlighter-rouge">apply_proxy</code> if the given <code class="language-plaintext highlighter-rouge">GlobalPointer</code> is local, if not it will store <code class="language-plaintext highlighter-rouge">GlobalPointer</code> and <code class="language-plaintext highlighter-rouge">DataValue</code> for future communication. This can be called even in OMP parallel regions</li>
+  <li><code class="language-plaintext highlighter-rouge">apply_proxy.SendAndApplyRemotely()</code> will do communication for non-local <code class="language-plaintext highlighter-rouge">GlobalPointer</code> data values, and apply the proxy in their owning processes (This includes creating communication schedules, and the sending and receiving data to/from remote processes). This should not be called in OMP parallel regions.</li>
+</ol>
+
+<p><strong>In the MPI run, it is essential to do <code class="language-plaintext highlighter-rouge">Synchronization</code> for the variables which are modified through <code class="language-plaintext highlighter-rouge">apply_proxy</code> lambda to have consistent values in the <code class="language-plaintext highlighter-rouge">GhostMesh</code> because <code class="language-plaintext highlighter-rouge">SendAndApplyRemotely()</code> will not modify any of the entities in the <code class="language-plaintext highlighter-rouge">GhostMesh</code>.</strong></p>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

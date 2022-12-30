@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Overview.md,  ">
+
+<title>Particle Mechanics Application | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Particle Mechanics Application page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Particle Mechanics Application">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Particle Mechanics Application </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li class="active"><a title="Particle Mechanics Application" href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+  <li>
+      <a title="MPM example in GiD" href="#">MPM example in GiD</a>
+      <ul>
+          
+          
+          
+          <li><a title="Introduction" href="/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/introduction.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Set up of example" href="/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/set_up.html">Set up of example</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Meshing" href="/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/meshing.html">Meshing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Calculation" href="/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/calculation.html">Calculation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Post processing" href="/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/post_processing.html">Post processing</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+  <li>
+      <a title="Examples" href="#">Examples</a>
+      <ul>
+          
+          
+          
+          <li><a title="Cylinder on inclined plane 2D - comparison between analytical and numerical solution with MPM" href="/pages/Applications/Particle_Mechanics_Application/Examples/Cylinder_on_inclined_plane.html">Cylinder on inclined plane 2D - comparison between analytical and numerical solution with MPM</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Granular Flow 2D Validation Test" href="/pages/Applications/Particle_Mechanics_Application/Examples/Granular_flow_2d.html">Granular Flow 2D Validation Test</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Granular flow 2d readme" href="/pages/Applications/Particle_Mechanics_Application/Examples/remote_Granular_flow_2d_readme.html">Granular flow 2d readme</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Particle Mechanics Application</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Applications/Particle_Mechanics_Application/General/Overview.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <p>This application features continuum-based meshfree and particle methods with main motivations of simulating non-linear large deformable materials, such as free-surface flows, geomechanical phenomena, and extreme events involving impact, penetration, fragmentation, blast, multi-phase interaction, failure evolution, etc.</p>
+
+<p><img src="https://user-images.githubusercontent.com/51473791/191960884-1f1c5a0c-efec-40ca-ac6d-2d53b5530739.gif" alt="ParticleMechanicsApplication" /></p>
+
+<p>The recent research and development have been focused solely on the Material Point Method (MPM) and on partiotioned coupled formulations MPM-FEM and MPM-DEM.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>This application is part of the Kratos Multiphysics Platform. Instructions on how to download, install and run the software in your local machine for development and testing purposes are available for both Linux and Windows distributions <a href="https://github.com/KratosMultiphysics/Kratos/blob/master/INSTALL.md">Installation page</a>.</p>
+
+<p><strong>Prerequisites</strong></p>
+
+<p>Build Kratos and check the <a href="https://github.com/KratosMultiphysics/Kratos/blob/master/INSTALL.md#configuration-scripts-examples">configuration files</a></p>
+
+<p>In LINUX: check that in the /path_to_kratos/scripts/configure.sh the followinglines are written:</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-DPARTICLE_MECHANICS_APPLICATION=ON
+-DLINEAR_SOLVERS_APPLICATION=ON
+</code></pre></div></div>
+
+<p>In WINDOWS: check that in the /path_to_kratos/scripts/configute.bat the following lines appears:</p>
+
+<p><code class="language-plaintext highlighter-rouge">set KRATOS_APPLICATIONS=
+CALL :add_app %KRATOS_APP_DIR%\LinearSolversApplication;
+CALL :add_app %KRATOS_APP_DIR%\ParticleMechanicsApplication;
+</code></p>
+
+<p>so the Particle Mechanics application is compiled along with auxiliary linear solvers required.</p>
+
+<h2 id="examples">Examples</h2>
+<p>Some use-cases and validation examples are available in the Particle Mechanics section of the <a href="https://kratosmultiphysics.github.io/Examples/">Examples</a> repository.<br />
+Also, some unit tests of the main features can be found in the <a href="https://github.com/KratosMultiphysics/Kratos/tree/master/applications/ParticleMechanicsApplication/tests">tests</a> folder.</p>
+
+<p><strong>GiD Interface</strong></p>
+
+<p>A GiD user interface for the MPM application is also available. It is located in <a href="https://github.com/KratosMultiphysics/GiDInterface/tree/master/">GiD interface repository</a>.<br />
+It requires <a href="https://www.gidhome.com/">GiD</a> - Pre and Post Processing software.</p>
+
+<h2 id="theory">Theory</h2>
+
+<p>Particle or meshfree methods are a category of methods where the state of a system is represented by a set of particles, without a fixed connectivity; hence, making such methods suitable for the analysis of moving discontinuities and large deformations with breaking and fragmentation. This approach does not suffer from the mesh distortion and entanglement issues posed by other Lagrangian discretizations such as the finite element method.</p>
+
+<p><strong>Material Point Method</strong></p>
+
+<p>The MPM is an hybrid thechnique which uses a fixed background grid (or mesh) for solving the governing equations in a FEM fashion and  set of material particles (MP) for storing all the hystorical variables and material informations. MPM has gained a remarkably increasing popularity due to its capability in simulating  problems involving historically dependent materials and large deformations. As MPM is able to combine the strengths of Eulerian and Lagrangian methods, it has been utilized in various engineering applications and industrial purposes, in particular in geomechanics and environmental fluid dynamics field.</p>
+
+<p>Recommended references for implementation details of MPM in Kratos:</p>
+
+<ul>
+  <li>Singer, V.; Sautter, K.B., Larese, A., Wüchner, R.; Bletzinger, K.U.; A partitioned material point method and discrete element method coupling scheme, Advanced Modeling and Simulation in Engineering Sciences, 9(16), (2022); DOI: https://doi.org/10.1186/s40323-022-00229-5</li>
+  <li>Chandra, B., Singer, V., Teschemacher, T., Wuechner, R., &amp; Larese, A. (2021). Nonconforming Dirichlet boundary conditions in implicit material point method by means of penalty augmentation. Acta Geotechnica, 16(8), 2315-2335.</li>
+  <li>Wilson, P., Wüchner, R., &amp; Fernando, D. (2021). Distillation of the material point method cell crossing error leading to a novel quadrature‐based C 0 remedy. International Journal for Numerical Methods in Engineering, 122(6), 1513-1537.</li>
+  <li>Iaconeta, I., Larese, A., Rossi, R., &amp; Oñate, E. (2018). A stabilized mixed implicit Material Point Method for non-linear incompressible solid mechanics. <em>Computational Mechanics</em>, 1-18.</li>
+  <li>Iaconeta, I., Larese, A., Rossi, R., &amp; Zhiming, G. (2016). Comparison of a material point method and a Galerkin meshfree method for the simulation of cohesive-frictional materials. <em>Materials</em>, 10(10), p. 1150.</li>
+</ul>
+
+<h2 id="features">Features</h2>
+
+<p>The following features are currently available and subject to development within the Particle Mechanics Application:</p>
+<ul>
+  <li>Formulation:
+    <ul>
+      <li>Irreducible formulations (U displacement based)</li>
+      <li>Mixed UP formulations</li>
+    </ul>
+  </li>
+  <li>Element types:
+    <ul>
+      <li>Updated Lagrangian elements - triangular and quadrilatera (2D) and tetrahedral and hexahedral (3D), structured and unstructured, using classical or partitioned quadrature rules (this latter limited to explicit MPM)</li>
+      <li>Updated Lagrangian axis-symmetric elements - triangular and quadrilateral (2D), structured and unstructured</li>
+      <li>Updated Lagrangian mixed UP elements - triangular (2D) and tetrahedral (3D), structured and unstructured, stabilized using  Variational Multiscale Stabilization or Pressure Projection techniques</li>
+    </ul>
+  </li>
+  <li>Constitutive laws:
+    <ul>
+      <li>Linear isotropic elastic materials - plane strain, plane stress, axis-symmetric, and 3D</li>
+      <li>Hyperelastic Neo-Hookean laws - finite strain, plane strain, axis-symmetric, and 3D</li>
+      <li>Elasto-plastic laws:
+        <ul>
+          <li>Mohr Coulomb - finite strain, associative and non-associative, plane strain, axis-symmetric, and 3D</li>
+          <li>Mohr Coulomb with Strain Softening - finite strain, associative and non-associative, plane strain, axis-symmetric, and 3D</li>
+        </ul>
+      </li>
+      <li>Critical state laws:
+        <ul>
+          <li>Modified Cam-Clay - finite strain, plane strain, axis-symmetric, and 3D</li>
+          <li>Johnson Cook Thermal Plastic (just for explicit MPM)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>A set of Boundary conditions:
+    <ul>
+      <li>Grid-Based Conditions (conforming): applied directly on the background nodes
+        <ul>
+          <li>Neumann: Point load</li>
+          <li>Neumann: Line load (a distributed load applied over a line)</li>
+          <li>Neumann: Surface load (a distributed load applied over a face)</li>
+          <li>Dirichlet: Slip and No slip condition on arbitrary boundary.</li>
+        </ul>
+      </li>
+      <li>Particle-Based Conditions (non conforming): applied in moveable boundary particles
+        <ul>
+          <li>Neumann: Moving point load</li>
+          <li>Dirichlet: Imposition of displacements (homogeneous and inhomogeneous) using penalty method</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Strategies and schemes:
+    <ul>
+      <li>Implicit - Newmark/Bossak prediction and correction scheme for static, quasi-static, and dynamic problems</li>
+      <li>Explicit</li>
+    </ul>
+  </li>
+  <li>Other features:
+    <ul>
+      <li>Partitioned coupling with Finite Element Method - weak and strong coupling of nonconforming discretization</li>
+      <li>Partitioned coupling with the Discrete Element Method</li>
+      <li>Particle erase features - to delete particle outside the interest domain</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>The Particle Mechanics Application is OPEN SOURCE. The main code and program structure is available and aimed to grow with the need of any user willing to expand it. The BSD (Berkeley Software Distribution) licence allows to use and distribute the existing code without any restriction, but with the possibility to develop new parts of the code on an open or close basis depending on the developers.</p>
+
+<h2 id="contact">Contact</h2>
+
+<ul>
+  <li><strong>Antonia Larese</strong> - <em>Group Leader</em> - <a href="mailto:antonia.larese@unipd.it">antonia.larese@unipd.it</a></li>
+  <li><strong>Veronika Singer</strong> - <em>Developer</em> - <a href="mailto:veronika.singer@tum.de">veronika.singer@tum.de</a></li>
+  <li><strong>Laura Moreno</strong> - <em>Developer</em> - <a href="mailto:laura.morenomartinez@unipd.it">laura.morenomartinez@unipd.it</a></li>
+</ul>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

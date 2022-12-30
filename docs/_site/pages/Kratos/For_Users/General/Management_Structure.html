@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Management-Structure.md,  ">
+
+<title>Management Structure | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Management Structure page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Management Structure">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Users </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Summary" href="/pages/Kratos/For_Users/General/../../../index.html">Summary</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Overview" href="/pages/Kratos/For_Users/General/Overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="Management Structure" href="/pages/Kratos/For_Users/General/Management_Structure.html">Management Structure</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="General Structure" href="/pages/Kratos/For_Users/General/General_Structure.html">General Structure</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Copyright and Licence" href="/pages/Kratos/For_Users/General/Copyright_and_Licence.html">Copyright and Licence</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+  <li>
+      <a title="How to get Kratos" href="#">How to get Kratos</a>
+      <ul>
+          
+          
+          
+          <li><a title="" href=""></a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Binaries" href="#">Binaries</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Getting Kratos binaries (via GiD)" href="/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-binaries-with-gid.html">Getting Kratos binaries (via GiD)</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Getting Kratos Binaries for Windows" href="/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-Binaries-for-Windows.html">Getting Kratos Binaries for Windows</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Getting Kratos Binaries for Linux" href="/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-Binaries-for-Linux.html">Getting Kratos Binaries for Linux</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Compilation" href="#">Compilation</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Compilation Options" href="/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/remote_Compilation_Options.html">Compilation Options</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="How to Compile Kratos in Debug mode" href="/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/How-to-Compile-Kratos-in-Debug-mode.html">How to Compile Kratos in Debug mode</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Linux Build" href="/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/Linux-Build.html">Linux Build</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+  <li>
+      <a title="Getting started" href="#">Getting started</a>
+      <ul>
+          
+          
+          
+          <li><a title="Kernel and Applications" href="/pages/Kratos/For_Users/Getting_started/Editing-kratos-kernel-and-application-approach.html">Kernel and Applications</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Python Script  Getting Started" href="/pages/Kratos/For_Users/Getting_started/getting-started.html">Python Script  Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Python Script  Hello Kratos" href="/pages/Kratos/For_Users/Getting_started/hello-world.html">Python Script  Hello Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Python Tutorials" href="/pages/Kratos/For_Users/Getting_started/tutorials.html">Python Tutorials</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Data Structure" href="#">Data Structure</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Entities creation from scratch" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/Entities-creation-from-scratch.html">Entities creation from scratch</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Generating New Modelparts" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/generate-new-modelpart.html">Python Script  Generating New Modelparts</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  ModelPart Elements and Conditions" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/elems-and-conds.html">Python Script  ModelPart Elements and Conditions</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  ModelPart and SubModelPart" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/modelpart-and-submodelpart.html">Python Script  ModelPart and SubModelPart</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Nodes and Nodal Data" href="/pages/Kratos/For_Users/Getting_started/Data_Structure/nodes-and-data.html">Python Script  Nodes and Nodal Data</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="From scratch" href="#">From scratch</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="Creating a base application" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Creating-a-base-application.html">Creating a base application</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Example A simple Fluid   Thermal coupled solver" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Example-A-simple-Fluid---Thermal-coupled-solver.html">Example A simple Fluid   Thermal coupled solver</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="How to Create a New Application using cmake" href="/pages/Kratos/For_Users/Getting_started/From_scratch/How-to-Create-a-New-Application-using-cmake.html">How to Create a New Application using cmake</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Implementing thermal solver" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Implementing-thermal-solver.html">Implementing thermal solver</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Kratos For Dummies Stationary heat transfer" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Stationary-heat-transfer.html">Kratos For Dummies Stationary heat transfer</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Kratos For Dummies Transient non linear heat transfer" href="/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Transient-non-linear-heat-transfer.html">Kratos For Dummies Transient non linear heat transfer</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a title="Input Output and Visualization" href="#">Input Output and Visualization</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a title="How to interact with a simulation to visualize real time results" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/How-to-interact-with-a-simulation-to-visualize-real-time-results.html">How to interact with a simulation to visualize real time results</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="How to write a JSON configuration file" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/How-to-write-a-JSON-configuration-file.html">How to write a JSON configuration file</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Input data" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/Input-data.html">Input data</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Reading ModelPart From Input File" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/reading-input.html">Python Script  Reading ModelPart From Input File</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Reading ProjectParameters" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/project-parameters.html">Python Script  Reading ProjectParameters</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a title="Python Script  Writing Output File" href="/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/writing-output.html">Python Script  Writing Output File</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Management Structure</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Users/General/Management_Structure.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h2 id="steering-committee">Steering Committee</h2>
+<p>It is the committee in charge of fostering the use and development of Kratos Multiphysics in academia, research centers and industry. It is also in charge of organizing the election process for the elected members in the Technical Committee(TC), of approving the new members of the TC appointed by industrial sponsors, and of establishing and maintaining the general Kratos project guidelines. A special focus is on social, cooperative and strategic aspects.</p>
+<h3 id="composition">Composition</h3>
+<ul>
+  <li>Eugenio Oñate (UPC, CIMNE)</li>
+  <li>Pooyan Dadvand (Altair, UPC)</li>
+  <li>Riccardo Rossi (UPC, CIMNE)</li>
+  <li>Roland Wüchner (TUM, CIMNE)</li>
+</ul>
+
+<h2 id="technical-committee">Technical Committee</h2>
+<p>The Kratos Technical Committee (TC) is the maximum technical body of the Kratos project. It either acts on its own initiative or by
+request of any developer to help on the solution of technical issues or eventually in decision
+conflicts. The committee will attempt to find a consensus between the developers. In the case in
+which such a consensus cannot be reached, will ultimately take decisions.
+The TC will act whenever possible through online communication mechanisms, actively participating
+in discussions in which it is directly mentioned. Meetings, either in person or virtual will be organized
+as-needed.
+The committee has the following composition:</p>
+<ul>
+  <li>2 native members</li>
+  <li>3 elected members</li>
+  <li>Members appointed by industrial sponsors</li>
+</ul>
+
+<h3 id="native-members">Native members</h3>
+<p>The 2 native members are Pooyan Dadvand and Riccardo Rossi due to their long experience since
+the beginning of the project. This will help the stability and maintain the accumulated experience in
+the committee. This status will hold as long as they are actively contributing to the project. In case
+one of the native chairs leaves the position, a new elected member will take his place.</p>
+<h3 id="elected-members">Elected members</h3>
+<p>The 3 elected members will be renewed every 2 years.
+Candidates eligible for these chairs should have been responsible of an application which has been
+active more than one year in the repository.</p>
+<h3 id="who-can-vote">Who can vote</h3>
+<p>Any contributors to the open part of the project, with any affiliation, who have performed sustained
+contributions to the public part of the project during the year prior to the elections. Contribution
+includes:</p>
+<ul>
+  <li>Code developments</li>
+  <li>Documentation</li>
+  <li>Management</li>
+  <li>Formation</li>
+  <li>Dissemination</li>
+</ul>
+
+<h3 id="members-appointed-by-industrial-sponsors">Members appointed by industrial sponsors</h3>
+<p>Members can be appointed by industrial organizations who contribute yearly a significant financial support to the development of Kratos Multiphysics. The membership should be approved by the Steering Committee
+who will establish the exact conditions.</p>
+
+<h3 id="current-composition">Current composition</h3>
+<ul>
+  <li>Pooyan Dadvand (native member)</li>
+  <li>Riccardo Rossi (native member)</li>
+  <li>Rubén Zorrilla (elected 2019, reelected 2021)</li>
+  <li>Carlos Roig (elected 2017, reelected 2019, reelected 2021)</li>
+  <li>Suneth Warnakulasuriya (elected 2021)</li>
+</ul>
+
+<h3 id="previous-members">Previous members</h3>
+<ul>
+  <li>Philipp Bucher</li>
+  <li>Josep Maria Carbonell</li>
+  <li>Antonia Larese De Tetto</li>
+  <li>Miguel Ángel Celigueta</li>
+  <li>Jordi Cotela Dalmau</li>
+</ul>
+
+<h2 id="implementation-subcommittee">Implementation SubCommittee</h2>
+<p>The implementation subcommittee works in close collaboration with the KTC and aims at helping the community by giving support in the discussion and development of new, potentially advanced, features. The implementation subcommittee members are chosen by the KTC after each KTC elections by promoting the most experienced and proactive developers of Kratos.</p>
+
+<h3 id="current-composition-1">Current composition</h3>
+
+<ul>
+  <li>Alejandro Cornejo</li>
+  <li>Miguel Masó Sotomayor</li>
+  <li>Daniel Díez</li>
+  <li>Iñigo López</li>
+</ul>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,1443 @@
+[
+  
+    {
+      "title"    : "Roll up beam cantilever",
+      "category" : "",
+      "tags"     : "Roll-up-beam-cantilever.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Open cylinder pull out",
+      "category" : "",
+      "tags"     : "Open-cylinder-pull-out.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/1_Open-cylinder-pull-out.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "2D Cavity flow problem",
+      "category" : "",
+      "tags"     : "2D-Cavity-flow-problem.md",
+      "url"      : "/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "2D Mok benchmark",
+      "category" : "",
+      "tags"     : "2D-Mok-benchmark.md",
+      "url"      : "/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "404",
+      "category" : "",
+      "tags"     : "404.md",
+      "url"      : "/pages/Kratos/404.md.old",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "API for RomApplication (draft to be moved elsewhere)",
+      "category" : "",
+      "tags"     : "API-for-RomApplication-(draft-to-be-moved-elsewhere).md",
+      "url"      : "/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "API for RomApplication (draft to be moved elsewhere",
+      "category" : "",
+      "tags"     : "API-for-RomApplication-(draft-to-be-moved-elsewhere.md",
+      "url"      : "/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Adjoint API",
+      "category" : "",
+      "tags"     : "Adjoint-API.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Adjoint-API.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Application Cases",
+      "category" : "",
+      "tags"     : "Application-Cases.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Application-Cases.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Application Documentation",
+      "category" : "",
+      "tags"     : "creating application documentation",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Create_Content/Application_documentation.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Applications as python modules",
+      "category" : "",
+      "tags"     : "Applications-as-python-modules.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Applications-as-python-modules.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Applying periodic boundary conditions",
+      "category" : "",
+      "tags"     : "Applying-periodic-boundary-conditions.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Applying-periodic-boundary-conditions.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Authorship of Kratos files",
+      "category" : "",
+      "tags"     : "Authorship-of-Kratos-files.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Authorship-of-Kratos-files.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Basic DEM Benchmarking12",
+      "category" : "",
+      "tags"     : "Basic-DEM-Benchmarking.md",
+      "url"      : "/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Checking memory usage with Valgrind",
+      "category" : "",
+      "tags"     : "Checking-memory-usage-with-Valgrind.md",
+      "url"      : "/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Common Python Interface of Applications for Users",
+      "category" : "",
+      "tags"     : "Common-Python-Interface-of-Applications-for-Users.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Common-Python-Interface-of-Applications-for-Users.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Composite clamped cylinder",
+      "category" : "",
+      "tags"     : "Composite-clamped-cylinder.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Composite-clamped-cylinder.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Composite hinged cylindrical roof snapthrough",
+      "category" : "",
+      "tags"     : "Composite-hinged-cylindrical-roof-snapthrough.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Composite-hinged-cylindrical-roof-snapthrough.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Copyright and Licence",
+      "category" : "",
+      "tags"     : "Licence.md",
+      "url"      : "/pages/Kratos/For_Users/General/Copyright_and_Licence.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Creating a base application",
+      "category" : "",
+      "tags"     : "Creating-a-base-application.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/From_scratch/Creating-a-base-application.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Custom Entries",
+      "category" : "",
+      "tags"     : "adding custom entries, adding external links, adding kratos examples",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Modify_Navigation_Bars/Custom_entries.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Cylinder on inclined plane 2D - comparison between analytical and numerical solution with MPM",
+      "category" : "",
+      "tags"     : "Cylinder_on_inclined_plane.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/Examples/Cylinder_on_inclined_plane.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Data management",
+      "category" : "",
+      "tags"     : "Data-management.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Data-management.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Debug Memory Using ASAN",
+      "category" : "",
+      "tags"     : "Debug-Memory-Using-ASAN.md",
+      "url"      : "/pages/Kratos/Debugging/General/Debug-Memory-Using-ASAN.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Debugging Kratos using GDB",
+      "category" : "",
+      "tags"     : "Debugging-Kratos-using-GDB.md",
+      "url"      : "/pages/Kratos/Debugging/General/Debugging-Kratos-using-GDB.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Debugging Kratos using Visual Studio",
+      "category" : "",
+      "tags"     : "Debugging-Kratos-using-Visual-Studio.md",
+      "url"      : "/pages/Kratos/Debugging/General/Debugging-Kratos-using-Visual-Studio.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Distribution",
+      "category" : "",
+      "tags"     : "Distribution.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Distribution.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Documentation Pages",
+      "category" : "",
+      "tags"     : "documentation, adding latex, adding images, page structure",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Create_Content/Documentation_Pages.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kernel and Applications",
+      "category" : "",
+      "tags"     : "Kernel Applications",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Editing-kratos-kernel-and-application-approach.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Entities creation from scratch",
+      "category" : "",
+      "tags"     : "Entities-creation-from-scratch.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Data_Structure/Entities-creation-from-scratch.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Example A simple Fluid   Thermal coupled solver",
+      "category" : "",
+      "tags"     : "Example-A-simple-Fluid---Thermal-coupled-solver.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/From_scratch/Example-A-simple-Fluid---Thermal-coupled-solver.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Formfinding and Membrane Analysis",
+      "category" : "",
+      "tags"     : "Formfinding-and-Membrane-Analysis.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Formfinding-and-Membrane-Analysis.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "General Structure",
+      "category" : "",
+      "tags"     : "General-Structure",
+      "url"      : "/pages/Kratos/For_Users/General/General_Structure.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Getting Kratos Binaries for Linux",
+      "category" : "",
+      "tags"     : "Getting-Kratos-Binaries-for-Linux.md",
+      "url"      : "/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-Binaries-for-Linux.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Getting Kratos Binaries for Windows",
+      "category" : "",
+      "tags"     : "Getting-Kratos-Binaries-for-Windows.md",
+      "url"      : "/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-Binaries-for-Windows.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Getting Kratos binaries (via GiD)",
+      "category" : "",
+      "tags"     : "Getting-Kratos-binaries-(via-GiD).md",
+      "url"      : "/pages/Kratos/For_Users/How_to_get_Kratos/Binaries/Getting-Kratos-binaries-with-gid.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Granular Flow 2D Validation Test",
+      "category" : "",
+      "tags"     : "Granular_flow_2d.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/Examples/Granular_flow_2d.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Hinged cylindrical roof snapthrough",
+      "category" : "",
+      "tags"     : "Hinged-cylindrical-roof-snapthrough.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Hinged-cylindrical-roof-snapthrough.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to Access DataBase",
+      "category" : "",
+      "tags"     : "How-to-Access-DataBase.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-Access-DataBase.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to Compile Kratos in Debug mode",
+      "category" : "",
+      "tags"     : "How-to-Compile-Kratos-in-Debug-mode.md",
+      "url"      : "/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/How-to-Compile-Kratos-in-Debug-mode.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to Create a New Application using cmake",
+      "category" : "",
+      "tags"     : "How-to-Create-a-New-Application-using-cmake.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/From_scratch/How-to-Create-a-New-Application-using-cmake.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to apply a function to a list of variables",
+      "category" : "",
+      "tags"     : "How-to-apply-a-function-to-a-list-of-variables.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-apply-a-function-to-a-list-of-variables.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to configure clang‐format",
+      "category" : "",
+      "tags"     : "How-to-configure-clang‐format.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-configure-clang%E2%80%90format.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to create unitary tests",
+      "category" : "",
+      "tags"     : "How-to-create-unitary-tests.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-create-unitary-tests.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to cross debug Kratos under Windows",
+      "category" : "",
+      "tags"     : "How-to-cross-debug-Kratos-under-Windows.md",
+      "url"      : "/pages/Kratos/Debugging/General/How-to-cross-debug-Kratos-under-Windows.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to do Mapping between nonmatching meshes",
+      "category" : "",
+      "tags"     : "How-to-do-Mapping-between-nonmatching-meshes.md",
+      "url"      : "/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to generate python wheels",
+      "category" : "",
+      "tags"     : "How-to-generate-python-wheels.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-generate-python-wheels.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to interact with a simulation to visualize real time results",
+      "category" : "",
+      "tags"     : "How-to-interact-with-a-simulation-to-visualize-real-time-results.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/How-to-interact-with-a-simulation-to-visualize-real-time-results.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to make Git ignore the files resulting from a compilation without conflicts in .gitignore",
+      "category" : "",
+      "tags"     : "How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to profile Kratos using MAQAO",
+      "category" : "",
+      "tags"     : "How-to-profile-Kratos-using-MAQAO.md",
+      "url"      : "/pages/Kratos/Debugging/General/How-to-profile-Kratos-using-MAQAO.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to run multiple cases using PyCOMPSs",
+      "category" : "",
+      "tags"     : "How-to-run-multiple-cases-using-PyCOMPSs.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-run-multiple-cases-using-PyCOMPSs.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Clang Tidy to automatically correct code",
+      "category" : "",
+      "tags"     : "How-to-use-Clang-Tidy-to-automatically-correct-code.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-Clang-Tidy-to-automatically-correct-code.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Cotire",
+      "category" : "",
+      "tags"     : "How-to-use-Cotire.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-Cotire.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Logger",
+      "category" : "",
+      "tags"     : "How-to-use-Logger.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-Logger.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "PointerCommunicator",
+      "category" : "",
+      "tags"     : "How-to-use-PointerCommunicator.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-PointerCommunicator.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "PointerMapCommunicator",
+      "category" : "",
+      "tags"     : "How-to-use-PointerMapCommunicator.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Processes In the application of BCs",
+      "category" : "",
+      "tags"     : "How-to-use-Processes-In-the-application-of-BCs.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-Processes-In-the-application-of-BCs.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Serialization",
+      "category" : "",
+      "tags"     : "How-to-use-Serialization.md",
+      "url"      : "/pages/Kratos/Debugging/General/How-to-use-Serialization.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Smart Pointers within Kratos",
+      "category" : "",
+      "tags"     : "How-to-use-Smart-Pointers-within-Kratos.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-Smart-Pointers-within-Kratos.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Quaternions in Kratos",
+      "category" : "",
+      "tags"     : "C++ Quaternions Tutorial",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-quaternions-in-Kratos.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Constitutive Law",
+      "category" : "",
+      "tags"     : "Constitutive Law Tutorial C++",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-the-Constitutive-Law-class.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "the FEAST Solver in Kratos?",
+      "category" : "",
+      "tags"     : "How-to-use-the-FEAST-Solver-in-Kratos.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-the-FEAST-Solver-in-Kratos.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "the Geometry",
+      "category" : "",
+      "tags"     : "How-to-use-the-Geometry.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-the-Geometry.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "the PaStiX solver in Kratos",
+      "category" : "",
+      "tags"     : "How-to-use-the-PaStiX-solver-in-Kratos.md",
+      "url"      : "/pages/Kratos/For_Developers/General/How-to-use-the-PaStiX-solver-in-Kratos.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "How to write a JSON configuration file",
+      "category" : "",
+      "tags"     : "How-to-write-a-JSON-configuration-file.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/How-to-write-a-JSON-configuration-file.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Implementing thermal solver",
+      "category" : "",
+      "tags"     : "Implementing-thermal-solver.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/From_scratch/Implementing-thermal-solver.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Input data",
+      "category" : "",
+      "tags"     : "Input-data.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/Input-data.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "KRATOS_API for Windows Compilation",
+      "category" : "",
+      "tags"     : "KRATOS_API-for-Windows-Compilation.md",
+      "url"      : "/pages/Kratos/For_Developers/General/KRATOS_API-for-Windows-Compilation.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos For Dummies Stationary heat transfer",
+      "category" : "",
+      "tags"     : "Kratos-For-Dummies-Stationary-heat-transfer.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Stationary-heat-transfer.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos For Dummies Transient non linear heat transfer",
+      "category" : "",
+      "tags"     : "Kratos-For-Dummies-Transient-non-linear-heat-transfer.md",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/From_scratch/Kratos-For-Dummies-Transient-non-linear-heat-transfer.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos classes accesible via python",
+      "category" : "",
+      "tags"     : "Kratos-classes-accesible-via-python.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Kratos-classes-accesible-via-python.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos input files and I O",
+      "category" : "",
+      "tags"     : "Kratos-input-files-and-I-O.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Kratos-input-files-and-I-O.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos input files and IO",
+      "category" : "",
+      "tags"     : "Kratos-input-files-and-IO.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Kratos-input-files-and-IO.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "KratosStructuralMechanicsAPI Constitutive laws in Structural Mechanics Application",
+      "category" : "",
+      "tags"     : "KratosStructuralMechanicsAPI-Constitutive-laws-in-Structural-Mechanics-Application.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/KratosStructuralMechanicsAPI-Constitutive-laws-in-Structural-Mechanics-Application.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos Core",
+      "category" : "",
+      "tags"     : "Kratos_Core.md",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Create_Content/Kratos_Core.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Linux Build",
+      "category" : "",
+      "tags"     : "Linux-Build.md",
+      "url"      : "/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/Linux-Build.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Local axes orientation",
+      "category" : "",
+      "tags"     : "Local-axes-orientation.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Local-axes-orientation.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Management Structure",
+      "category" : "",
+      "tags"     : "Management-Structure.md",
+      "url"      : "/pages/Kratos/For_Users/General/Management_Structure.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Manipulating solution values",
+      "category" : "",
+      "tags"     : "Manipulating-solution-values.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Manipulating-solution-values.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Max",
+      "category" : "",
+      "tags"     : "Max.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Max.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Mean",
+      "category" : "",
+      "tags"     : "Mean.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Mean.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Median",
+      "category" : "",
+      "tags"     : "Median.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Median.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Mesh node ordering",
+      "category" : "",
+      "tags"     : "Mesh-node-ordering.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Mesh-node-ordering.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Min",
+      "category" : "",
+      "tags"     : "Min.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Min.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "ModelPart and SubModelPart",
+      "category" : "",
+      "tags"     : "ModelPart-and-SubModelPart.md",
+      "url"      : "/pages/Kratos/For_Developers/General/ModelPart-and-SubModelPart.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "ModelPart entities",
+      "category" : "",
+      "tags"     : "ModelPart-entities.md",
+      "url"      : "/pages/Kratos/For_Developers/General/ModelPart-entities.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Side Navigation Bar",
+      "category" : "",
+      "tags"     : "modify side navigation bar",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Modify_Navigation_Bars/Modify_side_nav.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Top Navigation Bar",
+      "category" : "",
+      "tags"     : "modify top navigation bar",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Modify_Navigation_Bars/Modify_top_nav.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "KratosAPI MultiPoint Constraint (MPC) interface",
+      "category" : "",
+      "tags"     : "KratosAPI-MultiPoint-Constraint-(MPC)-interface.md",
+      "url"      : "/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Nodes and Nodal Data",
+      "category" : "",
+      "tags"     : "Nodes-and-Nodal-Data.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Nodes-and-Nodal-Data.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Non linear cantilever beam",
+      "category" : "",
+      "tags"     : "Non-linear-cantilever-beam.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Non-linear-cantilever-beam.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Organization",
+      "category" : "",
+      "tags"     : "Organization.md",
+      "url"      : "/pages/Kratos/Documentation_Guide/General/Organization.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Overview",
+      "category" : "",
+      "tags"     : "Overview.md",
+      "url"      : "/pages/Applications/Statistics_Application/General/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Overview",
+      "category" : "",
+      "tags"     : "Overview.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Particle Mechanics Application",
+      "category" : "",
+      "tags"     : "Overview.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/General/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Overview",
+      "category" : "",
+      "tags"     : "overview.md",
+      "url"      : "/pages/Kratos/Documentation_Guide/General/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Overview",
+      "category" : "",
+      "tags"     : "Overview.md",
+      "url"      : "/pages/Kratos/Processes/General/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Overview",
+      "category" : "",
+      "tags"     : "Overview.md",
+      "url"      : "/pages/Kratos/For_Users/General/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Overview",
+      "category" : "",
+      "tags"     : "Overview.md",
+      "url"      : "/pages/Kratos/Utilities/General/Overview.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Parallel Utilities",
+      "category" : "",
+      "tags"     : "Parallel-Utilities.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Parallel-Utilities.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Porting to AMatrix",
+      "category" : "",
+      "tags"     : "Porting-to-AMatrix.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Porting-to-AMatrix.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Porting to PyBind11   common steps",
+      "category" : "",
+      "tags"     : "Porting-to-PyBind11---common-steps.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Profiling Kratos with cProfile and VTune",
+      "category" : "",
+      "tags"     : "Profiling Kratos with cProfile and VTune.md",
+      "url"      : "/pages/Kratos/Debugging/General/Profiling%20Kratos%20with%20cProfile%20and%20VTune.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Profiling Kratos with LineProfile",
+      "category" : "",
+      "tags"     : "Profiling-Kratos-with-LineProfile.md",
+      "url"      : "/pages/Kratos/Debugging/General/Profiling-Kratos-with-LineProfile.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "README",
+      "category" : "",
+      "tags"     : "README.md",
+      "url"      : "/pages/Kratos/README.md.old",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Root Mean Square",
+      "category" : "",
+      "tags"     : "Root_Mean_Square.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Root_Mean_Square.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Shallow angle beam",
+      "category" : "",
+      "tags"     : "Shallow-angle-beam.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Shallow-angle-beam.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Shell obstacle course Pinched cylinder",
+      "category" : "",
+      "tags"     : "Shell-obstacle-course-Pinched-cylinder.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Shell-obstacle-course-Pinched-cylinder.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Shell obstacle course Pinched hemisphere",
+      "category" : "",
+      "tags"     : "Shell-obstacle-course-Pinched-hemisphere.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Shell-obstacle-course-Pinched-hemisphere.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Shell obstacle course Scordelis Lo roof",
+      "category" : "",
+      "tags"     : "Shell-obstacle-course-Scordelis-Lo-roof.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Shell-obstacle-course-Scordelis-Lo-roof.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Solving strategies",
+      "category" : "",
+      "tags"     : "Solving-strategies.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Solving-strategies.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Sparse Linear Algebra (native Kratos implementation)",
+      "category" : "",
+      "tags"     : "Sparse-Linear-Algebra-(native-Kratos-implementation).md",
+      "url"      : "/pages/Kratos/For_Developers/General/Sparse-Linear-Algebra-(native-Kratos-implementation).html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Style Guide",
+      "category" : "",
+      "tags"     : "Style-Guide.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Style-Guide.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Sum",
+      "category" : "",
+      "tags"     : "Sum.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Sum.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Documentation testing and updating",
+      "category" : "",
+      "tags"     : "Testing.md",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Testing.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Adding dynamic contributions to the element file",
+      "category" : "",
+      "tags"     : "Tutorial-Adding-dynamic-contributions-to-the-element-file.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Adding-dynamic-contributions-to-the-element-file.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Analysis stage for pure diffusion problem",
+      "category" : "",
+      "tags"     : "Tutorial-Analysis-stage-for-pure-diffusion-problem.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Creating a wrapper of convergence criteria",
+      "category" : "",
+      "tags"     : "Tutorial-Creating-a-wrapper-of-convergence-criteria.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Creating-a-wrapper-of-convergence-criteria.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Creating an Utility",
+      "category" : "",
+      "tags"     : "Tutorial-Creating-an-Utility.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Creating-an-Utility.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Creating the Conditions",
+      "category" : "",
+      "tags"     : "Tutorial-Creating-the-Conditions.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Conditions.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Creating the Element",
+      "category" : "",
+      "tags"     : "Tutorial-Creating-the-Element.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Element.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Creating the Python Solver file",
+      "category" : "",
+      "tags"     : "Tutorial-Creating-the-Python-Solver-file.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Python-Solver-file.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Editing the main files",
+      "category" : "",
+      "tags"     : "Tutorial-Editing-the-main-files.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Editing-the-main-files.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Pure diffusion solver derived from main python solver",
+      "category" : "",
+      "tags"     : "Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Two bar truss   snap through",
+      "category" : "",
+      "tags"     : "Two-bar-truss---snap-through.md",
+      "url"      : "/pages/Applications/Structural_Mechanics_Application/General/Two-bar-truss---snap-through.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Using alias for Ublas matrix and vector",
+      "category" : "",
+      "tags"     : "Using-alias-for-Ublas-matrix-and-vector.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Using-alias-for-Ublas-matrix-and-vector.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Using processes to customize a simulation",
+      "category" : "",
+      "tags"     : "Using-processes-to-customize-a-simulation.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Using-processes-to-customize-a-simulation.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Utilities Colors utility",
+      "category" : "",
+      "tags"     : "Utilities-Colors-utility.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Utilities-Colors-utility.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Utilities MMG Process",
+      "category" : "",
+      "tags"     : "Utilities-MMG-Process.md",
+      "url"      : "/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Utilities ParMmg Process",
+      "category" : "",
+      "tags"     : "Utilities-ParMmg-Process.md",
+      "url"      : "/pages/Applications/Meshing_Application/General/Utilities-ParMmg-Process.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Variance",
+      "category" : "",
+      "tags"     : "Variance.md",
+      "url"      : "/pages/Applications/Statistics_Application/Statistical_Methods/Variance.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Windows Install (MinGW)",
+      "category" : "",
+      "tags"     : "Windows-Install-(MinGW).md",
+      "url"      : "/pages/Kratos/For_Developers/General/Windows-Install-(MinGW).html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Windows Install",
+      "category" : "",
+      "tags"     : "Windows-Install.md",
+      "url"      : "/pages/Kratos/For_Developers/General/Windows-Install.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Calculation",
+      "category" : "",
+      "tags"     : "Description.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/calculation.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Component Based Norm",
+      "category" : "",
+      "tags"     : "component_based.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/component_based.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Data Management",
+      "category" : "",
+      "tags"     : "data_management.md",
+      "url"      : "/pages/Kratos/Workshops/2019/data_management.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Documenting C++ Code",
+      "category" : "",
+      "tags"     : "documenting_cpp.md",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Source_Code_Documentation/documenting_cpp.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Documenting Python Code",
+      "category" : "",
+      "tags"     : "documenting_python.md",
+      "url"      : "/pages/Kratos/Documentation_Guide/How_Tos/Source_Code_Documentation/documenting_python.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  ModelPart Elements and Conditions",
+      "category" : "",
+      "tags"     : "Python Script Tutorial ModelPart Elements Conditions",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Data_Structure/elems-and-conds.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Euclidean Norm",
+      "category" : "",
+      "tags"     : "euclidean.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/euclidean.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Frobenius Norm",
+      "category" : "",
+      "tags"     : "frobenius.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/frobenius.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Generating New Modelparts",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Generating New Modelpart",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Data_Structure/generate-new-modelpart.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Getting Started",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Getting Started",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/getting-started.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Hello Kratos",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Hello World Kratos",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/hello-world.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Summary",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/index.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Index Based Norm",
+      "category" : "",
+      "tags"     : "index_based.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/index_based.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Infinity Norm",
+      "category" : "",
+      "tags"     : "infinity.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/infinity.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Introduction",
+      "category" : "",
+      "tags"     : "introduction.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/introduction.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Kratos Input Files and IO",
+      "category" : "",
+      "tags"     : "kratos_input_files_and_io.md",
+      "url"      : "/pages/Kratos/Workshops/2019/kratos_input_files_and_io.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Lpq Norm",
+      "category" : "",
+      "tags"     : "lpq_norm.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/lpq_norm.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Magnitude Norm",
+      "category" : "",
+      "tags"     : "magnitude.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/magnitude.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Manipulating Solution Values",
+      "category" : "",
+      "tags"     : "manipulating_solution_values.md",
+      "url"      : "/pages/Kratos/Workshops/2019/manipulating_solution_values.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Meshing",
+      "category" : "",
+      "tags"     : "meshing.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/meshing.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  ModelPart and SubModelPart",
+      "category" : "",
+      "tags"     : "Python Script Tutorial ModelPart SubModelPart",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Data_Structure/modelpart-and-submodelpart.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Multiphysics Example",
+      "category" : "",
+      "tags"     : "multiphysics_example.md",
+      "url"      : "/pages/Kratos/Workshops/2019/multiphysics_example.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Nodes and Nodal Data",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Nodes Nodal Data",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Data_Structure/nodes-and-data.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "P Norm",
+      "category" : "",
+      "tags"     : "p_norm.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/p_norm.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Post processing",
+      "category" : "",
+      "tags"     : "post_processing.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/post_processing.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Reading ProjectParameters",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Reading ProjectParameters Project Parameters",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/project-parameters.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Reading ModelPart From Input File",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Reading ModelPart Input File",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/reading-input.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Compilation Options",
+      "category" : "",
+      "tags"     : "Compilation_Options.md",
+      "url"      : "/pages/Kratos/For_Users/How_to_get_Kratos/Compilation/remote_Compilation_Options.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Granular flow 2d readme",
+      "category" : "",
+      "tags"     : "Granular_flow_2d_readme.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/Examples/remote_Granular_flow_2d_readme.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Running an example from GiD",
+      "category" : "",
+      "tags"     : "Running-an-example-from-GiD.md",
+      "url"      : "/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/search.json",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Set up of example",
+      "category" : "",
+      "tags"     : "set_up.md",
+      "url"      : "/pages/Applications/Particle_Mechanics_Application/MPM_example_in_GiD/set_up.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Solving Strategies",
+      "category" : "",
+      "tags"     : "solving_strategies.md",
+      "url"      : "/pages/Kratos/Workshops/2019/solving_strategies.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Spatial Containers",
+      "category" : "",
+      "tags"     : "spatial_containers.md",
+      "url"      : "/pages/Applications/Statistics_Application/Domains/Spatial/spatial_containers.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Spatial Process Example",
+      "category" : "",
+      "tags"     : "spatial_example.md",
+      "url"      : "/pages/Applications/Statistics_Application/Examples/spatial_example.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Spatial Methods",
+      "category" : "",
+      "tags"     : "spatial_methods.md",
+      "url"      : "/pages/Applications/Statistics_Application/Domains/Spatial/spatial_methods.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Spatial Statistics Process",
+      "category" : "",
+      "tags"     : "spatial_statistics_process.md",
+      "url"      : "/pages/Applications/Statistics_Application/Domains/Spatial/spatial_statistics_process.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/css/syntax.css",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Temporal Containers",
+      "category" : "",
+      "tags"     : "temporal_containers.md",
+      "url"      : "/pages/Applications/Statistics_Application/Domains/Temporal/temporal_containers.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Temporal Process Example",
+      "category" : "",
+      "tags"     : "temporal_example.md",
+      "url"      : "/pages/Applications/Statistics_Application/Examples/temporal_example.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Temporal Methods",
+      "category" : "",
+      "tags"     : "temporal_methods.md",
+      "url"      : "/pages/Applications/Statistics_Application/Domains/Temporal/temporal_methods.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Temporal Statistics Process",
+      "category" : "",
+      "tags"     : "temporal_statistics_process.md",
+      "url"      : "/pages/Applications/Statistics_Application/Domains/Temporal/temporal_statistics_process.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Thread Sanitizer",
+      "category" : "",
+      "tags"     : "Thread Sanitizer Debug",
+      "url"      : "/pages/Kratos/Debugging/General/thread-sanitizer.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Trace Norm",
+      "category" : "",
+      "tags"     : "trace.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/trace.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Tutorials",
+      "category" : "",
+      "tags"     : "Python Script Tutorial",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/tutorials.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Value Norm",
+      "category" : "",
+      "tags"     : "value.md",
+      "url"      : "/pages/Applications/Statistics_Application/Norm_Methods/value.html",
+      "date"     : ""
+    } ,
+  
+    {
+      "title"    : "Python Script  Writing Output File",
+      "category" : "",
+      "tags"     : "Python Script Tutorial Writing Output File",
+      "url"      : "/pages/Kratos/For_Users/Getting_started/Input_Output_and_Visualization/writing-output.html",
+      "date"     : ""
+    } 
+  
+]

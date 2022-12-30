@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Porting-to-PyBind11---common-steps.md,  ">
+
+<title>Porting to PyBind11   common steps | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Porting to PyBind11   common steps page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Porting to PyBind11   common steps">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Developers </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Adding dynamic contributions to the element file" href="/pages/Kratos/For_Developers/General/Tutorial-Adding-dynamic-contributions-to-the-element-file.html">Adding dynamic contributions to the element file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Adjoint API" href="/pages/Kratos/For_Developers/General/Adjoint-API.html">Adjoint API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Analysis stage for pure diffusion problem" href="/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.html">Analysis stage for pure diffusion problem</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Application Cases" href="/pages/Kratos/For_Developers/General/Application-Cases.html">Application Cases</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applications as python modules" href="/pages/Kratos/For_Developers/General/Applications-as-python-modules.html">Applications as python modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applying periodic boundary conditions" href="/pages/Kratos/For_Developers/General/Applying-periodic-boundary-conditions.html">Applying periodic boundary conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Authorship of Kratos files" href="/pages/Kratos/For_Developers/General/Authorship-of-Kratos-files.html">Authorship of Kratos files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Clang Tidy to automatically correct code" href="/pages/Kratos/For_Developers/General/How-to-use-Clang-Tidy-to-automatically-correct-code.html">Clang Tidy to automatically correct code</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Common Python Interface of Applications for Users" href="/pages/Kratos/For_Developers/General/Common-Python-Interface-of-Applications-for-Users.html">Common Python Interface of Applications for Users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Constitutive Law" href="/pages/Kratos/For_Developers/General/How-to-use-the-Constitutive-Law-class.html">Constitutive Law</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Cotire" href="/pages/Kratos/For_Developers/General/How-to-use-Cotire.html">Cotire</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating a wrapper of convergence criteria" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-a-wrapper-of-convergence-criteria.html">Creating a wrapper of convergence criteria</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating an Utility" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-an-Utility.html">Creating an Utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Conditions" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Conditions.html">Creating the Conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Element" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Element.html">Creating the Element</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Python Solver file" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Python-Solver-file.html">Creating the Python Solver file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Data management" href="/pages/Kratos/For_Developers/General/Data-management.html">Data management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Editing the main files" href="/pages/Kratos/For_Developers/General/Tutorial-Editing-the-main-files.html">Editing the main files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to Access DataBase" href="/pages/Kratos/For_Developers/General/How-to-Access-DataBase.html">How to Access DataBase</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to apply a function to a list of variables" href="/pages/Kratos/For_Developers/General/How-to-apply-a-function-to-a-list-of-variables.html">How to apply a function to a list of variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to configure clang‐format" href="/pages/Kratos/For_Developers/General/How-to-configure-clang‐format.html">How to configure clang‐format</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to create unitary tests" href="/pages/Kratos/For_Developers/General/How-to-create-unitary-tests.html">How to create unitary tests</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to generate python wheels" href="/pages/Kratos/For_Developers/General/How-to-generate-python-wheels.html">How to generate python wheels</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to make Git ignore the files resulting from a compilation without conflicts in .gitignore" href="/pages/Kratos/For_Developers/General/How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.html">How to make Git ignore the files resulting from a compilation without conflicts in .gitignore</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to run multiple cases using PyCOMPSs" href="/pages/Kratos/For_Developers/General/How-to-run-multiple-cases-using-PyCOMPSs.html">How to run multiple cases using PyCOMPSs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KRATOS_API for Windows Compilation" href="/pages/Kratos/For_Developers/General/KRATOS_API-for-Windows-Compilation.html">KRATOS_API for Windows Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos classes accesible via python" href="/pages/Kratos/For_Developers/General/Kratos-classes-accesible-via-python.html">Kratos classes accesible via python</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and I O" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-I-O.html">Kratos input files and I O</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and IO" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-IO.html">Kratos input files and IO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KratosAPI MultiPoint Constraint (MPC) interface" href="/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.html">KratosAPI MultiPoint Constraint (MPC) interface</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Local axes orientation" href="/pages/Kratos/For_Developers/General/Local-axes-orientation.html">Local axes orientation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Logger" href="/pages/Kratos/For_Developers/General/How-to-use-Logger.html">Logger</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Manipulating solution values" href="/pages/Kratos/For_Developers/General/Manipulating-solution-values.html">Manipulating solution values</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Mesh node ordering" href="/pages/Kratos/For_Developers/General/Mesh-node-ordering.html">Mesh node ordering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart and SubModelPart" href="/pages/Kratos/For_Developers/General/ModelPart-and-SubModelPart.html">ModelPart and SubModelPart</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart entities" href="/pages/Kratos/For_Developers/General/ModelPart-entities.html">ModelPart entities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Nodes and Nodal Data" href="/pages/Kratos/For_Developers/General/Nodes-and-Nodal-Data.html">Nodes and Nodal Data</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Parallel Utilities" href="/pages/Kratos/For_Developers/General/Parallel-Utilities.html">Parallel Utilities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerCommunicator.html">PointerCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerMapCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.html">PointerMapCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to AMatrix" href="/pages/Kratos/For_Developers/General/Porting-to-AMatrix.html">Porting to AMatrix</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="Porting to PyBind11   common steps" href="/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.html">Porting to PyBind11   common steps</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Processes In the application of BCs" href="/pages/Kratos/For_Developers/General/How-to-use-Processes-In-the-application-of-BCs.html">Processes In the application of BCs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Pure diffusion solver derived from main python solver" href="/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.html">Pure diffusion solver derived from main python solver</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Quaternions in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-quaternions-in-Kratos.html">Quaternions in Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Smart Pointers within Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-Smart-Pointers-within-Kratos.html">Smart Pointers within Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Solving strategies" href="/pages/Kratos/For_Developers/General/Solving-strategies.html">Solving strategies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Sparse Linear Algebra (native Kratos implementation)" href="/pages/Kratos/For_Developers/General/Sparse-Linear-Algebra-(native-Kratos-implementation).html">Sparse Linear Algebra (native Kratos implementation)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Style Guide" href="/pages/Kratos/For_Developers/General/Style-Guide.html">Style Guide</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using alias for Ublas matrix and vector" href="/pages/Kratos/For_Developers/General/Using-alias-for-Ublas-matrix-and-vector.html">Using alias for Ublas matrix and vector</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using processes to customize a simulation" href="/pages/Kratos/For_Developers/General/Using-processes-to-customize-a-simulation.html">Using processes to customize a simulation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Utilities Colors utility" href="/pages/Kratos/For_Developers/General/Utilities-Colors-utility.html">Utilities Colors utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install" href="/pages/Kratos/For_Developers/General/Windows-Install.html">Windows Install</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install (MinGW)" href="/pages/Kratos/For_Developers/General/Windows-Install-(MinGW).html">Windows Install (MinGW)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the FEAST Solver in Kratos?" href="/pages/Kratos/For_Developers/General/How-to-use-the-FEAST-Solver-in-Kratos.html">the FEAST Solver in Kratos?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the Geometry" href="/pages/Kratos/For_Developers/General/How-to-use-the-Geometry.html">the Geometry</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the PaStiX solver in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-the-PaStiX-solver-in-Kratos.html">the PaStiX solver in Kratos</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Porting to PyBind11   common steps</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h1 id="modifications-in-the-cmakeliststxt">Modifications in the CMakeLists.txt</h1>
+<p><em>Pybind11</em> comes with a module to help compilation. Such module should be included at the beginning of the CMakeLists.txt by adding:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>include(pybind11Tools)
+</code></pre></div></div>
+
+<p>other than that one needs to change</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add_library(KratosFluidDynamicsApplication SHARED  ......)
+</code></pre></div></div>
+
+<p>to</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pybind11_add_module(KratosFluidDynamicsApplication MODULE ............. )
+</code></pre></div></div>
+
+<h1 id="moving-to-module-interface-in-pybind11">Moving to module interface in pybind11</h1>
+<p>The definition of new python modules is slightly different in <em>Pybind</em> than in <em>Boost</em>. Python
+the first change is that the python interfaces should be modified as in</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/Porting-to-PyBind11---common-steps/change1.png" alt="Change 1" /></p>
+
+<p><a href="https://github.com/KratosMultiphysics/Kratos/blob/eb4f48418e9b28e4a920fd1c524842ac42a84b44/applications/FluidDynamicsApplication/custom_python/add_custom_constitutive_laws_to_python.h">Link</a></p>
+
+<p>and</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/Porting-to-PyBind11---common-steps/change2.png" alt="Change 2" /></p>
+
+<p><a href="https://github.com/KratosMultiphysics/Kratos/blob/eb4f48418e9b28e4a920fd1c524842ac42a84b44/applications/FluidDynamicsApplication/custom_python/add_custom_constitutive_laws_to_python.cpp">Link</a></p>
+
+<p>The changes include:</p>
+<ul>
+  <li>Removing includes of <em>Boost</em> python</li>
+  <li><code class="language-plaintext highlighter-rouge">using namespace boost::python</code> —-&gt; <code class="language-plaintext highlighter-rouge">namespace py = pybind11;</code></li>
+  <li>Adding the argument <code class="language-plaintext highlighter-rouge">pybind11::module&amp; m</code></li>
+</ul>
+
+<p>Aside of this the class interface is slightly changed:</p>
+<ul>
+  <li>A new argument <code class="language-plaintext highlighter-rouge">m</code> (the module) has to be passed as first argument.</li>
+  <li><code class="language-plaintext highlighter-rouge">bases</code> is not any longer required. Only its template argument must remain, in the same position of what was there before.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">noncopyable</code> template argument should not be provided (everything is <code class="language-plaintext highlighter-rouge">noncopyable</code> unless specified) - if something is to me made copyable, a copy constructor should be provided to python</li>
+  <li><code class="language-plaintext highlighter-rouge">init</code> has to be made as a .def (even the <code class="language-plaintext highlighter-rouge">first</code> one)</li>
+  <li>a Pointer definition should be explicitly provided <strong>if the base class provides it</strong></li>
+</ul>
+
+<p>for example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class_&lt; Euler2DLaw, bases&lt; ConstitutiveLaw &gt;, boost::noncopyable &gt;( "Euler2DLaw",  init&lt;&gt;() );
+</code></pre></div></div>
+
+<p>becomes</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>py::class_&lt; Euler2DLaw, Euler2DLaw::Pointer, ConstitutiveLaw &gt;(m,"Euler2DLaw")
+    .def(  py::init&lt;&gt;() );
+</code></pre></div></div>
+
+<p>One last important remark is to update the CMakeLists.txt</p>
+
+<p><img src="https://raw.githubusercontent.com/KratosMultiphysics/Documentation/master/Wiki_files/Porting-to-PyBind11---common-steps/change_3.png" alt="Change 3" /></p>
+
+<h2 id="internal-references-in-python">Internal references in python</h2>
+<p>When references are to be used</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> return_internal_reference&lt;&gt;() ---&gt; py::return_value_policy::reference_internal
+</code></pre></div></div>
+
+<h2 id="using-python-lists">Using python lists</h2>
+<p><em>Pybind</em> list interface is similar to the one of <code class="language-plaintext highlighter-rouge">boost::python</code>, however the extraction of data from a list is slightly different</p>
+
+<p>For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> boost::python::extract&lt;ShellCrossSection::Pointer&gt;(seclist[i])
+</code></pre></div></div>
+
+<p>Becomes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> pybind11::cast&lt;ShellCrossSection::Pointer &gt;( seclist[i] );
+</code></pre></div></div>
+
+<h2 id="staticmethod"><code class="language-plaintext highlighter-rouge">staticmethod</code></h2>
+
+<p>Definition of static methods is changed</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> .def("AddToProperties", &amp;TClassName::AddToProperties&lt; Variable&lt; TClassName &gt;&gt;).staticmethod("AddToProperties")
+</code></pre></div></div>
+
+<p>Becomes</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> .def_static("AddToProperties", &amp;TClassName::AddToProperties&lt; Variable&lt; TClassName &gt; &gt;)
+</code></pre></div></div>
+
+<h2 id="self_nsstr">self_ns::str</h2>
+
+<p>This construct no longer exists in pybind11. Its previous use was to print a stringified version of your class. In pybind you must provide it yourself by defining the <strong>str</strong> function</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">self_ns</span><span class="o">::</span><span class="n">str</span><span class="p">(</span><span class="n">self</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>becomes</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"__str__"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Class</span><span class="o">::</span><span class="n">ToStrFunction</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Note that a default implementation of a <code class="language-plaintext highlighter-rouge">__str__</code> called <code class="language-plaintext highlighter-rouge">PrintObject</code>, which should be useful for most Kratos classes, is provided in <code class="language-plaintext highlighter-rouge">define_python.h</code>. It can be used as:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span> <span class="n">SomeClass</span><span class="p">,</span> <span class="n">SomeClass</span><span class="o">::</span><span class="n">Pointer</span><span class="p">,</span> <span class="n">SomeBaseClass</span><span class="o">&gt;</span>
+<span class="c1">// other methods</span>
+<span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"__str__"</span><span class="p">,</span> <span class="n">PrintObject</span><span class="o">&lt;</span><span class="n">SomeClass</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="modifications-in-the-configure-file">Modifications in the “configure” file</h2>
+<p>modify the following line of the file:</p>
+
+<p>-DPYTHON_LIBRARY=”C:\Python34\libs\python34.lib”</p>
+
+<p>with</p>
+
+<p>-DPYTHON_EXECUTABLE=”c:/python/python34.exe”</p>
+
+<h2 id="windows-compatibility-issues">Windows compatibility issues</h2>
+
+<p>Originally posted in <a href="https://github.com/KratosMultiphysics/Kratos/pull/1830#issuecomment-380099368">this PR</a>.</p>
+
+<p><em><strong>The problem</strong></em>
+The problem appears on Windows when someone tries to link against an application. With boost, both the application code and application interface where compiled inside the same object, and their symbols exported when needed using the <code class="language-plaintext highlighter-rouge">KRATOS_API</code> macro. This ended up generating a dynamic object that was the python module and contained the application itself, altogether in the same package.</p>
+
+<p>Pybind changed how things work a bit while creating modules, and one of the changes made impossible to to have a python module as a dependency of one application, drawing derived apps impossible to compile with the old system (as the symbols were inside the module).</p>
+
+<p>In order to solve this, we agreed to divide the applications that are dependencies into <code class="language-plaintext highlighter-rouge">FooCore</code> and <code class="language-plaintext highlighter-rouge">FooApplication</code> objects, much as the <code class="language-plaintext highlighter-rouge">KratosCore</code> &amp; <code class="language-plaintext highlighter-rouge">Kratos</code> objects work.</p>
+
+<p>This has increased the number of symbols that need to be visible from the “interface”, all files that with <code class="language-plaintext highlighter-rouge">add_xxxxx_to_python</code>, as they are no longer in the same place, and this is what is causing the linker errors.</p>
+
+<p><em><strong>Solution</strong></em>
+Just compile your application on Windows and see if there are linking errors. I identified myself the errors under 4 categories:</p>
+
+<p><strong>Missing exported classes</strong>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">foo</span> <span class="p">{}</span>
+</code></pre></div></div>
+<p>to</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">KRATOS_API</span><span class="p">(</span><span class="n">APPLICATION</span><span class="p">)</span> <span class="n">foo</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p><strong>Variables</strong>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KRATOS_DEFINE_VARIABLE</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">FOO</span><span class="p">)</span>
+</code></pre></div></div>
+<p>to</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KRATOS_DEFINE_APPLICATION_VARIABLE</span><span class="p">(</span><span class="n">APPLICATION</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="n">FOO</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Local Flags</strong>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KRATOS_DEFINE_LOCAL_FLAG</span><span class="p">(</span><span class="n">FOO</span><span class="p">)</span>
+</code></pre></div></div>
+<p>to</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KRATOS_DEFINE_LOCAL_APPLICATION_FLAG</span><span class="p">(</span><span class="n">APPLICATION</span><span class="p">,</span> <span class="n">FOO</span><span class="p">)</span>
+</code></pre></div></div>
+<p><strong>Template instantiation in the interface of non header classes</strong></p>
+
+<p>This is more tricky. If you happen to expose a templated class and such class in non header-only, you must explicitly instantiate that in your “core” application, for example in the foo_application.cpp file.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#foo.h
+</span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Ta</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">Tb</span><span class="p">&gt;</span> <span class="k">class</span> <span class="nf">KRATOS_API</span><span class="p">(</span><span class="n">FOO_APPLICATION</span><span class="p">)</span> <span class="n">MyTemplateClass</span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="cp">#foo.cpp
+</span><span class="n">MyTemplateClass</span><span class="o">::</span><span class="n">MyTemplateClass</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"I am implemented in a cpp file"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>and</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp"># add_utilities_to_python.cpp
+</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">MyTemplateClass</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">"MyTemplateClassInts"</span><span class="p">).</span><span class="n">def</span><span class="p">(</span><span class="n">init</span><span class="o">&lt;&gt;</span><span class="p">);</span>
+<span class="n">class_</span><span class="o">&lt;</span><span class="n">MyTemplateClass</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">"MyTemplateClassDoubles"</span><span class="p">).</span><span class="n">def</span><span class="p">(</span><span class="n">init</span><span class="o">&lt;&gt;</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This will crash, and you need to add:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp"># foo_application.cpp
+</span><span class="k">template</span> <span class="k">class</span> <span class="nc">MyTemplateClass</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;;</span>
+<span class="k">template</span> <span class="k">class</span> <span class="nc">MyTemplateClass</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="p">&gt;;</span>
+</code></pre></div></div>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

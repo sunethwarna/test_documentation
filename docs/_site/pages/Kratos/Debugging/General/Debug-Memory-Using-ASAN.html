@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Debug-Memory-Using-ASAN.md,  ">
+
+<title>Debug Memory Using ASAN | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Debug Memory Using ASAN page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Debug Memory Using ASAN">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Debugging </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Checking memory usage with Valgrind" href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Checking memory usage with Valgrind</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="Debug Memory Using ASAN" href="/pages/Kratos/Debugging/General/Debug-Memory-Using-ASAN.html">Debug Memory Using ASAN</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Debugging Kratos using GDB" href="/pages/Kratos/Debugging/General/Debugging-Kratos-using-GDB.html">Debugging Kratos using GDB</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Debugging Kratos using Visual Studio" href="/pages/Kratos/Debugging/General/Debugging-Kratos-using-Visual-Studio.html">Debugging Kratos using Visual Studio</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to cross debug Kratos under Windows" href="/pages/Kratos/Debugging/General/How-to-cross-debug-Kratos-under-Windows.html">How to cross debug Kratos under Windows</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to profile Kratos using MAQAO" href="/pages/Kratos/Debugging/General/How-to-profile-Kratos-using-MAQAO.html">How to profile Kratos using MAQAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Profiling Kratos with LineProfile" href="/pages/Kratos/Debugging/General/Profiling-Kratos-with-LineProfile.html">Profiling Kratos with LineProfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Profiling Kratos with cProfile and VTune" href="/pages/Kratos/Debugging/General/Profiling Kratos with cProfile and VTune.html">Profiling Kratos with cProfile and VTune</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Serialization" href="/pages/Kratos/Debugging/General/How-to-use-Serialization.html">Serialization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Thread Sanitizer" href="/pages/Kratos/Debugging/General/thread-sanitizer.html">Thread Sanitizer</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Debug Memory Using ASAN</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/Debugging/General/Debug-Memory-Using-ASAN.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <p><em><strong>Note</strong>: Please note this page assumes advance knowledge of compilers.</em></p>
+
+<h2 id="debug-memory-using-asan">Debug Memory Using ASAN</h2>
+
+<p>It is possible to compile Kratos with different sanitizers which can point to different memory problems that otherwise are hard to locate. As this conflicts with some basic compilations options enabled by default in Kratos cannot be directly added as a separate build mode. 
+This process has been tested with clang, but gcc should be suitable for it as well.
+The steps to compile are detailed here:</p>
+
+<h3 id="cmake-changes">CMake Changes:</h3>
+
+<ul>
+  <li>Remove <code class="language-plaintext highlighter-rouge">-Wl,--no-undefined</code> from all compilation targets. This must be done in the root <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code></li>
+  <li>Add <code class="language-plaintext highlighter-rouge">link_libraries(-fsanitize=address -shared-libasan)</code> before declaring any target_link_library. Ideally you want to do that before line 200 of the root <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code>.</li>
+</ul>
+
+<p>Example of a possible diff:</p>
+
+<pre><code class="language-CMake"># Set compiler flags
+if(${CMAKE_COMPILER_IS_GNUCXX})
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -funroll-loops -Wall -std=c++11")
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.0)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wsuggest-override")
+  endif()
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -Wall")
+  # set(CMAKE_SHARED_LINKER_FLAGS " -Wl,--no-undefined")
+  message(STATUS "additional default options were set for gcc")
+  message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
+  message(STATUS "CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
+endif(${CMAKE_COMPILER_IS_GNUCXX})
+
+message(STATUS "CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
+if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  	  if(${CMAKE_CXX_COMPILER_ID} MATCHES Clang)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -funroll-loops -Wall -Wno-unused-local-typedef -Wno-unknown-pragmas  ")
+		set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -funroll-loops -Wall -Wno-unknown-pragmas  ")
+		# set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+		message("additional default options were set for clang compiler")
+		message("CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
+		message("CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
+	  endif(${CMAKE_CXX_COMPILER_ID} MATCHES Clang)
+  else(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+	  if(${CMAKE_CXX_COMPILER_ID} MATCHES Clang)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -funroll-loops -Wall -Wno-unused-local-typedef -Wno-unknown-pragmas  ")
+		set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -fPIC -funroll-loops -Wall -Wno-unknown-pragmas  ")
+		# set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+		message("additional default options were set for clang compiler")
+		message("CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
+		message("CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
+	  endif(${CMAKE_CXX_COMPILER_ID} MATCHES Clang)
+	  if(${CMAKE_CXX_COMPILER_ID} MATCHES Intel)
+		if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 18.0)
+		  # pybind requires min. version 17, but we need at least 18:
+		  message( "DEPRECATED: detected compiler as Intel " ${CMAKE_CXX_COMPILER_VERSION} )
+		  message( FATAL_ERROR "Please use Version 18 or greater")
+		endif()
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC  -funroll-loops -lpthread -wd654 -wd10010  ")
+		set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -fPIC -funroll-loops -lpthread -wd654 -wd10010  ")
+		# set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+		message("additional default options were set for intel compiler")
+		message("CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
+		message("CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
+	  endif(${CMAKE_CXX_COMPILER_ID} MATCHES Intel)
+  endif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+else(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  if(${CMAKE_C_COMPILER} MATCHES "icc.*$")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC  -funroll-loops  ") #-lpthread -wd654 -wd10010  ")
+    set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -fPIC -funroll-loops  ") #-lpthread -wd654 -wd10010  ")
+    # set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+    message("additional default options were set for intel compiler")
+    message("CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
+    message("CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
+  endif(${CMAKE_C_COMPILER} MATCHES "icc.*$")
+endif(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
+link_libraries(-fsanitize=address -shared-libasan)
+</code></pre>
+
+<h3 id="configuresh-changes">Configure.sh Changes</h3>
+
+<p>You need to add the following compiler flags:</p>
+<ul>
+  <li>-fsanitize=address: Enables the memory sanitizer</li>
+  <li>-fno-omit-frame-pointer: Allows you to obtain full stack-traces</li>
+  <li>-fsanitize-recover=address: Allows the sanitizer to recover from errors (allows execution to continue after the first detection)</li>
+</ul>
+
+<h3 id="symbolizer">Symbolizer</h3>
+<p>In order for the address sanitizer to give you code names instead of addresses you will need a symbolyzer. You can find <code class="language-plaintext highlighter-rouge">llvm-symbolyzer</code> as part of the <code class="language-plaintext highlighter-rouge">llvm</code> package or as stand-alone program in some package managers. Once installed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+</code></pre></div></div>
+
+<h3 id="launch-the-code">Launch the code</h3>
+<p>Before running you must set some options:</p>
+
+<h4 id="asan_options">ASAN_OPTIONS</h4>
+
+<ul>
+  <li>
+    <p>suppressions=pybind.sup: Allows yo define a suppression file (similar to valgrind ones). Currently appears to be bugged while launching from python.</p>
+  </li>
+  <li>
+    <p>halt_on_error=0/1: If compiled with <code class="language-plaintext highlighter-rouge">-fsanitize-recover=address</code> allows the code to continue after detecting the first problem.</p>
+  </li>
+  <li>
+    <p>fast_unwind_on_malloc=0/1: If set to 1 increases speed at the cost of preventing part of the trace from being collected. It is recommended to set it to 0.</p>
+  </li>
+</ul>
+
+<p>Example:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export ASAN_OPTIONS=suppressions=pybind.supp:halt_on_error=0:fast_unwind_on_malloc=0
+</code></pre></div></div>
+
+<p>It is also necessary to preload the asan library if you are running from python. In order to do so:</p>
+
+<p>For serial</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LD_PRELOAD=/usr/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.so python script.py
+</code></pre></div></div>
+
+<p>For MPI:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mpirun -x LD_PRELOAD=/usr/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.so -np 2 --output-filename asan_test python script.py
+
+</code></pre></div></div>
+
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

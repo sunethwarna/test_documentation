@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="How-to-use-Serialization.md,  ">
+
+<title>Serialization | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Serialization page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Serialization">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Debugging </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Checking memory usage with Valgrind" href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Checking memory usage with Valgrind</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Debug Memory Using ASAN" href="/pages/Kratos/Debugging/General/Debug-Memory-Using-ASAN.html">Debug Memory Using ASAN</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Debugging Kratos using GDB" href="/pages/Kratos/Debugging/General/Debugging-Kratos-using-GDB.html">Debugging Kratos using GDB</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Debugging Kratos using Visual Studio" href="/pages/Kratos/Debugging/General/Debugging-Kratos-using-Visual-Studio.html">Debugging Kratos using Visual Studio</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to cross debug Kratos under Windows" href="/pages/Kratos/Debugging/General/How-to-cross-debug-Kratos-under-Windows.html">How to cross debug Kratos under Windows</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to profile Kratos using MAQAO" href="/pages/Kratos/Debugging/General/How-to-profile-Kratos-using-MAQAO.html">How to profile Kratos using MAQAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Profiling Kratos with LineProfile" href="/pages/Kratos/Debugging/General/Profiling-Kratos-with-LineProfile.html">Profiling Kratos with LineProfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Profiling Kratos with cProfile and VTune" href="/pages/Kratos/Debugging/General/Profiling Kratos with cProfile and VTune.html">Profiling Kratos with cProfile and VTune</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="Serialization" href="/pages/Kratos/Debugging/General/How-to-use-Serialization.html">Serialization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Thread Sanitizer" href="/pages/Kratos/Debugging/General/thread-sanitizer.html">Thread Sanitizer</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Serialization</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/Debugging/General/How-to-use-Serialization.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <h2 id="introduction">Introduction</h2>
+<p>The serialization consists of storing the state of an object into a storage format like data file or memory buffer and also retrieving the object from such a media. The idea of serialization is based on saving all object’s data consecutively in the file or buffer and then load it in the same order. In Kratos a serialization mechanism is used for creating the restart file. So for storing an object into a restart file and retrieving it afterward one must add the necessary components used by serialization. In the following section we will specify the necessary steps for making an object serializable in Kratos.</p>
+<h2 id="preparing-a-class-for-serialization">Preparing a Class for Serialization</h2>
+<p>The following steps are necessary in order to prepare a class for serialization:</p>
+
+<p>Adding a include for the serializer class:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Project includes</span>
+<span class="cp">#include</span> <span class="cpf">"includes/serializer.h"</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>Adding a doxygen statement for documentation of the serialization methods by adding the following comment in the <strong>private</strong> section of the class: (A good option is after the Member Variables section)</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">private:</span>
+<span class="c1">///@} </span>
+<span class="c1">///@name Member Variables </span>
+<span class="c1">///@{ </span>
+
+<span class="c1">///@}</span>
+<span class="c1">///@name Serialization</span>
+<span class="c1">///@{</span>
+
+<span class="c1">///@} </span>
+<span class="c1">///@name Private Operators</span>
+<span class="c1">///@{ </span>
+</code></pre></div></div>
+
+<p>Making the Serializer a friend of the class by adding a friend statement in the <strong>private</strong> part of the class</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">private:</span>
+<span class="c1">///@} </span>
+<span class="c1">///@name Member Variables </span>
+<span class="c1">///@{ </span>
+     
+<span class="c1">///@}</span>
+<span class="c1">///@name Serialization</span>
+<span class="c1">///@{</span>
+
+<span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+
+<span class="c1">///@} </span>
+<span class="c1">///@name Private Operators</span>
+<span class="c1">///@{  </span>
+</code></pre></div></div>
+
+<p>If the class <strong>does not</strong> provide a default constructor (an empty constructor) you have to provide one in the serialization part as follows:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">private:</span>
+<span class="c1">///@}</span>
+<span class="c1">///@name Serialization</span>
+<span class="c1">///@{</span>
+
+<span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+
+<span class="c1">// A private default constructor necessary for serialization </span>
+<span class="n">ClassName</span><span class="p">()</span> <span class="o">:</span> <span class="n">BaseClassName</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="c1">///@} </span>
+<span class="c1">///@name Private Operators</span>
+<span class="c1">///@{</span>
+</code></pre></div></div>
+
+<p>Adding the corresponding declarations to the the <code class="language-plaintext highlighter-rouge">own_application.h</code>:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///@}</span>
+<span class="c1">///@name Member Variables</span>
+<span class="c1">///@{</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">const</span> <span class="n">OwnConstitutive</span> <span class="n">mOwnConstitutive</span><span class="p">;</span>
+
+<span class="c1">//...</span>
+</code></pre></div></div>
+
+<p>Finally include the following declarations to the the <code class="language-plaintext highlighter-rouge">own_application.cpp</code>:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KratosOwnApplication</span><span class="o">::</span><span class="n">KratosOwnApplication</span><span class="p">()</span><span class="o">:</span> 
+
+<span class="c1">// ...</span>
+
+<span class="n">mOwnConstitutive</span><span class="p">();</span>
+
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>And:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">KratosOwnApplication</span><span class="o">::</span><span class="n">Register</span><span class="p">(){</span>
+
+<span class="c1">// ...</span>
+
+<span class="n">Serializer</span><span class="o">::</span><span class="n">Register</span><span class="p">(</span> <span class="s">"OwnConstitutive"</span><span class="p">,</span> <span class="n">mOwnConstitutive</span> <span class="p">);</span>
+
+<span class="c1">//...</span>
+</code></pre></div></div>
+
+<h2 id="serialization-of-a-non-polymorphic-class">Serialization of a Non-polymorphic Class</h2>
+<p>A non-polymorphic class is a class that does not belong to any inheritance. In other words it means a class that is not derived from other classes and is not the base for other classes. Making non-polymorphic classes serializable  consists in the following steps:</p>
+
+<p>The first step is adding the serialization save and load methods as follow:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///@}</span>
+<span class="c1">///@name Serialization</span>
+<span class="c1">///@{</span>
+
+<span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+
+<span class="c1">// A private default constructor necessary for serialization </span>
+<span class="n">ClassName</span><span class="p">()</span> <span class="o">:</span> <span class="n">BaseClassName</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="k">virtual</span> <span class="kt">void</span> <span class="n">load</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="c1">///@} </span>
+<span class="c1">///@name Private Operators</span>
+<span class="c1">///@{</span>
+</code></pre></div></div>
+
+<p>Now the class is ready for adding the serialization statements in order to serialize its data. There are two overloaded methods of Serializer which are in charge of saving and loading the internal data of the class:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Serializer</span><span class="o">::</span><span class="n">save</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">rTag</span><span class="p">,</span> <span class="n">TDataType</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">Data</span><span class="p">)</span> <span class="k">const</span>
+ 
+<span class="n">Serializer</span><span class="o">::</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">rTag</span><span class="p">,</span> <span class="n">TDataType</span><span class="o">&amp;</span> <span class="n">Data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Where the Tag string is the tag given to the saved or loaded data. This tag is only for text format and debugging purpose, and actually won’t be written in binary format buffers and files. Here is an example of using these methods in a class with two member variables:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///@} </span>
+<span class="c1">///@name Member Variables </span>
+<span class="c1">///@{ </span>
+
+<span class="kt">int</span> <span class="n">mMyInteger</span><span class="p">;</span>
+
+<span class="n">Vector</span> <span class="n">mMyVector</span><span class="p">;</span>
+     
+<span class="c1">///@}</span>
+<span class="c1">///@name Serialization</span>
+<span class="c1">///@{</span>
+
+<span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+
+<span class="c1">// A private default constructor necessary for serialization </span>
+<span class="n">ClassName</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+     <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"My Integer"</span><span class="p">,</span> <span class="n">mMyInteger</span><span class="p">);</span>
+     <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"My Vector"</span><span class="p">,</span> <span class="n">mMyVector</span><span class="p">);</span>
+<span class="err">}</span>
+
+<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">load</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"My Integer"</span><span class="p">,</span> <span class="n">mMyInteger</span><span class="p">);</span>
+     <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"My Vector"</span><span class="p">,</span> <span class="n">mMyVector</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">///@} </span>
+<span class="c1">///@name Private Operators</span>
+<span class="c1">///@{</span>
+</code></pre></div></div>
+
+<div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <b>Note:</b> It is <strong>VERY IMPORTANT</strong> to have the <strong>SAME SEQUENCE</strong> of variables in the save and load method. Altering this order results in corrupted loaded object or even crash of the program!</div>
+
+<h2 id="serialization-of-a-polymorphic-class">Serialization of a Polymorphic Class</h2>
+<p>Serializing of a polymorphic class is similar to the non-polymorphic one with the following two additional steps:</p>
+
+<div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <b>Note:</b> Saving the name of the class <strong>IS NOT NECESSARY</strong> anymore. Please remove it from the old codes because it will prevent them from being serialized.</div>
+
+<div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <b>Note:</b> The default constructor mentioned in the non-Polymorphic part has to be added in <strong>protected</strong> section to be able to be accessed from inheriting classes.</div>
+
+<p>In general it is necessary to call the base class save and load in the derived class. This can be done using the following defined macro:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KRATOS_SERIALIZE_SAVE_BASE_CLASS</span><span class="p">(</span><span class="n">Serializer</span><span class="p">,</span> <span class="n">BaseType</span><span class="p">)</span>
+<span class="n">KRATOS_SERIALIZE_LOAD_BASE_CLASS</span><span class="p">(</span><span class="n">Serializer</span><span class="p">,</span> <span class="n">BaseType</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Here is an example of use for the <code class="language-plaintext highlighter-rouge">TotalLagrangian</code> element derived from <code class="language-plaintext highlighter-rouge">Element</code>:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">virtual</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+     <span class="n">KRATOS_SERIALIZE_SAVE_BASE_CLASS</span><span class="p">(</span><span class="n">rSerializer</span><span class="p">,</span> <span class="n">Element</span> <span class="p">);</span>
+<span class="err">}</span>
+
+<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">load</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">KRATOS_SERIALIZE_LOAD_BASE_CLASS</span><span class="p">(</span><span class="n">rSerializer</span><span class="p">,</span> <span class="n">Element</span> <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The class must be registered in serializer using the Register() method. For elements and conditions the registeration is done via KRATOS_REGISTER_ELEMENT and KRATOS_REGISTER_CONDITION with the name of the class (NOT the given name respect to its geometry). Here is an example:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KRATOS_REGISTER_ELEMENT</span><span class="p">(</span> <span class="s">"TotalLagrangian"</span><span class="p">,</span> <span class="n">mTotalLagrangian</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>This is equivalent to write:</p>
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Serializer</span><span class="o">::</span><span class="n">Register</span><span class="p">(</span><span class="s">"TotalLagrangian"</span><span class="p">,</span> <span class="n">mTotalLagrangian</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The above form can be used to register other polymorphic classes in Kratos if necessary.</p>
+
+<h2 id="debugging">Debugging</h2>
+<p>There is a trace option which helps debugging the serialization. The tracing option can be passed as an additional parameter to the constructor. Here is an example:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">serializer</span> <span class="o">=</span> <span class="n">Serializer</span><span class="p">(</span><span class="s">"filename"</span><span class="p">,</span> <span class="n">SERIALIZER_TRACE_ERROR</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The three options are:</p>
+<ul>
+  <li><strong>SERIALIZER_NO_TRACE</strong> disables the tracing. This is the default option and won’t write any additional information to the restart file in order to minimize the size of the file.</li>
+  <li><strong>SERIALIZER_TRACE_ERROR</strong> enables the tracing but only reports the errors. It will write the tags given in time of saving to the restart file and then in time of loading checks if the written one coincides with expected one. In case of error it will report it as follow:</li>
+</ul>
+
+<div data-lang="Error Message" class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">File</span> <span class="s2">"cantilever3dstatic.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">96</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+   <span class="n">serializer</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="s2">"StructureModelPart"</span><span class="p">,</span> <span class="n">loaded_model_part</span><span class="p">);</span>
+<span class="n">ValueError</span><span class="p">:</span> <span class="k">in</span> <span class="n">bool</span> <span class="n">Kratos</span><span class="p">::</span><span class="n">Serializer</span><span class="p">::</span><span class="n">load_trace_point</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="err">&amp;</span><span class="p">)</span> <span class="p">[</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kratos</span><span class="o">/</span><span class="n">kratos</span><span class="o">/</span><span class="n">includes</span><span class="o">/</span><span class="n">serializer</span><span class="p">.</span><span class="n">h</span> <span class="p">,</span> <span class="n">Line</span> <span class="mi">561</span> <span class="p">]</span>
+
+<span class="n">with</span> <span class="n">subject</span>    <span class="p">:</span>  <span class="n">In</span> <span class="n">ine</span> <span class="mi">386</span> <span class="n">the</span> <span class="n">trace</span> <span class="n">tag</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">expected</span> <span class="n">one</span><span class="p">:</span>
+   <span class="n">Tag</span> <span class="n">found</span> <span class="p">:</span> <span class="n">Variables</span>
+   <span class="n">Tag</span> <span class="n">given</span> <span class="p">:</span> <span class="n">Variables</span> <span class="n">List</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>SERIALIZER_TRACE_ALL</strong> also enables the tracing and saves tags to check them in loading. The only difference with <strong>SERIALIZER_TRACE_ERROR</strong> is the additional messages which remark the tags correctly loaded. VERY VERBOSE!!</li>
+</ul>
+
+<h2 id="examples">Examples</h2>
+<p>As an example we serialize the Isotropic3D class which is derived from ConstitutiveLaw:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Isotropic3D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ConstitutiveLaw</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+     <span class="cm">/**
+     * Default constructor.
+     */</span>
+     <span class="n">Isotropic3D</span><span class="p">();</span>
+
+     <span class="cm">/**
+     * Destructor.
+     */</span>
+     <span class="k">virtual</span> <span class="o">~</span><span class="n">Isotropic3D</span><span class="p">();</span>
+
+     <span class="cm">/**
+     * Operations
+     */</span>
+
+<span class="c1">//....</span>
+<span class="c1">//....</span>
+
+<span class="nl">private:</span>
+
+     <span class="cm">/**
+     * Member Variables
+     */</span>
+     <span class="kt">double</span> <span class="n">mE</span><span class="p">,</span> <span class="n">mNU</span><span class="p">,</span> <span class="n">mDE</span><span class="p">;</span>
+     <span class="n">Vector</span> <span class="n">mInSituStress</span><span class="p">;</span>
+     <span class="n">Matrix</span> <span class="n">mCtangent</span><span class="p">;</span>
+     <span class="n">Vector</span> <span class="n">mCurrentStress</span><span class="p">;</span>
+     <span class="n">Vector</span> <span class="n">mMaterialParameters</span><span class="p">;</span>
+
+<span class="c1">//....</span>
+<span class="c1">//....</span>
+
+<span class="p">};</span> <span class="c1">// Class Isotropic3D</span>
+</code></pre></div></div>
+
+<p>Now we add the serialization comment block and make Serializer a friend of this class:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">Isotropic3D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ConstitutiveLaw</span>
+   <span class="p">{</span>
+   <span class="nl">public:</span>
+       <span class="cm">/**
+        * Default constructor.
+        */</span>
+       <span class="n">Isotropic3D</span><span class="p">();</span>
+ 
+      <span class="cm">/**
+        * Destructor.
+        */</span>
+       <span class="k">virtual</span> <span class="o">~</span><span class="n">Isotropic3D</span><span class="p">();</span>
+ 
+       <span class="cm">/**
+        * Operations
+        */</span>
+ 
+    <span class="c1">//....</span>
+    <span class="c1">//....</span>
+ 
+   <span class="nl">private:</span>
+ 
+        <span class="cm">/**
+        * Member Variables
+        */</span>
+       <span class="kt">double</span> <span class="n">mE</span><span class="p">,</span> <span class="n">mNU</span><span class="p">,</span> <span class="n">mDE</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mInSituStress</span><span class="p">;</span>
+       <span class="n">Matrix</span> <span class="n">mCtangent</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mCurrentStress</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mMaterialParameters</span><span class="p">;</span>
+ 
+     <span class="c1">///@} </span>
+     <span class="c1">///@name Serialization</span>
+     <span class="c1">///@{    </span>
+       <span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+  
+    <span class="c1">//....</span>
+    <span class="c1">//....</span>
+ 
+    <span class="p">};</span> <span class="c1">// Class Isotropic3D</span>
+</code></pre></div></div>
+
+<p>Then add the save and load methods with serializing the base classes</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">Isotropic3D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ConstitutiveLaw</span>
+   <span class="p">{</span>
+   <span class="nl">public:</span>
+       <span class="cm">/**
+        * Default constructor.
+        */</span>
+       <span class="n">Isotropic3D</span><span class="p">();</span>
+ 
+      <span class="cm">/**
+        * Destructor.
+        */</span>
+       <span class="k">virtual</span> <span class="o">~</span><span class="n">Isotropic3D</span><span class="p">();</span>
+ 
+       <span class="cm">/**
+        * Operations
+        */</span>
+ 
+    <span class="c1">//....</span>
+    <span class="c1">//....</span>
+ 
+   <span class="nl">private:</span>
+ 
+        <span class="cm">/**
+        * Member Variables
+        */</span>
+       <span class="kt">double</span> <span class="n">mE</span><span class="p">,</span> <span class="n">mNU</span><span class="p">,</span> <span class="n">mDE</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mInSituStress</span><span class="p">;</span>
+       <span class="n">Matrix</span> <span class="n">mCtangent</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mCurrentStress</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mMaterialParameters</span><span class="p">;</span>
+ 
+     <span class="c1">///@} </span>
+     <span class="c1">///@name Serialization</span>
+     <span class="c1">///@{    </span>
+       <span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+ 
+       <span class="k">virtual</span> <span class="kt">void</span> <span class="n">save</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span> <span class="k">const</span>
+       <span class="p">{</span>
+            <span class="n">KRATOS_SERIALIZE_SAVE_BASE_CLASS</span><span class="p">(</span><span class="n">rSerializer</span><span class="p">,</span> <span class="n">ConstitutiveLaw</span><span class="p">);</span>
+       <span class="p">}</span>
+                  
+       <span class="k">virtual</span> <span class="kt">void</span> <span class="n">load</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span>
+       <span class="p">{</span>
+            <span class="n">KRATOS_SERIALIZE_LOAD_BASE_CLASS</span><span class="p">(</span><span class="n">rSerializer</span><span class="p">,</span> <span class="n">ConstitutiveLaw</span><span class="p">);</span>
+       <span class="p">}</span>
+ 
+    <span class="c1">//....</span>
+    <span class="c1">//....</span>
+ 
+    <span class="p">};</span> <span class="c1">// Class Isotropic3D</span>
+</code></pre></div></div>
+
+<p>And finally we load and save all the member variables of this class as follows:</p>
+
+<div data-lang="C++" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">Isotropic3D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ConstitutiveLaw</span>
+   <span class="p">{</span>
+   <span class="nl">public:</span>
+       <span class="cm">/**
+        * Default constructor.
+        */</span>
+       <span class="n">Isotropic3D</span><span class="p">();</span>
+ 
+      <span class="cm">/**
+        * Destructor.
+        */</span>
+       <span class="k">virtual</span> <span class="o">~</span><span class="n">Isotropic3D</span><span class="p">();</span>
+ 
+       <span class="cm">/**
+        * Operations
+        */</span>
+ 
+    <span class="c1">//....</span>
+    <span class="c1">//....</span>
+ 
+   <span class="nl">private:</span>
+ 
+        <span class="cm">/**
+        * Member Variables
+        */</span>
+       <span class="kt">double</span> <span class="n">mE</span><span class="p">,</span> <span class="n">mNU</span><span class="p">,</span> <span class="n">mDE</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mInSituStress</span><span class="p">;</span>
+       <span class="n">Matrix</span> <span class="n">mCtangent</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mCurrentStress</span><span class="p">;</span>
+       <span class="n">Vector</span> <span class="n">mMaterialParameters</span><span class="p">;</span>
+ 
+     <span class="c1">///@} </span>
+     <span class="c1">///@name Serialization</span>
+     <span class="c1">///@{    </span>
+       <span class="k">friend</span> <span class="k">class</span> <span class="nc">Serializer</span><span class="p">;</span>
+ 
+       <span class="k">virtual</span> <span class="kt">void</span> <span class="n">save</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span> <span class="k">const</span>
+       <span class="p">{</span>
+            <span class="n">KRATOS_SERIALIZE_SAVE_BASE_CLASS</span><span class="p">(</span><span class="n">rSerializer</span><span class="p">,</span> <span class="n">ConstitutiveLaw</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"E"</span><span class="p">,</span><span class="n">mE</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"NU"</span><span class="p">,</span><span class="n">mNU</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"DE"</span><span class="p">,</span><span class="n">mDE</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"InSituStress"</span><span class="p">,</span><span class="n">mInSituStress</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"Ctangent"</span><span class="p">,</span><span class="n">mCtangent</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"CurrentStress"</span><span class="p">,</span><span class="n">mCurrentStress</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"MaterialParameters"</span><span class="p">,</span><span class="n">mMaterialParameters</span><span class="p">);</span>
+        <span class="p">}</span>
+                  
+       <span class="k">virtual</span> <span class="kt">void</span> <span class="n">load</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">rSerializer</span><span class="p">)</span>
+       <span class="p">{</span>
+            <span class="n">KRATOS_SERIALIZE_LOAD_BASE_CLASS</span><span class="p">(</span><span class="n">rSerializer</span><span class="p">,</span> <span class="n">ConstitutiveLaw</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"E"</span><span class="p">,</span><span class="n">mE</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"NU"</span><span class="p">,</span><span class="n">mNU</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"DE"</span><span class="p">,</span><span class="n">mDE</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"InSituStress"</span><span class="p">,</span><span class="n">mInSituStress</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"Ctangent"</span><span class="p">,</span><span class="n">mCtangent</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"CurrentStress"</span><span class="p">,</span><span class="n">mCurrentStress</span><span class="p">);</span>
+            <span class="n">rSerializer</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"MaterialParameters"</span><span class="p">,</span><span class="n">mMaterialParameters</span><span class="p">);</span>
+      <span class="p">}</span>
+ 
+    <span class="c1">//....</span>
+    <span class="c1">//....</span>
+ 
+    <span class="p">};</span> <span class="c1">// Class Isotropic3D</span>
+</code></pre></div></div>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

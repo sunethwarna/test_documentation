@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.md,  ">
+
+<title>Pure diffusion solver derived from main python solver | Kratos Multiphysics Documentation</title>
+
+<link rel="stylesheet" href="/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/modern-business.css">
+
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+
+<!-- Most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<!-- MathJax.js -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Kratos Multiphysics Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/KratosMultiphysics/Kratos" target="_blank" rel="noopener">GitHub</a></li>
+                
+                
+                
+                <li><a href="news">News</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kratos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Users/General/Overview.html">For Users</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/For_Developers/General/Application-Cases.html">For Developers</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Processes/General/Overview.html">Processes</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Utilities/General/Overview.html">Utilities</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Debugging/General/Checking-memory-usage-with-Valgrind.html">Debugging</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Documentation_Guide/General/Overview.html">Documentation Guide</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Kratos/Workshops/2019/running_an_example_from_GiD.html">Workshops</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Applications<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/pages/Applications/Discrete_Element_Modelling_Application/General/Basic-DEM-Benchmarking.html">Discrete Element Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid-Structure_Interaction_Application/General/2D-Mok-benchmark.html">Fluid-Structure Interaction Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Fluid_Dynamics_Application/General/2D-Cavity-flow-problem.html">Fluid Dynamics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Mapping_Application/General/How-to-do-Mapping-between-nonmatching-meshes.html">Mapping Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Meshing_Application/General/Utilities-MMG-Process.html">Meshing Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Particle_Mechanics_Application/General/Overview.html">Particle Mechanics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Reduced_Order_Modelling_Application/General/API-for-RomApplication-(draft-to-be-moved-elsewhere).html">Reduced Order Modelling Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Statistics_Application/General/Overview.html">Statistics Application</a></li>
+                        
+                        
+                        
+                        <li><a href="/pages/Applications/Structural_Mechanics_Application/General/0_Roll-up-beam-cantilever.html">Structural Mechanics Application</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:kratosmultiphysics@gmail.com?subject=Kratos Multiphysics Documentation feedback&body=I have some feedback about the Pure diffusion solver derived from main python solver page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: '/search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Pure diffusion solver derived from main python solver">{title}</a></li>',
+                    noResultsText: '',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">For Developers </li>
+  
+  
+  
+  <li>
+      <a title="General" href="#">General</a>
+      <ul>
+          
+          
+          
+          <li><a title="Adding dynamic contributions to the element file" href="/pages/Kratos/For_Developers/General/Tutorial-Adding-dynamic-contributions-to-the-element-file.html">Adding dynamic contributions to the element file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Adjoint API" href="/pages/Kratos/For_Developers/General/Adjoint-API.html">Adjoint API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Analysis stage for pure diffusion problem" href="/pages/Kratos/For_Developers/General/Tutorial-Analysis-stage-for-pure-diffusion-problem.html">Analysis stage for pure diffusion problem</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Application Cases" href="/pages/Kratos/For_Developers/General/Application-Cases.html">Application Cases</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applications as python modules" href="/pages/Kratos/For_Developers/General/Applications-as-python-modules.html">Applications as python modules</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Applying periodic boundary conditions" href="/pages/Kratos/For_Developers/General/Applying-periodic-boundary-conditions.html">Applying periodic boundary conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Authorship of Kratos files" href="/pages/Kratos/For_Developers/General/Authorship-of-Kratos-files.html">Authorship of Kratos files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Clang Tidy to automatically correct code" href="/pages/Kratos/For_Developers/General/How-to-use-Clang-Tidy-to-automatically-correct-code.html">Clang Tidy to automatically correct code</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Common Python Interface of Applications for Users" href="/pages/Kratos/For_Developers/General/Common-Python-Interface-of-Applications-for-Users.html">Common Python Interface of Applications for Users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Constitutive Law" href="/pages/Kratos/For_Developers/General/How-to-use-the-Constitutive-Law-class.html">Constitutive Law</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Cotire" href="/pages/Kratos/For_Developers/General/How-to-use-Cotire.html">Cotire</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating a wrapper of convergence criteria" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-a-wrapper-of-convergence-criteria.html">Creating a wrapper of convergence criteria</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating an Utility" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-an-Utility.html">Creating an Utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Conditions" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Conditions.html">Creating the Conditions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Element" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Element.html">Creating the Element</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Creating the Python Solver file" href="/pages/Kratos/For_Developers/General/Tutorial-Creating-the-Python-Solver-file.html">Creating the Python Solver file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Data management" href="/pages/Kratos/For_Developers/General/Data-management.html">Data management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Editing the main files" href="/pages/Kratos/For_Developers/General/Tutorial-Editing-the-main-files.html">Editing the main files</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to Access DataBase" href="/pages/Kratos/For_Developers/General/How-to-Access-DataBase.html">How to Access DataBase</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to apply a function to a list of variables" href="/pages/Kratos/For_Developers/General/How-to-apply-a-function-to-a-list-of-variables.html">How to apply a function to a list of variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to configure clang‐format" href="/pages/Kratos/For_Developers/General/How-to-configure-clang‐format.html">How to configure clang‐format</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to create unitary tests" href="/pages/Kratos/For_Developers/General/How-to-create-unitary-tests.html">How to create unitary tests</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to generate python wheels" href="/pages/Kratos/For_Developers/General/How-to-generate-python-wheels.html">How to generate python wheels</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to make Git ignore the files resulting from a compilation without conflicts in .gitignore" href="/pages/Kratos/For_Developers/General/How-to-make-Git-ignore-the-files-resulting-from-a-compilation-without-conflicts-in-.gitignore.html">How to make Git ignore the files resulting from a compilation without conflicts in .gitignore</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="How to run multiple cases using PyCOMPSs" href="/pages/Kratos/For_Developers/General/How-to-run-multiple-cases-using-PyCOMPSs.html">How to run multiple cases using PyCOMPSs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KRATOS_API for Windows Compilation" href="/pages/Kratos/For_Developers/General/KRATOS_API-for-Windows-Compilation.html">KRATOS_API for Windows Compilation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos classes accesible via python" href="/pages/Kratos/For_Developers/General/Kratos-classes-accesible-via-python.html">Kratos classes accesible via python</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and I O" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-I-O.html">Kratos input files and I O</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Kratos input files and IO" href="/pages/Kratos/For_Developers/General/Kratos-input-files-and-IO.html">Kratos input files and IO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="KratosAPI MultiPoint Constraint (MPC) interface" href="/pages/Kratos/For_Developers/General/MultiPoint-Constraint-interface.html">KratosAPI MultiPoint Constraint (MPC) interface</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Local axes orientation" href="/pages/Kratos/For_Developers/General/Local-axes-orientation.html">Local axes orientation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Logger" href="/pages/Kratos/For_Developers/General/How-to-use-Logger.html">Logger</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Manipulating solution values" href="/pages/Kratos/For_Developers/General/Manipulating-solution-values.html">Manipulating solution values</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Mesh node ordering" href="/pages/Kratos/For_Developers/General/Mesh-node-ordering.html">Mesh node ordering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart and SubModelPart" href="/pages/Kratos/For_Developers/General/ModelPart-and-SubModelPart.html">ModelPart and SubModelPart</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="ModelPart entities" href="/pages/Kratos/For_Developers/General/ModelPart-entities.html">ModelPart entities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Nodes and Nodal Data" href="/pages/Kratos/For_Developers/General/Nodes-and-Nodal-Data.html">Nodes and Nodal Data</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Parallel Utilities" href="/pages/Kratos/For_Developers/General/Parallel-Utilities.html">Parallel Utilities</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerCommunicator.html">PointerCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="PointerMapCommunicator" href="/pages/Kratos/For_Developers/General/How-to-use-PointerMapCommunicator.html">PointerMapCommunicator</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to AMatrix" href="/pages/Kratos/For_Developers/General/Porting-to-AMatrix.html">Porting to AMatrix</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Porting to PyBind11   common steps" href="/pages/Kratos/For_Developers/General/Porting-to-PyBind11-common-steps.html">Porting to PyBind11   common steps</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Processes In the application of BCs" href="/pages/Kratos/For_Developers/General/How-to-use-Processes-In-the-application-of-BCs.html">Processes In the application of BCs</a></li>
+          
+          
+          
+          
+          
+          
+          <li class="active"><a title="Pure diffusion solver derived from main python solver" href="/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.html">Pure diffusion solver derived from main python solver</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Quaternions in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-quaternions-in-Kratos.html">Quaternions in Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Smart Pointers within Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-Smart-Pointers-within-Kratos.html">Smart Pointers within Kratos</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Solving strategies" href="/pages/Kratos/For_Developers/General/Solving-strategies.html">Solving strategies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Sparse Linear Algebra (native Kratos implementation)" href="/pages/Kratos/For_Developers/General/Sparse-Linear-Algebra-(native-Kratos-implementation).html">Sparse Linear Algebra (native Kratos implementation)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Style Guide" href="/pages/Kratos/For_Developers/General/Style-Guide.html">Style Guide</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using alias for Ublas matrix and vector" href="/pages/Kratos/For_Developers/General/Using-alias-for-Ublas-matrix-and-vector.html">Using alias for Ublas matrix and vector</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Using processes to customize a simulation" href="/pages/Kratos/For_Developers/General/Using-processes-to-customize-a-simulation.html">Using processes to customize a simulation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Utilities Colors utility" href="/pages/Kratos/For_Developers/General/Utilities-Colors-utility.html">Utilities Colors utility</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install" href="/pages/Kratos/For_Developers/General/Windows-Install.html">Windows Install</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Windows Install (MinGW)" href="/pages/Kratos/For_Developers/General/Windows-Install-(MinGW).html">Windows Install (MinGW)</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the FEAST Solver in Kratos?" href="/pages/Kratos/For_Developers/General/How-to-use-the-FEAST-Solver-in-Kratos.html">the FEAST Solver in Kratos?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the Geometry" href="/pages/Kratos/For_Developers/General/How-to-use-the-Geometry.html">the Geometry</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="the PaStiX solver in Kratos" href="/pages/Kratos/For_Developers/General/How-to-use-the-PaStiX-solver-in-Kratos.html">the PaStiX solver in Kratos</a></li>
+          
+          
+          
+          
+      </ul>
+  </li>
+  
+  
+  
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Pure diffusion solver derived from main python solver</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+    <a target="_blank" rel="noopener" href="https://github.com/KratosMultiphysics/Kratos/tree/master/docs/pages/Kratos/For_Developers/General/Tutorial-Pure-diffusion-solver-derived-from-main-python-solver.md" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+
+    
+
+   <p>TODO: Finish me</p>
+
+<h1 id="overview">Overview</h1>
+
+<h1 id="derived-solver">Derived solver</h1>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>  <span class="c1"># makes KratosMultiphysics backward compatible with python 2.6 and 2.7
+</span>
+<span class="c1"># Importing the Kratos Library
+</span><span class="kn">import</span> <span class="nn">KratosMultiphysics</span>
+
+<span class="c1"># Check that applications were imported in the main script
+</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">CheckRegisteredApplications</span><span class="p">(</span><span class="s">"MyLaplacianApplication"</span><span class="p">)</span>
+
+<span class="c1"># Import applications
+</span><span class="kn">import</span> <span class="nn">KratosMultiphysics.MyLaplacianApplication</span> <span class="k">as</span> <span class="n">Poisson</span>
+
+<span class="c1"># Importing the base class
+</span><span class="kn">from</span> <span class="nn">python_solver</span> <span class="kn">import</span> <span class="n">PythonSolver</span>
+
+<span class="c1"># Other imports
+</span><span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">def</span> <span class="nf">CreateSolver</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">custom_settings</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">PureDiffusionSolver</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">custom_settings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PureDiffusionSolver</span><span class="p">(</span><span class="n">PythonSolver</span><span class="p">):</span>
+    <span class="s">"""The base class for pure diffusion solvers.
+
+    This class provides functions for importing and exporting models,
+    adding nodal variables and dofs and solving each solution step.
+
+    Derived classes must override the function _create_solution_scheme which
+    constructs and returns a solution scheme. Depending on the type of
+    solver, derived classes may also need to override the following functions:
+
+    _create_solution_scheme
+    _create_convergence_criterion
+    _create_linear_solver
+    _create_builder_and_solver
+    _create_pure_diffusion_solution_strategy
+
+    The pure_diffusion_solution_strategy, builder_and_solver, etc. should alway be retrieved
+    using the getter functions get_pure_diffusion_solution_strategy, get_builder_and_solver,
+    etc. from this base class.
+
+    Only the member variables listed below should be accessed directly.
+
+    Public member variables:
+    model -- the model containing the modelpart used to construct the solver.
+    settings -- Kratos parameters containing solver settings.
+    """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">custom_settings</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PureDiffusionSolver</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">custom_settings</span><span class="p">)</span>
+
+        <span class="n">default_settings</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="s">"""
+        {
+            "model_part_name" : "PureDiffusion",
+            "domain_size" : -1,
+            "echo_level": 0,
+            "analysis_type": "linear",
+            "model_import_settings": {
+                "input_type": "mdpa",
+                "input_filename": "unknown_name"
+            },
+            "computing_model_part_name" : "PureDiffusionModelPart",
+            "material_import_settings" :{
+                "materials_filename": ""
+            },
+            "solver_type": "Stationary",
+            "time_stepping" : { },
+            "reform_dofs_at_each_step": false,
+            "line_search": false,
+            "compute_reactions": true,
+            "block_builder": true,
+            "clear_storage": false,
+            "move_mesh_flag": false,
+            "convergence_criterion": "residual_criterion",
+            "solution_relative_tolerance": 1.0e-4,
+            "solution_absolute_tolerance": 1.0e-9,
+            "residual_relative_tolerance": 1.0e-4,
+            "residual_absolute_tolerance": 1.0e-9,
+            "max_iteration": 10,
+            "linear_solver_settings":{
+                "solver_type": "AMGCL",
+                "smoother_type":"ilu0",
+                "krylov_type":"gmres",
+                "coarsening_type":"aggregation",
+                "max_iteration": 5000,
+                "tolerance": 1e-9,
+                "scaling": false
+            },
+            "element_replace_settings" : {
+                "element_name" : "MyLaplacianElement",
+                "condition_name" : "PointSourceCondition"
+            },
+            "problem_domain_sub_model_part_list": ["conv_diff_body"],
+            "processes_sub_model_part_list": [""],
+            "auxiliary_variables_list" : []
+        }
+        """</span><span class="p">)</span>
+
+        <span class="c1"># Overwrite the default settings with user-provided parameters.
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">custom_settings</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">.</span><span class="n">ValidateAndAssignDefaults</span><span class="p">(</span><span class="n">default_settings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">.</span><span class="n">AddEmptyValue</span><span class="p">(</span><span class="s">"buffer_size"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"buffer_size"</span><span class="p">].</span><span class="n">SetInt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">GetMinimumBufferSize</span><span class="p">())</span>
+        <span class="n">model_part_name</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"model_part_name"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">model_part_name</span> <span class="o">==</span> <span class="s">""</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">'Please specify a model_part name!'</span><span class="p">)</span>
+
+        <span class="c1"># This will be changed once the Model is fully supported!
+</span>        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">HasModelPart</span><span class="p">(</span><span class="n">model_part_name</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">[</span><span class="n">model_part_name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">solver_imports_model_part</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ModelPart</span><span class="p">(</span><span class="n">model_part_name</span><span class="p">)</span> <span class="c1"># Model.CreateodelPart()
+</span>            <span class="n">domain_size</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"domain_size"</span><span class="p">].</span><span class="n">GetInt</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">domain_size</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">'Please specify a "domain_size" &gt;= 0!'</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DOMAIN_SIZE</span><span class="p">,</span> <span class="n">domain_size</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">solver_imports_model_part</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Construction finished"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">AddVariables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">''' Add nodal solution step variables 
+        '''</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">AddNodalSolutionStepVariable</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">TEMPERATURE</span><span class="p">);</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">AddNodalSolutionStepVariable</span><span class="p">(</span><span class="n">Poisson</span><span class="p">.</span><span class="n">POINT_HEAT_SOURCE</span><span class="p">);</span>
+            
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Variables ADDED"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">GetMinimumBufferSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_warning_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Please define GetMinimumBufferSize() in your solver"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">AddDofs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">VariableUtils</span><span class="p">().</span><span class="n">AddDof</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">TEMPERATURE</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">REACTION_FLUX</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"DOF's ADDED"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">ImportModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""This function imports the ModelPart
+        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">solver_imports_model_part</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_ImportModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"model_import_settings"</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">PrepareModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">is_restarted</span><span class="p">():</span>
+            <span class="c1"># Check and prepare computing model part and import constitutive laws.
+</span>            <span class="bp">self</span><span class="p">.</span><span class="n">_execute_after_reading</span><span class="p">()</span>
+
+            <span class="n">throw_errors</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">TetrahedralMeshOrientationCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">,</span> <span class="n">throw_errors</span><span class="p">).</span><span class="n">Execute</span><span class="p">()</span>
+            
+            <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ReplaceElementsAndConditionsProcess</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">_get_element_condition_replace_settings</span><span class="p">()).</span><span class="n">Execute</span><span class="p">()</span>
+        
+            <span class="bp">self</span><span class="p">.</span><span class="n">_set_and_fill_buffer</span><span class="p">()</span>
+
+        <span class="c1"># This will be removed once the Model is fully supported! =&gt; It wont e necessary anymore
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">HasModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Name</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">AddModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"echo_level"</span><span class="p">].</span><span class="n">GetInt</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Logger</span><span class="p">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]::"</span><span class="p">,</span> <span class="s">"ModelPart prepared for Solver."</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">Initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""Perform initialization after adding nodal variables and dofs to the main model part. """</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Initializing ..."</span><span class="p">)</span>
+        <span class="c1"># The convection_diffusion solution strategy is created here if it does not already exist.
+</span>        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"clear_storage"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">Clear</span><span class="p">()</span>
+        <span class="n">pure_diffusion_solution_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">()</span>
+        <span class="n">pure_diffusion_solution_strategy</span><span class="p">.</span><span class="n">SetEchoLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"echo_level"</span><span class="p">].</span><span class="n">GetInt</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">is_restarted</span><span class="p">():</span>
+            <span class="n">pure_diffusion_solution_strategy</span><span class="p">.</span><span class="n">Initialize</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># SetInitializePerformedFlag is not a member of SolvingStrategy but
+</span>            <span class="c1"># is used by ResidualBasedNewtonRaphsonStrategy.
+</span>            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pure_diffusion_solution_strategy</span><span class="p">.</span><span class="n">SetInitializePerformedFlag</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">Check</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Finished initialization."</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">GetOutputVariables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">Solve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"clear_storage"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">Clear</span><span class="p">()</span>
+        <span class="n">pure_diffusion_solution_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">()</span>
+        <span class="n">pure_diffusion_solution_strategy</span><span class="p">.</span><span class="n">Solve</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">InitializeSolutionStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">InitializeSolutionStep</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">Predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">Predict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">SolveSolutionStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">is_converged</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">SolveSolutionStep</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">is_converged</span>
+
+    <span class="k">def</span> <span class="nf">FinalizeSolutionStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">FinalizeSolutionStep</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">AdvanceInTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_time</span><span class="p">):</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">ComputeDeltaTime</span><span class="p">()</span>
+        <span class="n">new_time</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">+</span> <span class="n">dt</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">STEP</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">CloneTimeStep</span><span class="p">(</span><span class="n">new_time</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">new_time</span>
+
+    <span class="k">def</span> <span class="nf">ComputeDeltaTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"time_stepping"</span><span class="p">][</span><span class="s">"time_step"</span><span class="p">].</span><span class="n">GetDouble</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">GetComputingModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">GetSubModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"computing_model_part_name"</span><span class="p">].</span><span class="n">GetString</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">ExportModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name_out_file</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"model_import_settings"</span><span class="p">][</span><span class="s">"input_filename"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span><span class="o">+</span><span class="s">".out"</span>
+        <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">name_out_file</span> <span class="o">+</span> <span class="s">".mdpa"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span>
+        <span class="nb">file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ModelPartIO</span><span class="p">(</span><span class="n">name_out_file</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">WRITE</span><span class="p">).</span><span class="n">WriteModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">SetEchoLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">SetEchoLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">Clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">Clear</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">Check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_pure_diffusion_solution_strategy</span><span class="p">().</span><span class="n">Check</span><span class="p">()</span>
+
+    <span class="c1">#### Specific internal functions ####
+</span>
+    <span class="k">def</span> <span class="nf">get_solution_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'_solution_scheme'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_solution_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_solution_scheme</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_solution_scheme</span>
+
+    <span class="k">def</span> <span class="nf">get_convergence_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'_convergence_criterion'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_convergence_criterion</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_convergence_criterion</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_convergence_criterion</span>
+
+    <span class="k">def</span> <span class="nf">get_linear_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'_linear_solver'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_linear_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_linear_solver</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_linear_solver</span>
+
+    <span class="k">def</span> <span class="nf">get_builder_and_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'_builder_and_solver'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_builder_and_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_builder_and_solver</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_builder_and_solver</span>
+
+    <span class="k">def</span> <span class="nf">get_pure_diffusion_solution_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'_pure_diffusion_solution_strategy'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_pure_diffusion_solution_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_pure_diffusion_solution_strategy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_pure_diffusion_solution_strategy</span>
+
+    <span class="k">def</span> <span class="nf">import_materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">materials_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"material_import_settings"</span><span class="p">][</span><span class="s">"materials_filename"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">materials_filename</span> <span class="o">!=</span> <span class="s">""</span><span class="p">):</span>
+            <span class="c1"># Add constitutive laws and material properties from json file to model parts.
+</span>            <span class="n">material_settings</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="s">"""{"Parameters": {"materials_filename": ""}} """</span><span class="p">)</span>
+            <span class="n">material_settings</span><span class="p">[</span><span class="s">"Parameters"</span><span class="p">][</span><span class="s">"materials_filename"</span><span class="p">].</span><span class="n">SetString</span><span class="p">(</span><span class="n">materials_filename</span><span class="p">)</span>
+            <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ReadMaterialsUtility</span><span class="p">(</span><span class="n">material_settings</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">)</span>
+            
+            <span class="n">materials_imported</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">materials_imported</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="n">materials_imported</span>
+
+    <span class="k">def</span> <span class="nf">is_restarted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># this function avoids the long call to ProcessInfo and is also safer
+</span>        <span class="c1"># in case the detection of a restart is changed later
+</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">IS_RESTARTED</span><span class="p">]</span>
+
+    <span class="c1">#### Private functions ####
+</span>    
+    <span class="k">def</span> <span class="nf">_execute_after_reading</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""Prepare computing model part and import constitutive laws. """</span>
+        <span class="c1"># Auxiliary parameters object for the CheckAndPepareModelProcess
+</span>        <span class="n">params</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="s">"{}"</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"computing_model_part_name"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"computing_model_part_name"</span><span class="p">])</span>
+        <span class="n">params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"problem_domain_sub_model_part_list"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"problem_domain_sub_model_part_list"</span><span class="p">])</span>
+        <span class="n">params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"processes_sub_model_part_list"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"processes_sub_model_part_list"</span><span class="p">])</span>
+        <span class="c1"># Assign mesh entities from domain and process sub model parts to the computing model part.
+</span>        <span class="kn">import</span> <span class="nn">check_and_prepare_model_process_convection_diffusion</span> <span class="k">as</span> <span class="n">check_and_prepare_model_process</span>
+        <span class="n">check_and_prepare_model_process</span><span class="p">.</span><span class="n">CheckAndPrepareModelProcess</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">,</span> <span class="n">params</span><span class="p">).</span><span class="n">Execute</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">HasModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Name</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">AddModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">)</span>
+        
+        <span class="c1"># Import constitutive laws.
+</span>        <span class="n">materials_imported</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">import_materials</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">materials_imported</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Materials were successfully imported."</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">print_on_rank_zero</span><span class="p">(</span><span class="s">"::[PureDiffusionSolver]:: "</span><span class="p">,</span> <span class="s">"Materials were not imported."</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_and_fill_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""Prepare nodal solution step data containers and time step information. """</span>
+        <span class="c1"># Set the buffer size for the nodal solution steps data. Existing nodal
+</span>        <span class="c1"># solution step data may be lost.
+</span>        <span class="n">required_buffer_size</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"buffer_size"</span><span class="p">].</span><span class="n">GetInt</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">required_buffer_size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="p">.</span><span class="n">GetMinimumBufferSize</span><span class="p">():</span>
+            <span class="n">required_buffer_size</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">GetMinimumBufferSize</span><span class="p">()</span>
+        <span class="n">current_buffer_size</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">GetBufferSize</span><span class="p">()</span>
+        <span class="n">buffer_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">current_buffer_size</span><span class="p">,</span> <span class="n">required_buffer_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">SetBufferSize</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span>
+        <span class="c1"># Cycle the buffer. This sets all historical nodal solution step data to
+</span>        <span class="c1"># the current value and initializes the time stepping in the process info.
+</span>        <span class="n">delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DELTA_TIME</span><span class="p">]</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">TIME</span><span class="p">]</span>
+        <span class="n">step</span> <span class="o">=-</span><span class="n">buffer_size</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">delta_time</span> <span class="o">*</span> <span class="n">buffer_size</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">TIME</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">):</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="n">step</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">delta_time</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">STEP</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">CloneTimeStep</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_element_condition_replace_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Duplicate model part
+</span>        <span class="n">num_nodes_elements</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Elements</span><span class="p">:</span>
+                <span class="n">num_nodes_elements</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">elem</span><span class="p">.</span><span class="n">GetNodes</span><span class="p">())</span>
+                <span class="k">break</span>
+
+        <span class="c1">## Elements
+</span>        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DOMAIN_SIZE</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"element_replace_settings"</span><span class="p">][</span><span class="s">"element_name"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span> <span class="o">==</span> <span class="s">"MyLaplacianElement"</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">num_nodes_elements</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"element_replace_settings"</span><span class="p">][</span><span class="s">"element_name"</span><span class="p">].</span><span class="n">SetString</span><span class="p">(</span><span class="s">"MyLaplacianElement"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DOMAIN_SIZE</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"Element not registered"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"DOMAIN_SIZE not set"</span><span class="p">)</span>
+        
+        <span class="c1">## Conditions
+</span>        <span class="n">num_nodes_conditions</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Conditions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Conditions</span><span class="p">:</span>
+                <span class="n">num_nodes_conditions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cond</span><span class="p">.</span><span class="n">GetNodes</span><span class="p">())</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DOMAIN_SIZE</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"element_replace_settings"</span><span class="p">][</span><span class="s">"condition_name"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span> <span class="o">==</span> <span class="s">"PointSourceCondition"</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">num_nodes_conditions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"element_replace_settings"</span><span class="p">][</span><span class="s">"condition_name"</span><span class="p">].</span><span class="n">SetString</span><span class="p">(</span><span class="s">"PointSourceCondition"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span><span class="p">[</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">DOMAIN_SIZE</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"Condition not registered"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"DOMAIN_SIZE not set"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"element_replace_settings"</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">_get_convergence_criterion_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Create an auxiliary Kratos parameters object to store the convergence settings.
+</span>        <span class="n">conv_params</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="s">"{}"</span><span class="p">)</span>
+        <span class="n">conv_params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"convergence_criterion"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"convergence_criterion"</span><span class="p">])</span>
+        <span class="n">conv_params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"echo_level"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"echo_level"</span><span class="p">])</span>
+        <span class="n">conv_params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"solution_relative_tolerance"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"solution_relative_tolerance"</span><span class="p">])</span>
+        <span class="n">conv_params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"solution_absolute_tolerance"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"solution_absolute_tolerance"</span><span class="p">])</span>
+        <span class="n">conv_params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"residual_relative_tolerance"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"residual_relative_tolerance"</span><span class="p">])</span>
+        <span class="n">conv_params</span><span class="p">.</span><span class="n">AddValue</span><span class="p">(</span><span class="s">"residual_absolute_tolerance"</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"residual_absolute_tolerance"</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">conv_params</span>
+
+    <span class="k">def</span> <span class="nf">_create_convergence_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">base_convergence_criteria_factory</span> <span class="k">as</span> <span class="n">convergence_criteria_factory</span>
+        <span class="n">convergence_criterion</span> <span class="o">=</span> <span class="n">convergence_criteria_factory</span><span class="p">.</span><span class="n">ConvergenceCriteriaFactory</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_get_convergence_criterion_settings</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">convergence_criterion</span><span class="p">.</span><span class="n">convergence_criterion</span>
+
+    <span class="k">def</span> <span class="nf">_create_linear_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">linear_solver_factory</span>
+        <span class="n">linear_solver</span> <span class="o">=</span> <span class="n">linear_solver_factory</span><span class="p">.</span><span class="n">ConstructSolver</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"linear_solver_settings"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">linear_solver</span>
+
+    <span class="k">def</span> <span class="nf">_create_builder_and_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">linear_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_linear_solver</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"block_builder"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">():</span>
+            <span class="n">builder_and_solver</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedBlockBuilderAndSolver</span><span class="p">(</span><span class="n">linear_solver</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">builder_and_solver</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedEliminationBuilderAndSolver</span><span class="p">(</span><span class="n">linear_solver</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">builder_and_solver</span>
+
+    <span class="k">def</span> <span class="nf">_create_solution_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""Create the solution scheme for the structural problem.
+        """</span>
+        <span class="n">solver_type</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"solver_type"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">solver_type</span> <span class="o">==</span> <span class="s">"Stationary"</span><span class="p">:</span>
+            <span class="n">convection_diffusion_scheme</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedIncrementalUpdateStaticScheme</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">convection_diffusion_scheme</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedIncrementalUpdateStaticScheme</span><span class="p">()</span> <span class="c1"># Replace BDF and Euler
+</span>        <span class="k">return</span> <span class="n">convection_diffusion_scheme</span>
+        
+
+    <span class="k">def</span> <span class="nf">_create_pure_diffusion_solution_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">analysis_type</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"analysis_type"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">analysis_type</span> <span class="o">==</span> <span class="s">"linear"</span><span class="p">:</span>
+            <span class="n">pure_diffusion_solution_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_linear_strategy</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">analysis_type</span> <span class="o">==</span> <span class="s">"non_linear"</span><span class="p">:</span>
+            <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"line_search"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">()</span> <span class="o">==</span> <span class="bp">False</span><span class="p">):</span>
+                <span class="n">pure_diffusion_solution_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_newton_raphson_strategy</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pure_diffusion_solution_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_create_line_search_strategy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">err_msg</span> <span class="o">=</span>  <span class="s">"The requested analysis type </span><span class="se">\"</span><span class="s">"</span> <span class="o">+</span> <span class="n">analysis_type</span> <span class="o">+</span> <span class="s">"</span><span class="se">\"</span><span class="s"> is not available!</span><span class="se">\n</span><span class="s">"</span>
+            <span class="n">err_msg</span> <span class="o">+=</span> <span class="s">"Available options are: </span><span class="se">\"</span><span class="s">linear</span><span class="se">\"</span><span class="s">, </span><span class="se">\"</span><span class="s">non_linear</span><span class="se">\"</span><span class="s">"</span>
+            <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pure_diffusion_solution_strategy</span>
+
+    <span class="k">def</span> <span class="nf">_create_linear_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">computing_model_part</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">GetComputingModelPart</span><span class="p">()</span>
+        <span class="n">pure_diffusion_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_solution_scheme</span><span class="p">()</span>
+        <span class="n">linear_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_linear_solver</span><span class="p">()</span>
+        <span class="n">builder_and_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_builder_and_solver</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedLinearStrategy</span><span class="p">(</span><span class="n">computing_model_part</span><span class="p">,</span>
+                                                              <span class="n">pure_diffusion_scheme</span><span class="p">,</span>
+                                                              <span class="n">linear_solver</span><span class="p">,</span>
+                                                              <span class="n">builder_and_solver</span><span class="p">,</span>
+                                                              <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"compute_reactions"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">(),</span>
+                                                              <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"reform_dofs_at_each_step"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">(),</span>
+                                                              <span class="bp">False</span><span class="p">,</span>
+                                                              <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"move_mesh_flag"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_create_newton_raphson_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">computing_model_part</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">GetComputingModelPart</span><span class="p">()</span>
+        <span class="n">pure_diffusion_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_solution_scheme</span><span class="p">()</span>
+        <span class="n">linear_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_linear_solver</span><span class="p">()</span>
+        <span class="n">pure_diffusion_convergence_criterion</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_convergence_criterion</span><span class="p">()</span>
+        <span class="n">builder_and_solver</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_builder_and_solver</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">ResidualBasedNewtonRaphsonStrategy</span><span class="p">(</span><span class="n">computing_model_part</span><span class="p">,</span>
+                                        <span class="n">pure_diffusion_scheme</span><span class="p">,</span>
+                                        <span class="n">linear_solver</span><span class="p">,</span>
+                                        <span class="n">pure_diffusion_convergence_criterion</span><span class="p">,</span>
+                                        <span class="n">builder_and_solver</span><span class="p">,</span>
+                                        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"max_iteration"</span><span class="p">].</span><span class="n">GetInt</span><span class="p">(),</span>
+                                        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"compute_reactions"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">(),</span>
+                                        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"reform_dofs_at_each_step"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">(),</span>
+                                        <span class="bp">self</span><span class="p">.</span><span class="n">settings</span><span class="p">[</span><span class="s">"move_mesh_flag"</span><span class="p">].</span><span class="n">GetBool</span><span class="p">())</span>
+
+</code></pre></div></div>
+
+<h1 id="check-and-prepare-model-part">Check and prepare model part</h1>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>  <span class="c1"># makes KratosMultiphysics backward compatible with python 2.6 and 2.7
+</span>
+<span class="c1"># Importing the Kratos Library
+</span><span class="kn">import</span> <span class="nn">KratosMultiphysics</span>
+
+<span class="k">def</span> <span class="nf">Factory</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">!=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Parameters</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"expected input shall be a Parameters object, encapsulating a json string"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CheckAndPrepareModelProcess</span><span class="p">(</span><span class="n">Model</span><span class="p">,</span> <span class="n">settings</span><span class="p">[</span><span class="s">"Parameters"</span><span class="p">])</span>
+
+<span class="c1">##all the processes python processes should be derived from "python_process"
+</span><span class="k">class</span> <span class="nc">CheckAndPrepareModelProcess</span><span class="p">(</span><span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Process</span><span class="p">):</span>
+    <span class="s">"""Prepare the computing model part.
+
+    The computing model part is created if it does not exist. Nodes and elements
+    from the domain sub model parts are added to the computing model part.
+    Conditions are added from the processes sub model parts.
+    """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_model_part</span><span class="p">,</span> <span class="n">Parameters</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span> <span class="o">=</span> <span class="n">main_model_part</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">computing_model_part_name</span>  <span class="o">=</span> <span class="n">Parameters</span><span class="p">[</span><span class="s">"computing_model_part_name"</span><span class="p">].</span><span class="n">GetString</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">problem_domain_sub_model_part_list</span> <span class="o">=</span> <span class="n">Parameters</span><span class="p">[</span><span class="s">"problem_domain_sub_model_part_list"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">processes_model_part_names</span> <span class="o">=</span> <span class="n">Parameters</span><span class="p">[</span><span class="s">"processes_sub_model_part_list"</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">Execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        
+        <span class="n">problem_domain_sub_model_parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">problem_domain_sub_model_part_list</span><span class="p">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">problem_domain_sub_model_parts</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">GetSubModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">problem_domain_sub_model_part_list</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetString</span><span class="p">()))</span>
+        
+        <span class="n">processes_parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">processes_model_part_names</span><span class="p">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">processes_parts</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">GetSubModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">processes_model_part_names</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetString</span><span class="p">()))</span>
+        
+        <span class="c1">#construct a model part which contains both the skin and the volume
+</span>        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">HasSubModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">computing_model_part_name</span><span class="p">)):</span>
+            <span class="n">computational_model_part</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">GetSubModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">computing_model_part_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">computational_model_part</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">CreateSubModelPart</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">computing_model_part_name</span><span class="p">)</span>
+        <span class="n">computational_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">ProcessInfo</span>
+        <span class="n">computational_model_part</span><span class="p">.</span><span class="n">Properties</span>  <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">main_model_part</span><span class="p">.</span><span class="n">Properties</span>
+        
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">problem_domain_sub_model_parts</span><span class="p">:</span>
+            <span class="n">transfer_process</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">FastTransferBetweenModelPartsProcess</span><span class="p">(</span><span class="n">computational_model_part</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">FastTransferBetweenModelPartsProcess</span><span class="p">.</span><span class="n">EntityTransfered</span><span class="p">.</span><span class="n">NODESANDELEMENTS</span><span class="p">)</span>
+            <span class="n">transfer_process</span><span class="p">.</span><span class="n">Execute</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">processes_parts</span><span class="p">:</span>
+            <span class="n">transfer_process</span> <span class="o">=</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">FastTransferBetweenModelPartsProcess</span><span class="p">(</span><span class="n">computational_model_part</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">FastTransferBetweenModelPartsProcess</span><span class="p">.</span><span class="n">EntityTransfered</span><span class="p">.</span><span class="n">CONDITIONS</span><span class="p">)</span>
+            <span class="n">transfer_process</span><span class="p">.</span><span class="n">Execute</span><span class="p">()</span>
+
+        <span class="n">KratosMultiphysics</span><span class="p">.</span><span class="n">Logger</span><span class="p">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="s">"Computing model part:"</span><span class="p">,</span> <span class="n">computational_model_part</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+    <!-- <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+    </div> -->
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2022 CIMNE. All rights reserved. <br />
+ Site last generated: Dec 30, 2022 <br />
+<p style="padding-right:32px;"><br><img src="/images/company_logo.png" alt="Company logo" height="100px"/></p>
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

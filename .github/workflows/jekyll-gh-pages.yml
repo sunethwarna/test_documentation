@@ -25,8 +25,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout static page content
         uses: actions/checkout@v3
+          repository: https://github.com/KratosMultiphysics/Documentation.git
+          path: page_fles
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+      - name: Configure page content
+        shell: bash
+        run: cp -r page_files/Page_files/* .
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Create navigation menus

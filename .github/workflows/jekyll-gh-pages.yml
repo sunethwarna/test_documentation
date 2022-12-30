@@ -27,6 +27,7 @@ jobs:
     steps:
       - name: Checkout static page content
         uses: actions/checkout@v3
+        with:
           repository: KratosMultiphysics/Documentation
           ref: master
           path: page_fles

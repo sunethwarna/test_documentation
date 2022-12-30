@@ -30,9 +30,11 @@ jobs:
         with:
           repository: KratosMultiphysics/Documentation
           ref: master
-          path: page_files
+          path: statik_content
       - name: Checkout current branch
         uses: actions/checkout@v3
+        with:
+          path: main
       - name: Configure page content
         shell: bash
         run: ls -l
